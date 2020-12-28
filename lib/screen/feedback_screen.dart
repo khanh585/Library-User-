@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/widget/app_bar_custom.dart';
+import 'package:user_library/widget/add_review.dart';
+import 'package:user_library/widget/total_feedback.dart';
+import 'package:user_library/widget/view_all_feedback.dart';
 
 class Feedback_Screen extends StatefulWidget {
   Feedback_Screen({Key key}) : super(key: key);
@@ -10,8 +14,33 @@ class Feedback_Screen extends StatefulWidget {
 class _Feedback_ScreenState extends State<Feedback_Screen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: null,
+    return Scaffold(
+      body: new SingleChildScrollView(
+        child: new Column(
+          children: [
+            AppBarCustom(
+              title: Text(
+                "Feedbacks Book",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 19,
+                    fontFamily: 'RobotoMono'),
+              ),
+            ),
+            AddReview(),
+            TotalFeedback(),
+            Divider(
+              color: Colors.black,
+              height: 50,
+              indent: 20,
+              endIndent: 20,
+              thickness: 2,
+            ),
+            ViewAllFeedback()
+          ],
+        ),
+      ),
     );
   }
 }
