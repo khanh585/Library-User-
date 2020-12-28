@@ -17,7 +17,8 @@ class _BottomBar_HomeState extends State<BottomBar_Home> {
       // elevation: 9,
       clipBehavior: Clip.antiAlias,
       child: Container(
-        height: 40,
+        height: 50,
+        padding: EdgeInsets.only(top: 5, bottom: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25),

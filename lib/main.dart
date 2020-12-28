@@ -1,5 +1,6 @@
 import 'package:user_library/screen/book_detail_screen.dart';
 import 'package:user_library/screen/home_screen.dart';
+import 'package:user_library/screen/list_notify_screen.dart';
 import 'package:user_library/screen/search_book_screen.dart';
 
 import 'bloc/remote_bloc.dart';
@@ -37,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Home_Screen();
+    return BookDetail_Screen();
   }
 }
 //  @override

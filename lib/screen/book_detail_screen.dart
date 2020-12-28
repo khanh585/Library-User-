@@ -24,7 +24,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                 colorFilter: new ColorFilter.mode(
                     Colors.black.withOpacity(0.2), BlendMode.dstATop),
                 image: new AssetImage(
-                  'images/tinydragon.jpg',
+                  'images/bama.jpg',
                 ),
               ),
             ),
@@ -35,7 +35,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                 children: [
                   Container(
                     child: Image.asset(
-                      'images/tinydragon.jpg',
+                      'images/bama.jpg',
                       fit: BoxFit.contain,
                       width: 160,
                     ),
@@ -66,17 +66,6 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                   Container(
                     width: 350,
                     height: 80,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white24.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(2, 1),
-                          )
-                        ],
-                        color: Colors.black45.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(20)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -181,14 +170,6 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(247, 249, 248, 0.7),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: Offset(2, 0),
-                    ),
-                  ],
                 ),
                 child: Container(
                   margin: EdgeInsets.all(20),
