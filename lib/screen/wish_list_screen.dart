@@ -4,14 +4,14 @@ import 'package:user_library/widget/book_grid.dart';
 import 'package:user_library/widget/category_bar.dart';
 import 'package:user_library/widget/searchbar.dart';
 
-class SearchBook_Screen extends StatefulWidget {
-  SearchBook_Screen({Key key}) : super(key: key);
+class WishList_Screen extends StatefulWidget {
+  WishList_Screen({Key key}) : super(key: key);
 
   @override
-  _SearchBook_ScreenState createState() => _SearchBook_ScreenState();
+  _WishList_ScreenState createState() => _WishList_ScreenState();
 }
 
-class _SearchBook_ScreenState extends State<SearchBook_Screen> {
+class _WishList_ScreenState extends State<WishList_Screen> {
   final txtSearch = TextEditingController();
 
   @override
@@ -33,7 +33,6 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
       backgroundColor: Color.fromRGBO(250, 252, 251, 1),
       body: Stack(children: [
         CategoryBar(),
-
         Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 70, left: 5, right: 5),
