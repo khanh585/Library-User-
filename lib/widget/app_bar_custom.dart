@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 
 class AppBarCustom extends StatelessWidget {
   const AppBarCustom({
-    Key key,  this.title,
+    Key key,
+    this.title,
   }) : super(key: key);
-  final  title;
+  final title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      //
       width: MediaQuery.of(context).size.width,
       height: 70,
       padding: EdgeInsets.only(top: 20),
@@ -24,9 +26,7 @@ class AppBarCustom extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          Container(
-            child: title
-          ),
+          Container(child: title),
           Container(
             width: 55,
           ),
