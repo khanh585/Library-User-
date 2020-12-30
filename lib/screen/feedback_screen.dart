@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
-import 'package:user_library/widget/add_review.dart';
-import 'package:user_library/widget/total_feedback.dart';
-import 'package:user_library/widget/view_all_feedback.dart';
+import 'package:user_library/widget/feedback/add_review.dart';
+import 'package:user_library/widget/feedback/total_feedback.dart';
+import 'package:user_library/widget/feedback/view_all_feedback.dart';
 
 class Feedback_Screen extends StatefulWidget {
   Feedback_Screen({Key key}) : super(key: key);
