@@ -47,16 +47,16 @@ class _WishList_ScreenState extends State<WishList_Screen> {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            backgroundColor: Color.fromRGBO(44, 209, 172, 1),
-            child: Icon(Icons.qr_code),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomBar(),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     Navigator.of(context).pop();
+          //   },
+          //   backgroundColor: Color.fromRGBO(44, 209, 172, 1),
+          //   child: Icon(Icons.qr_code),
+          // ),
+          // floatingActionButtonLocation:
+          //     FloatingActionButtonLocation.centerDocked,
+          // bottomNavigationBar: BottomBar(),
         )
       ],
     );
