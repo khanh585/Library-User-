@@ -20,11 +20,21 @@ class SlidableWidget<T> extends StatelessWidget {
 
         /// right side
         secondaryActions: <Widget>[
-          IconSlideAction(
-            caption: 'Delete',
-            color: Colors.red,
-            icon: Icons.delete,
-            onTap: () => onDismissed(SlidableAction.delete),
+          Container(
+            margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.red,
+            ),
+            child: IconSlideAction(
+              caption: 'Delete',
+              color: Colors.red,
+              icon: Icons.delete,
+              onTap: () => onDismissed(SlidableAction.delete),
+            ),
           ),
         ],
       );

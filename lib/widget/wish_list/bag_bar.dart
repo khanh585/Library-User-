@@ -11,7 +11,7 @@ class BagBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-          margin: const EdgeInsets.only(left: 35.0),
+          margin: const EdgeInsets.only(left: 35.0, top: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
