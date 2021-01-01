@@ -22,6 +22,7 @@ class _ListView_CategoryOfBookState extends State<ListView_CategoryOfBook> {
     Colors.purple,
     Colors.teal
   ];
+
   MaterialColor pickColor(text) {
     int index = widget.categoies.indexOf(text);
     return listColor[index % 6];
@@ -35,6 +36,7 @@ class _ListView_CategoryOfBookState extends State<ListView_CategoryOfBook> {
         for (String cat in widget.categoies)
           CategoryOfBook(
             text: cat,
+            catID: widget.categoies.indexOf(cat) + 1,
             color: pickColor(cat),
           ),
       ],

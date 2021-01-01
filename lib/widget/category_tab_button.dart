@@ -1,36 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CategoryTabButton extends StatelessWidget {
+class CategoryTabButton extends StatefulWidget {
   final String text;
+  final int id;
+
   final bool isFocus;
-  const CategoryTabButton(
-    this.text,
-    this.isFocus,
-  );
+  final Function(int) onForcus;
+  const CategoryTabButton({this.text, this.isFocus, this.onForcus, this.id});
+
+  @override
+  _CategoryTabButtonState createState() => _CategoryTabButtonState();
+}
+
+class _CategoryTabButtonState extends State<CategoryTabButton> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(),
-      padding: EdgeInsets.only(left: 8, right: 8),
+      padding: EdgeInsets.only(left: 5, right: 5),
       child: Column(
         children: [
           FlatButton(
             padding: EdgeInsets.only(top: 10),
-            onPressed: null,
+            onPressed: () => widget.onForcus(this.widget.id),
             child: Text(
-              text,
+              widget.text,
               style: TextStyle(
-                  color: isFocus ? Colors.black87 : Colors.black45,
-                  fontSize: 20,
+                  color: widget.isFocus ? Colors.black87 : Colors.black45,
+                  fontSize: widget.isFocus ? 22 : 20,
                   fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 0),
             width: 45,
-            height: isFocus ? 5 : 0,
+            height: widget.isFocus ? 5 : 0,
             decoration: BoxDecoration(
               color: Colors.greenAccent,
               borderRadius: BorderRadius.vertical(

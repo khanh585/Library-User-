@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/dto/categoryDTO.dart';
 import 'package:user_library/widget/bottombar.dart';
 import 'package:user_library/widget/book_grid.dart';
 import 'package:user_library/widget/category_bar.dart';
 import 'package:user_library/widget/searchbar.dart';
 
 class SearchBook_Screen extends StatefulWidget {
-  SearchBook_Screen({Key key}) : super(key: key);
+  SearchBook_Screen({Key key, this.catID}) : super(key: key);
+  final int catID;
 
   @override
   _SearchBook_ScreenState createState() => _SearchBook_ScreenState();
@@ -13,26 +15,51 @@ class SearchBook_Screen extends StatefulWidget {
 
 class _SearchBook_ScreenState extends State<SearchBook_Screen> {
   final txtSearch = TextEditingController();
+  List<CategoryDTO> cats = [
+    CategoryDTO(1, "Design"),
+    CategoryDTO(2, "Commic"),
+    CategoryDTO(3, "Architec"),
+    CategoryDTO(4, "Art"),
+    CategoryDTO(5, "Computer"),
+  ];
+
+  @override
+  void initState() {
+    if (this.widget.catID != null) {
+      print(this.widget.catID);
+      cats.forEach((element) {
+        if (element.id == this.widget.catID) {
+          element.name += '*';
+        }
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(250, 252, 251, 1),
         elevation: 0.0,
+        title: Text('Search Book'),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_rounded,
             color: Color(0xFF545D68),
           ),
           onPressed: () {
-            // Navigator.of(context).pop();
+            Navigator.of(context).pop();
           },
         ),
       ),
       backgroundColor: Color.fromRGBO(250, 252, 251, 1),
       body: Stack(children: [
-        CategoryBar(),
+        CategoryBar(
+          cats: cats,
+        ),
 
         Container(
           width: double.infinity,
@@ -58,7 +85,7 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
                 ),
                 // list book, grid book
                 Container(
-                  height: MediaQuery.of(context).size.height - 280,
+                  height: MediaQuery.of(context).size.height - 230,
                   width: MediaQuery.of(context).size.width,
                   child: StreamBuilder<Object>(
                       stream: null,
@@ -70,20 +97,29 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
             ),
           ),
         ),
+
+        Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height - 130),
+            child: BottomBar()),
         // Book image
       ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        backgroundColor: Color.fromRGBO(44, 209, 172, 1),
-        child: Icon(Icons.qr_code),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 20, left: 5, right: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              backgroundColor: Color.fromRGBO(44, 209, 172, 1),
+              child: Icon(Icons.qr_code),
+            ),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomBar(),
     );
   }
 }
-
-
-

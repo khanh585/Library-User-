@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/screen/search_book_screen.dart';
 
 class CategoryOfBook extends StatelessWidget {
-  const CategoryOfBook({Key key, this.text, this.color}) : super(key: key);
+  const CategoryOfBook({Key key, this.text, this.color, this.catID})
+      : super(key: key);
   final String text;
+  final int catID;
   final MaterialColor color;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,12 @@ class CategoryOfBook extends StatelessWidget {
           borderRadius: BorderRadius.circular(6)),
       child: FlatButton(
         onPressed: () {
-          print(text);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchBook_Screen(
+                        catID: catID,
+                      )));
         },
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(6),
