@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user_library/widget/popup.dart';
 
@@ -19,7 +20,6 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
   double sizeRating = 200;
   @override
   void initState() {
-    // TODO: implement initState
     sizeRating = 200;
     super.initState();
   }
@@ -27,13 +27,8 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        // BoxShadow(
-        //   spreadRadius: 1,
-        //   blurRadius: 1,
-        //   offset: Offset(0, 0),
-        // )
-      ], borderRadius: BorderRadius.circular(3)),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(3)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -95,10 +90,10 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                   contentPadding: EdgeInsets.only(top: 20, left: 15),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
                   hintText: "Share your feel",
                   filled: true,
                   fillColor: Colors.grey[200]),

@@ -114,8 +114,9 @@ class _ViewAllFeedbackState extends State<ViewAllFeedback> {
               ),
               CircleAvatar(
                 radius: 30.0,
-                backgroundImage: NetworkImage(
-                    "https://i.pinimg.com/originals/c8/5f/88/c85f8819972c7002ca2ff48b9cae3cf9.jpg"),
+                backgroundImage: AssetImage('images/avatar.jpg'),
+                //  NetworkImage(
+                // "https://i.pinimg.com/originals/c8/5f/88/c85f8819972c7002ca2ff48b9cae3cf9.jpg"),
                 backgroundColor: Colors.transparent,
               ),
               Container(
@@ -257,7 +258,7 @@ class _ViewAllFeedbackState extends State<ViewAllFeedback> {
                 margin: const EdgeInsets.only(left: 60.0),
               ),
               Flexible(
-                child: Container(
+                  child: Container(
                 child: Text(
                   'I visit the park on 9/10, I stayed at the Universal Sheraton, so I got early entrance into the park which I took advantage',
                   style: TextStyle(

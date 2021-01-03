@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class AddReview extends StatefulWidget {
+class BookInfo extends StatefulWidget {
   final void Function() refresh;
-  const AddReview({
+  const BookInfo({
     Key key,
     this.refresh,
   }) : super(key: key);
   @override
-  _AddReviewState createState() => _AddReviewState();
+  _BookInfoState createState() => _BookInfoState();
 }
 
-class _AddReviewState extends State<AddReview> {
+class _BookInfoState extends State<BookInfo> {
   @override
   void initState() {
     super.initState();
@@ -87,20 +87,20 @@ class _AddReviewState extends State<AddReview> {
           //   indent: 20,
           //   endIndent: 20,
           // ),
-          TextField(
-            maxLines: null,
-            keyboardType: TextInputType.multiline,
-            decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                hintText: "Enter your feedback",
-                filled: true,
-                fillColor: Colors.grey[200]),
-          ),
+          // TextField(
+          //   maxLines: null,
+          //   keyboardType: TextInputType.multiline,
+          //   decoration: InputDecoration(
+          //       enabledBorder: OutlineInputBorder(
+          //           borderSide: BorderSide(color: Colors.transparent),
+          //           borderRadius: BorderRadius.all(Radius.circular(30))),
+          //       focusedBorder: OutlineInputBorder(
+          //           borderSide: BorderSide(color: Colors.transparent),
+          //           borderRadius: BorderRadius.all(Radius.circular(30))),
+          //       hintText: "Enter your feedback",
+          //       filled: true,
+          //       fillColor: Colors.grey[200]),
+          // ),
           // const SizedBox(height: 30),
           // RaisedButton(
           //   onPressed: () {},
