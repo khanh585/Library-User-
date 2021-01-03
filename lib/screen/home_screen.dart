@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/screen/book_detail_screen.dart';
 import 'package:user_library/widget/bottombar_2.dart';
 import 'package:user_library/widget/category_of_book_button.dart';
+import 'package:user_library/widget/home/midle_bar.dart';
 import 'package:user_library/widget/list_category_button.dart';
 import 'package:user_library/widget/searchbar.dart';
 
@@ -76,15 +78,9 @@ class _Home_ScreenState extends State<Home_Screen> {
               margin: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  Container(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MidleBarItem(isFocus: true, text: 'Popular'),
-                      MidleBarItem(isFocus: false, text: 'The Latest'),
-                      MidleBarItem(isFocus: false, text: 'Comming Soon'),
-                    ],
-                  )),
+                  MidleBar(
+                    callback: null,
+                  ),
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Column(
@@ -114,145 +110,120 @@ class ItemBookBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            child: Image.asset(
-              'images/notebook.png',
-              fit: BoxFit.fill,
-              alignment: Alignment.topLeft,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BookDetail_Screen()),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Row(
+          children: [
+            Container(
+              width: 120,
+              child: Image.asset(
+                'images/notebook.png',
+                fit: BoxFit.fill,
+                alignment: Alignment.topLeft,
+              ),
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width - 15 * 2 - 120 - 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Book name',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  'Author',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: Colors.grey[400],
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '5',
-                            style: TextStyle(
-                                color: Colors.grey[400],
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18),
-                          ),
-                        ],
+            Container(
+              width: MediaQuery.of(context).size.width - 15 * 2 - 120 - 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Book name',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    'Author',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.grey[400],
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '5',
+                              style: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.chrome_reader_mode,
-                            color: Colors.grey[400],
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '200',
-                            style: TextStyle(
-                                color: Colors.grey[400],
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 7,
-                ),
-                Container(
-                  width: 300,
-                  height: 30,
-                  child: ListView_CategoryOfBook(
-                    categoies: [
-                      'Design',
-                      'Architec',
-                      'Science',
-                      'Comic',
-                      'Fashion',
-                      'Novel'
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.chrome_reader_mode,
+                              color: Colors.grey[400],
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '200',
+                              style: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 7,
+                  ),
+                  Container(
+                    width: 300,
+                    height: 30,
+                    child: ListView_CategoryOfBook(
+                      categoies: [
+                        'Design',
+                        'Architec',
+                        'Science',
+                        'Comic',
+                        'Fashion',
+                        'Novel'
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            width: 50,
-            alignment: Alignment.topCenter,
-            child: IconButton(
-              onPressed: () {
-                print('book mark');
-              },
-              icon: Icon(Icons.bookmark_outline),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class MidleBarItem extends StatefulWidget {
-  String text;
-  bool isFocus;
-
-  MidleBarItem({this.text, this.isFocus});
-
-  @override
-  _MidleBarItemState createState() => _MidleBarItemState();
-}
-
-class _MidleBarItemState extends State<MidleBarItem> {
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {
-        print(widget.text);
-        setState(() {
-          widget.isFocus = widget.isFocus ? false : true;
-        });
-      },
-      padding: EdgeInsets.all(3),
-      child: Text(
-        widget.text,
-        style: TextStyle(
-            color:
-                widget.isFocus ? Colors.black : Colors.black.withOpacity(0.3),
-            fontSize: widget.isFocus ? 25 : 18,
-            fontWeight: FontWeight.bold),
+            Container(
+              width: 50,
+              alignment: Alignment.topCenter,
+              child: IconButton(
+                onPressed: () {
+                  print('book mark');
+                },
+                icon: Icon(Icons.bookmark_outline),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -270,43 +241,51 @@ class SuggestBookItem extends StatelessWidget {
   final String name;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Container(
-            width: 160,
-            child: Image.asset(
-              'images/notebook.png',
-              fit: BoxFit.fill,
-              alignment: Alignment.topCenter,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BookDetail_Screen()),
+        );
+      },
+      child: Container(
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+            Container(
+              width: 160,
+              child: Image.asset(
+                'images/notebook.png',
+                fit: BoxFit.fill,
+                alignment: Alignment.topCenter,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Author',
-                  style: TextStyle(
-                      color: Colors.black12.withOpacity(0.4),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'Book Name',
-                  style: TextStyle(color: Colors.black, fontSize: 22),
-                ),
-              ],
+            SizedBox(
+              height: 5,
             ),
-          )
-        ],
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Author',
+                    style: TextStyle(
+                        color: Colors.black12.withOpacity(0.4),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Book Name',
+                    style: TextStyle(color: Colors.black, fontSize: 22),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -396,6 +375,7 @@ class ItemTopBarHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: FlatButton(
+        onPressed: null,
         child: Row(
           children: [
             Icon(

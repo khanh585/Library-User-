@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/dto/BookDTO.dart';
 import 'package:user_library/widget/add_tocart_bar.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
 import 'package:user_library/widget/list_category_button.dart';
 
 class BookDetail_Screen extends StatefulWidget {
-  const BookDetail_Screen({Key key}) : super(key: key);
-
+  const BookDetail_Screen({Key key, this.book}) : super(key: key);
+  final BookDTO book;
   @override
   _BookDetail_ScreenState createState() => _BookDetail_ScreenState();
 }
@@ -46,7 +47,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                     height: 20,
                   ),
                   Text(
-                    'The Tiny Dragon',
+                    this.widget.book.name,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
@@ -56,7 +57,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                     height: 5,
                   ),
                   Text(
-                    'Rubert Carter',
+                    this.widget.book.name,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -78,7 +79,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '4.5',
+                                  this.widget.book.rating.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22,
@@ -106,7 +107,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '180',
+                                  '${this.widget.book.pageNumber}',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22,
@@ -201,14 +202,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                                   95,
                               height: 30,
                               child: ListView_CategoryOfBook(
-                                categoies: [
-                                  'Design',
-                                  'Architec',
-                                  'Science',
-                                  'Comic',
-                                  'Fashion',
-                                  'Novel'
-                                ],
+                                categoies: this.widget.book.categories,
                               ),
                             )
                           ],
@@ -232,7 +226,8 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                               height: 5,
                             ),
                             Text(
-                              'Train Your Dragon To Love Himself: A Dragon Book To Give Children Positive Affirmations. A Cute Children Story To Teach Kids To Love Who They Are. (My Dragon Books)',
+                              this.widget.book.description,
+                              // 'Train Your Dragon To Love Himself: A Dragon Book To Give Children Positive Affirmations. A Cute Children Story To Teach Kids To Love Who They Are. (My Dragon Books)',
                               style: TextStyle(
                                   color: Colors.black87.withOpacity(0.7),
                                   fontSize: 16,
@@ -263,7 +258,8 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
 
           AddToCartButton(),
           // Appbar
-          AppBarCustom(title: Text(
+          AppBarCustom(
+            title: Text(
               "Detail",
               style: TextStyle(
                   color: Colors.white,
@@ -276,4 +272,3 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
     );
   }
 }
-

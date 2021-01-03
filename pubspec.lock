@@ -102,6 +102,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.2"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.4"
   line_awesome_icons:
     dependency: "direct main"
     description:
@@ -129,6 +143,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
+
     version: "1.8.0-nullsafety.3"
   path_drawing:
     dependency: transitive
@@ -151,6 +166,23 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+
+    version: "1.8.0-nullsafety.1"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.2"
+  percent_indicator:
+    dependency: "direct main"
+    description:
+      name: percent_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.9"
+
   sky_engine:
     dependency: transitive
     description: flutter
@@ -162,7 +194,17 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
+
     version: "1.8.0-nullsafety.4"
+
+  stack:
+    dependency: "direct main"
+    description:
+      name: stack
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
+
   stack_trace:
     dependency: transitive
     description:

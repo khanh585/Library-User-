@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/bloc/Feedback_bloc.dart';
+import 'package:user_library/event/Feedback_event.dart';
+import 'package:user_library/state/Feedback_state.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
-import 'package:user_library/widget/feedback/add_review.dart';
+import 'package:user_library/widget/feedback/BookInfo.dart';
+import 'package:user_library/widget/feedback/text_field_feedback.dart';
 import 'package:user_library/widget/feedback/total_feedback.dart';
 import 'package:user_library/widget/feedback/view_all_feedback.dart';
 
@@ -12,35 +16,65 @@ class Feedback_Screen extends StatefulWidget {
 }
 
 class _Feedback_ScreenState extends State<Feedback_Screen> {
+  final feedback_bloc = FeedbackBloc();
+  @override
+  void initState() {
+    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(-1));
+    super.initState();
+  }
+
+  void refreshRating() {
+    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(-1));
+  }
+
   @override
   Widget build(BuildContext context) {
+    // double he = MediaQuery.of(context).size.height;
+    // double wi = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: new SingleChildScrollView(
-        child: new Column(
-          children: [
-            AppBarCustom(
-              title: Text(
-                "Feedbacks Book",
-                style: TextStyle(
+      resizeToAvoidBottomPadding: true,
+      body: SingleChildScrollView(
+        child: StreamBuilder<FeedbackState>(
+            stream: feedback_bloc.stateController.stream,
+            initialData: feedback_bloc.state,
+            builder: (context, snapshot) {
+              return Column(
+                children: [
+                  AppBarCustom(
+                    title: Text(
+                      "Feedbacks Book",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 19,
+                          fontFamily: 'RobotoMono'),
+                    ),
+                  ),
+                  BookInfo(),
+                  TotalFeedback(
+                    refresh: refreshRating,
+                    total: snapshot.data.total,
+                    feedbacks: snapshot.data.typeFeedbacks,
+                  ),
+                  Divider(
                     color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 19,
-                    fontFamily: 'RobotoMono'),
-              ),
-            ),
-            AddReview(),
-            TotalFeedback(),
-            Divider(
-              color: Colors.black,
-              height: 50,
-              indent: 20,
-              endIndent: 20,
-              thickness: 2,
-            ),
-            ViewAllFeedback()
-          ],
+                    height: 50,
+                    indent: 20,
+                    endIndent: 20,
+                    thickness: 2,
+                  ),
+                  ViewAllFeedback()
+                ],
+              );
+            }),
+      ),
+      floatingActionButton: SizedBox(
+        child: Container(
+          child: TextFieldFeedback(),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

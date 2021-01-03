@@ -8,9 +8,8 @@ class IncrementEvent extends RemoteEvent {
 
 // event giảm âm lượng, user muốn giảm bao nhiêu thì truyền vào biến decrement
 class DecrementEvent extends RemoteEvent {
-  DecrementEvent(this.decrement);
-
   final int decrement;
+  DecrementEvent(this.decrement);
 }
 
 // event mute

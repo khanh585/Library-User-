@@ -18,12 +18,17 @@ class AppBarCustom extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 55,
-            alignment: Alignment.center,
-            child: Icon(
-              Icons.arrow_back_outlined,
-              color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              width: 55,
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.arrow_back_outlined,
+                color: Colors.white,
+              ),
             ),
           ),
           Container(child: title),
