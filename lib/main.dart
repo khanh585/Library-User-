@@ -1,3 +1,6 @@
+
+import 'package:user_library/constants.dart';
+import 'package:user_library/screen/login_screen.dart';
 import 'package:user_library/bloc/category_bloc.dart';
 import 'package:user_library/context.dart';
 import 'package:user_library/dao/CategoryDAO.dart';
@@ -13,6 +16,7 @@ import 'bloc/remote_bloc.dart';
 import 'dao/BookDAO.dart';
 import 'event/remote_event.dart';
 import 'state/remote_state.dart';
+
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -25,9 +29,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Bloc Demo",
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -62,10 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
     fetchCat();
     // return Home_Screen();
     return Feedback_Screen();
+
   }
 }
 //   final bloc = RemoteBloc();
