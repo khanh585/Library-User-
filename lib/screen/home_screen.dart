@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_library/screen/book_detail_screen.dart';
 import 'package:user_library/widget/bottombar_2.dart';
 import 'package:user_library/widget/category_of_book_button.dart';
+import 'package:user_library/widget/home/midle_bar.dart';
 import 'package:user_library/widget/list_category_button.dart';
 import 'package:user_library/widget/searchbar.dart';
 
@@ -77,15 +78,9 @@ class _Home_ScreenState extends State<Home_Screen> {
               margin: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  Container(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MidleBarItem(isFocus: true, text: 'Popular'),
-                      MidleBarItem(isFocus: false, text: 'The Latest'),
-                      MidleBarItem(isFocus: false, text: 'Comming Soon'),
-                    ],
-                  )),
+                  MidleBar(
+                    callback: null,
+                  ),
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Column(
@@ -229,39 +224,6 @@ class ItemBookBottom extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MidleBarItem extends StatefulWidget {
-  String text;
-  bool isFocus;
-
-  MidleBarItem({this.text, this.isFocus});
-
-  @override
-  _MidleBarItemState createState() => _MidleBarItemState();
-}
-
-class _MidleBarItemState extends State<MidleBarItem> {
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {
-        print(widget.text);
-        setState(() {
-          widget.isFocus = widget.isFocus ? false : true;
-        });
-      },
-      padding: EdgeInsets.all(3),
-      child: Text(
-        widget.text,
-        style: TextStyle(
-            color:
-                widget.isFocus ? Colors.black : Colors.black.withOpacity(0.3),
-            fontSize: widget.isFocus ? 25 : 18,
-            fontWeight: FontWeight.bold),
       ),
     );
   }

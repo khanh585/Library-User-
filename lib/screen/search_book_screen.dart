@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/dto/categoryDTO.dart';
+import 'package:user_library/bloc/book_bloc.dart';
+import 'package:user_library/bloc/category_bloc.dart';
+import 'package:user_library/context.dart';
+import 'package:user_library/dto/CategoryDTO.dart';
+import 'package:user_library/event/book_event.dart';
+import 'package:user_library/state/book_state.dart';
 import 'package:user_library/widget/bottombar.dart';
 import 'package:user_library/widget/book_grid.dart';
 import 'package:user_library/widget/category_bar.dart';
@@ -14,19 +19,42 @@ class SearchBook_Screen extends StatefulWidget {
 }
 
 class _SearchBook_ScreenState extends State<SearchBook_Screen> {
-  final txtSearch = TextEditingController();
-  List<CategoryDTO> cats = [
-    CategoryDTO(1, "Design"),
-    CategoryDTO(2, "Commic"),
-    CategoryDTO(3, "Architec"),
-    CategoryDTO(4, "Art"),
-    CategoryDTO(5, "Computer"),
-  ];
+  final cat_bloc = CategoryBloc();
+  final book_bloc = BookBloc();
+
+  List<CategoryDTO> cats;
+  String name, author;
+  int categoryID;
+
+  void searchBooks(String name, String author) {
+    setState(() {
+      this.name = name;
+      this.author = author;
+    });
+    book_bloc.eventController.sink
+        .add(FetchBookEvent(name, author, categoryID));
+  }
+
+  void searchBooksByCategory(int categoryID) {
+    setState(() {
+      this.categoryID = categoryID;
+    });
+    print(this.categoryID);
+    print(this.name);
+    print(this.author);
+    book_bloc.eventController.sink
+        .add(FetchBookEvent(this.name, this.author, categoryID));
+  }
 
   @override
   void initState() {
+    this.name = '';
+    this.author = '';
+    cats = [];
+    cats.add(CategoryDTO(id: -1, name: 'All'));
+    cats.addAll(contextData['categories']);
     if (this.widget.catID != null) {
-      print(this.widget.catID);
+      categoryID = this.widget.catID;
       cats.forEach((element) {
         if (element.id == this.widget.catID) {
           element.name += '*';
@@ -59,6 +87,7 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
       body: Stack(children: [
         CategoryBar(
           cats: cats,
+          searchByCategory: searchBooksByCategory,
         ),
 
         Container(
@@ -80,17 +109,20 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
               children: [
                 // thanh tim kiem
                 SearchBar(
-                  txtSearch: txtSearch,
                   atHomePage: false,
+                  onSearch: searchBooks,
                 ),
                 // list book, grid book
                 Container(
                   height: MediaQuery.of(context).size.height - 230,
                   width: MediaQuery.of(context).size.width,
-                  child: StreamBuilder<Object>(
-                      stream: null,
+                  child: StreamBuilder<BookState>(
+                      stream: book_bloc.stateController.stream,
+                      initialData: book_bloc.state,
                       builder: (context, snapshot) {
-                        return ProductGrid();
+                        return ProductGrid(
+                          listBooks: snapshot.data.books,
+                        );
                       }),
                 ),
               ],

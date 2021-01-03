@@ -1,15 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/screen/search_book_screen.dart';
+import 'package:user_library/widget/popup.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   const SearchBar({
     Key key,
-    this.txtSearch,
     this.atHomePage,
+    this.onSearch,
   }) : super(key: key);
 
-  final TextEditingController txtSearch;
   final bool atHomePage;
+  final Function(String, String) onSearch;
+
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  String hint = 'name';
+
+  TextEditingController txtSearch;
+
+  void searchBy(String txt) {
+    if (hint == 'name') {
+      this.widget.onSearch(txt, '');
+    } else {
+      this.widget.onSearch('', txt);
+    }
+  }
+
+  void pickSearchBy() {
+    Popup('Search By', hint, context, fixTextBox);
+  }
+
+  void fixTextBox(String txt) {
+    setState(() {
+      hint = txt;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +64,11 @@ class SearchBar extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: FlatButton(
+                      height: 48,
                       onPressed: () {
                         //xu ly neu search ko ra
+                        String txt = txtSearch != null ? txtSearch.text : '';
+                        searchBy(txt);
                       },
                       child: Icon(
                         Icons.search,
@@ -51,15 +82,15 @@ class SearchBar extends StatelessWidget {
                   controller: txtSearch,
                   onChanged: (value) {
                     //xu ly neu search ko ra
+                    searchBy(value);
                   },
                   decoration: InputDecoration(
-                      hintText: 'search by name, author, ...',
-                      border: InputBorder.none),
+                      hintText: 'Search by ${hint}', border: InputBorder.none),
                 ),
               ),
               Container(
                   width: 50,
-                  decoration: atHomePage
+                  decoration: widget.atHomePage
                       ? BoxDecoration(
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(12),
@@ -79,21 +110,23 @@ class SearchBar extends StatelessWidget {
                   child: FlatButton(
                       height: 48,
                       onPressed: () {
-                        //xu ly neu search ko ra
+                        pickSearchBy();
                       },
                       child: Icon(
                         Icons.ballot_outlined,
-                        color: atHomePage ? Colors.white : Colors.grey,
+                        color: widget.atHomePage ? Colors.white : Colors.grey,
                       ))),
             ],
           ),
-          atHomePage
+          widget.atHomePage
               ? GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SearchBook_Screen()),
+                          builder: (context) => SearchBook_Screen(
+                                catID: -1,
+                              )),
                     );
                   },
                   child: Container(

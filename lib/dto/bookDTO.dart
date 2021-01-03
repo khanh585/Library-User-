@@ -1,29 +1,38 @@
-import 'package:user_library/dto/categoryDTO.dart';
+import 'package:user_library/dto/CategoryDTO.dart';
 
 class BookDTO {
-  String id;
+  int id;
   String name;
   String author;
-  String image;
+  dynamic image;
   int pageNumber;
   String description;
-  CategoryDTO category;
-  int status;
+  List<CategoryDTO> categories;
   double rating;
 
-  BookDTO() {
-    this.status = 0;
-    this.rating = 0;
-  }
+  BookDTO({
+    this.id,
+    this.name,
+    this.author,
+    this.description,
+    this.pageNumber,
+    this.image,
+    this.categories,
+    this.rating = 0,
+  });
 
-  BookDTO.fromJson(Map<String, dynamic> json)
-      : this.id = json['id'],
-        this.name = json['name'],
-        this.author = json['author'],
-        this.image = json['image'],
-        pageNumber = json['pageNumber'],
-        description = json['description'],
-        category = CategoryDTO.fromJson(json['category']);
+  factory BookDTO.fromJson(Map<String, dynamic> json) {
+    return BookDTO(
+      id: json['id'],
+      name: json['name'],
+      author: json['author'],
+      description: json['description'],
+      pageNumber: json['pageNumber'],
+      image: json['image'],
+      rating: 0,
+      categories: CategoryDTO().fromListJson(json['category']),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,

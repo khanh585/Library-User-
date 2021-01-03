@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/dto/CategoryDTO.dart';
 import 'package:user_library/widget/category_of_book_button.dart';
 
 class ListView_CategoryOfBook extends StatefulWidget {
@@ -23,8 +24,7 @@ class _ListView_CategoryOfBookState extends State<ListView_CategoryOfBook> {
     Colors.teal
   ];
 
-  MaterialColor pickColor(text) {
-    int index = widget.categoies.indexOf(text);
+  MaterialColor pickColor(int index) {
     return listColor[index % 6];
   }
 
@@ -33,11 +33,11 @@ class _ListView_CategoryOfBookState extends State<ListView_CategoryOfBook> {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        for (String cat in widget.categoies)
+        for (CategoryDTO cat in this.widget.categoies)
           CategoryOfBook(
-            text: cat,
-            catID: widget.categoies.indexOf(cat) + 1,
-            color: pickColor(cat),
+            text: cat.name,
+            catID: cat.id,
+            color: pickColor(cat.id),
           ),
       ],
     );

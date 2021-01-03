@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
 import 'package:user_library/widget/feedback/add_review.dart';
+import 'package:user_library/widget/feedback/text_field_feedback.dart';
 import 'package:user_library/widget/feedback/total_feedback.dart';
 import 'package:user_library/widget/feedback/view_all_feedback.dart';
 
@@ -14,9 +15,13 @@ class Feedback_Screen extends StatefulWidget {
 class _Feedback_ScreenState extends State<Feedback_Screen> {
   @override
   Widget build(BuildContext context) {
+    double he = MediaQuery.of(context).size.height;
+    double wi = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: new SingleChildScrollView(
-        child: new Column(
+      resizeToAvoidBottomPadding: true,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             AppBarCustom(
               title: Text(
@@ -41,6 +46,10 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
           ],
         ),
       ),
+      floatingActionButton: Container(
+        child: TextFieldFeedback(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

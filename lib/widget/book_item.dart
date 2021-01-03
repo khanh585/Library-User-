@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/dto/BookDTO.dart';
 import 'package:user_library/screen/book_detail_screen.dart';
 
-class ProductItem extends StatefulWidget {
-  const ProductItem();
+class BookItem extends StatefulWidget {
+  final BookDTO book;
+  const BookItem({
+    Key key,
+    this.book,
+  }) : super(key: key);
   @override
-  _ProductItemState createState() => _ProductItemState();
+  _BookItemState createState() => _BookItemState();
 }
 
-class _ProductItemState extends State<ProductItem> {
+class _BookItemState extends State<BookItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => BookDetail_Screen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => BookDetail_Screen(
+                  book: this.widget.book,
+                )));
       },
       child: Container(
         padding: EdgeInsets.all(8),

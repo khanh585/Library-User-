@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:user_library/dto/categoryDTO.dart';
+import 'package:user_library/dto/CategoryDTO.dart';
 import 'package:user_library/widget/category_tab_button.dart';
 
 class CategoryBar extends StatefulWidget {
   const CategoryBar({
     Key key,
     this.cats,
+    this.searchByCategory,
   }) : super(key: key);
   final List<CategoryDTO> cats;
+  final Function searchByCategory;
 
   @override
   _CategoryBarState createState() => _CategoryBarState();
@@ -23,9 +25,6 @@ class _CategoryBarState extends State<CategoryBar> {
       } else {
         managerCats[element.id] = false;
       }
-    });
-    managerCats.forEach((key, value) {
-      print(key.toString() + value.toString());
     });
   }
 
@@ -44,6 +43,7 @@ class _CategoryBarState extends State<CategoryBar> {
     setState(() {
       managerCats[id] = true;
     });
+    this.widget.searchByCategory(id);
   }
 
   @override
@@ -55,7 +55,6 @@ class _CategoryBarState extends State<CategoryBar> {
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
-            // CategoryTabButton('All', managerCats[0]),
             for (CategoryDTO cat in this.widget.cats)
               CategoryTabButton(
                 text: cat.name,
