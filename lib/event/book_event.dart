@@ -9,16 +9,3 @@ class FetchBookEvent extends BookEvent {
 
   FetchBookEvent(this.txtName, this.txtAuthor, this.categoryID);
 }
-
-// class SearchBookByNameEvent extends BookEvent {
-//   SearchBookByNameEvent(this.txtSearch);
-// }
-
-// class SearchBookByAuthorEvent extends BookEvent {
-//   SearchBookByAuthorEvent(this.txtSearch);
-// }
-
-// class SearchBookByCategoryEvent extends BookEvent {
-
-//   SearchBookByCategoryEvent(this.categoryID);
-// }
