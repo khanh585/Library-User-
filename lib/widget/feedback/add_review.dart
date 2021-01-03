@@ -29,8 +29,8 @@ class _AddReviewState extends State<AddReview> {
             width: 160,
             height: 170,
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 15.0),
+          SizedBox(
+            height: 5,
           ),
           Text(
             'The Tiny Dragon',
@@ -40,11 +40,11 @@ class _AddReviewState extends State<AddReview> {
                 fontWeight: FontWeight.w400,
                 fontFamily: 'RobotoMono'),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 12.0),
+          SizedBox(
+            height: 5,
           ),
           Text(
-            'Contract Service Senior Manager',
+            'Author',
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
@@ -53,42 +53,40 @@ class _AddReviewState extends State<AddReview> {
           ),
           Divider(
             color: Colors.black,
-            height: 50,
+            height: 30,
             indent: 20,
             endIndent: 20,
           ),
-          Text(
-            'Rate overall cooperation'.toUpperCase(),
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                fontFamily: 'RobotoMono'),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 12.0),
-          ),
-          RatingBar.builder(
-            initialRating: 0,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            onRatingUpdate: (rating) {
-              print(rating);
-            },
-          ),
-          Divider(
-            color: Colors.black,
-            height: 50,
-            indent: 20,
-            endIndent: 20,
-          ),
+          // Text(
+          //   'Rate overall cooperation'.toUpperCase(),
+          //   style: TextStyle(
+          //       color: Colors.black,
+          //       fontSize: 18,
+          //       fontWeight: FontWeight.w300,
+          //       fontFamily: 'RobotoMono'),
+          // ),
+
+          // RatingBar.builder(
+          //   initialRating: 5,
+          //   minRating: 1,
+          //   direction: Axis.horizontal,
+          //   allowHalfRating: false,
+          //   itemCount: 5,
+          //   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          //   itemBuilder: (context, _) => Icon(
+          //     Icons.star,
+          //     color: Colors.amber,
+          //   ),
+          //   onRatingUpdate: (rating) {
+          //     print(rating);
+          //   },
+          // ),
+          // Divider(
+          //   color: Colors.black,
+          //   height: 40,
+          //   indent: 20,
+          //   endIndent: 20,
+          // ),
           TextField(
             maxLines: null,
             keyboardType: TextInputType.multiline,
@@ -103,12 +101,12 @@ class _AddReviewState extends State<AddReview> {
                 filled: true,
                 fillColor: Colors.grey[200]),
           ),
-          const SizedBox(height: 30),
-          RaisedButton(
-            onPressed: () {},
-            child: const Text('Add your review', style: TextStyle(fontSize: 20)),
-          ),
-          
+          // const SizedBox(height: 30),
+          // RaisedButton(
+          //   onPressed: () {},
+          //   child:
+          //       const Text('Add your review', style: TextStyle(fontSize: 20)),
+          // ),
         ],
       ),
       padding: EdgeInsets.all(20),

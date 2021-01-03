@@ -1,3 +1,7 @@
+import 'package:user_library/bloc/category_bloc.dart';
+import 'package:user_library/context.dart';
+import 'package:user_library/dao/CategoryDAO.dart';
+import 'package:user_library/event/category_event.dart';
 import 'package:user_library/screen/book_detail_screen.dart';
 import 'package:user_library/screen/home_screen.dart';
 import 'package:user_library/screen/list_notify_screen.dart';
@@ -6,6 +10,7 @@ import 'package:user_library/screen/feedback_screen.dart';
 import 'package:user_library/screen/wish_list_screen.dart';
 
 import 'bloc/remote_bloc.dart';
+import 'dao/BookDAO.dart';
 import 'event/remote_event.dart';
 import 'state/remote_state.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +43,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final cat_bloc = CategoryBloc();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Future<void> fetchCat() async {
+    if (contextData['categories'] == null) {
+      contextData['categories'] = await CategoryDAO().fetchCategory('');
+    }
+    if (contextData['books'] == null) {
+      contextData['books'] = await BookDAO().fetchBook('', '', -1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WishList_Screen();
+    // cat_bloc.eventController.sink.add(FetchCategoryEvent());
+    fetchCat();
+    // return Home_Screen();
+    return Feedback_Screen();
   }
 }
-//  @override
+//   final bloc = RemoteBloc();
+//   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       body: Center(
@@ -76,3 +102,4 @@ class _MyHomePageState extends State<MyHomePage> {
 //       ),
 //     );
 //   }
+// }

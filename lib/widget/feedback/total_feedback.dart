@@ -25,11 +25,7 @@ class _TotalFeedbackState extends State<TotalFeedback> {
       height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -46,8 +42,7 @@ class _TotalFeedbackState extends State<TotalFeedback> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(
-                        left: 30, top: 20, right: 30),
+                    margin: EdgeInsets.only(left: 30, top: 20, right: 30),
                     child: Text(
                       '4.8',
                       style: TextStyle(
@@ -65,10 +60,10 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                     margin: const EdgeInsets.only(top: 12.0),
                   ),
                   RatingBar.builder(
-                    initialRating: 0,
+                    initialRating: 5,
                     minRating: 1,
                     direction: Axis.horizontal,
-                    allowHalfRating: true,
+                    allowHalfRating: false,
                     itemCount: 5,
                     itemSize: 40,
                     //itemPadding: EdgeInsets.symmetric(horizontal: 0.3),
@@ -80,8 +75,8 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                       print(rating);
                     },
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10.0),
+                  SizedBox(
+                    height: 10,
                   ),
                   Text(
                     'Base on 922 Reviews',
