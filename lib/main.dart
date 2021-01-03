@@ -1,13 +1,5 @@
-import 'package:user_library/screen/book_detail_screen.dart';
-import 'package:user_library/screen/home_screen.dart';
-import 'package:user_library/screen/list_notify_screen.dart';
-import 'package:user_library/screen/search_book_screen.dart';
-import 'package:user_library/screen/feedback_screen.dart';
-import 'package:user_library/screen/wish_list_screen.dart';
-
-import 'bloc/remote_bloc.dart';
-import 'event/remote_event.dart';
-import 'state/remote_state.dart';
+import 'package:user_library/constants.dart';
+import 'package:user_library/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -20,9 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Bloc Demo",
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -40,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return WishList_Screen();
+    return Login_Screen();
   }
 }
 //  @override
