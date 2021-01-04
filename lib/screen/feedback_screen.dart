@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/bloc/Feedback_bloc.dart';
+import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/event/Feedback_event.dart';
 import 'package:user_library/state/Feedback_state.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
@@ -19,12 +20,16 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
   final feedback_bloc = FeedbackBloc();
   @override
   void initState() {
-    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(-1));
+    refreshRating();
     super.initState();
   }
 
   void refreshRating() {
-    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(-1));
+    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(1, -1));
+  }
+
+  void sendFeedback(FeedbackDTO dto) {
+    feedback_bloc.eventController.sink.add(SentFeedbackEvent(dto));
   }
 
   @override
@@ -71,7 +76,10 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
       ),
       floatingActionButton: SizedBox(
         child: Container(
-          child: TextFieldFeedback(),
+          child: TextFieldFeedback(
+            bookGroupID: 1,
+            onSendMessage: sendFeedback,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

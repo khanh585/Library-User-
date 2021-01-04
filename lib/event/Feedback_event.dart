@@ -4,7 +4,8 @@ abstract class FeedbackEvent {}
 
 class FetchFeedbackEvent extends FeedbackEvent {
   final int rating;
-  FetchFeedbackEvent(this.rating);
+  final int bookGroupID;
+  FetchFeedbackEvent(this.bookGroupID, this.rating);
 }
 
 class SentFeedbackEvent extends FeedbackEvent {

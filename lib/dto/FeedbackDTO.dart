@@ -32,6 +32,6 @@ class FeedbackDTO {
         'customerId': customerID,
         'bookGroupId': bookGroupID,
         'rating': rating,
-        'reviewContent': content,
+        'reviewContent': "${content}",
       };
 }
