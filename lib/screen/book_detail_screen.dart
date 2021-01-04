@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/bloc/Feedback_bloc.dart';
 import 'package:user_library/dto/BookDTO.dart';
+import 'package:user_library/screen/feedback_screen.dart';
 import 'package:user_library/widget/add_tocart_bar.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
+import 'package:user_library/widget/feedback/view_all_feedback.dart';
 import 'package:user_library/widget/list_category_button.dart';
 
 class BookDetail_Screen extends StatefulWidget {
@@ -12,6 +15,8 @@ class BookDetail_Screen extends StatefulWidget {
 }
 
 class _BookDetail_ScreenState extends State<BookDetail_Screen> {
+  final feedback_bloc = FeedbackBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,34 +132,34 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                             ),
                           ),
                         ),
-                        Container(height: 40, width: 1, color: Colors.grey),
-                        Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          child: SizedBox(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Eng',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  'Language',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
+                        //   Container(height: 40, width: 1, color: Colors.grey),
+                        //   Container(
+                        //     padding: EdgeInsets.only(left: 30, right: 30),
+                        //     child: SizedBox(
+                        //       child: Column(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           Text(
+                        //             'Eng',
+                        //             style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 22,
+                        //                 fontWeight: FontWeight.w600),
+                        //           ),
+                        //           SizedBox(
+                        //             height: 5,
+                        //           ),
+                        //           Text(
+                        //             'Language',
+                        //             style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 14,
+                        //                 fontWeight: FontWeight.w400),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   )
                       ],
                     ),
                   )
@@ -185,14 +190,14 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                         child: Row(
                           children: [
                             Text(
-                              'Categories',
+                              'Categories:',
                               style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600),
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 2,
                             ),
                             Container(
                               decoration: BoxDecoration(
@@ -216,49 +221,84 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Description',
+                              'Description:',
                               style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              this.widget.book.description,
-                              // 'Train Your Dragon To Love Himself: A Dragon Book To Give Children Positive Affirmations. A Cute Children Story To Teach Kids To Love Who They Are. (My Dragon Books)',
-                              style: TextStyle(
-                                  color: Colors.black87.withOpacity(0.7),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
-                            ),
                             Container(
-                              height: 150,
-                              margin:
-                                  EdgeInsets.only(top: 30, left: 20, right: 20),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    color: Colors.black54,
-                                    width: 3.0,
-                                  ),
-                                ),
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(5),
+                              child: Text(
+                                this.widget.book.description,
+                                // 'Train Your Dragon To Love Himself: A Dragon Book To Give Children Positive Affirmations. A Cute Children Story To Teach Kids To Love Who They Are. (My Dragon Books)',
+                                style: TextStyle(
+                                    color: Colors.black87.withOpacity(0.7),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Divider(
+                              height: 10,
+                              thickness: 1,
+                              color: Colors.black,
+                            )
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ViewAllFeedback(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Feedback_Screen()));
+                        },
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'View feedback more',
+                                style: TextStyle(
+                                    color: Colors.black38, fontSize: 15),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios_outlined,
+                                color: Colors.black38,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 70,
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
 
           AddToCartButton(),
           // Appbar
           AppBarCustom(
+            // background: Colors.white,
+            back: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: Colors.white,
+            ),
             title: Text(
               "Detail",
               style: TextStyle(

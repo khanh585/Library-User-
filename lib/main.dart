@@ -70,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
-    fetchCat();
-    return Home_Screen();
+    // fetchCat();
+    return WishList_Screen();
     // return Feedback_Screen();
   }
 }

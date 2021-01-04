@@ -5,13 +5,17 @@ class AppBarCustom extends StatelessWidget {
   const AppBarCustom({
     Key key,
     this.title,
+    this.back,
+    this.background,
   }) : super(key: key);
-  final title;
+  final Widget title;
+  final Widget back;
+  final Color background;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //
+      color: background == null ? Colors.white.withOpacity(0) : this.background,
       width: MediaQuery.of(context).size.width,
       height: 70,
       padding: EdgeInsets.only(top: 20),
@@ -25,10 +29,7 @@ class AppBarCustom extends StatelessWidget {
             child: Container(
               width: 55,
               alignment: Alignment.center,
-              child: Icon(
-                Icons.arrow_back_outlined,
-                color: Colors.white,
-              ),
+              child: this.back,
             ),
           ),
           Container(child: title),

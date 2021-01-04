@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:user_library/dto/FeedbackDTO.dart';
 
 class ViewAllFeedback extends StatefulWidget {
   final void Function() refresh;
+  final Map typeData;
+  final List listData;
   const ViewAllFeedback({
     Key key,
     this.refresh,
+    this.typeData,
+    this.listData,
   }) : super(key: key);
   @override
   _ViewAllFeedbackState createState() => _ViewAllFeedbackState();
 }
 
 class _ViewAllFeedbackState extends State<ViewAllFeedback> {
+  List<FeedbackDTO> list = [];
+
   @override
   void initState() {
+    list = this.widget.listData;
     super.initState();
   }
 
@@ -21,48 +29,72 @@ class _ViewAllFeedbackState extends State<ViewAllFeedback> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
+      child: this.list == null
+          ? null
+          : Column(
+              children: [
+                for (FeedbackDTO dto in list)
+                  ItemFeedback(
+                    dto: dto,
+                  ),
+              ],
+            ),
+    );
+  }
+}
+
+class ItemFeedback extends StatelessWidget {
+  final FeedbackDTO dto;
+  const ItemFeedback({
+    Key key,
+    this.dto,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 5.0),
-              ),
-              CircleAvatar(
-                radius: 30.0,
-                backgroundImage: NetworkImage(
-                    "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"),
-                backgroundColor: Colors.transparent,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 10.0),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Text(
-                    'Kita Chihoko',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
+                  CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: AssetImage('images/avatar.jpg'),
+                    //  NetworkImage(
+                    // "https://i.pinimg.com/originals/c8/5f/88/c85f8819972c7002ca2ff48b9cae3cf9.jpg"),
+                    backgroundColor: Colors.transparent,
                   ),
-                  Text(
-                    'October 14, 2018',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Kita Chihoko',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'RobotoMono'),
+                      ),
+                      Text(
+                        'October 14, 2018',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'RobotoMono'),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
               RatingBar.builder(
-                initialRating: 0,
+                ignoreGestures: true,
+                initialRating: this.dto.rating.toDouble(),
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
@@ -80,195 +112,16 @@ class _ViewAllFeedbackState extends State<ViewAllFeedback> {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(top: 15.0),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
-              Flexible(
-                  child: Container(
-                child: Text(
-                  'I visit the park on 9/10, I stayed at the Universal Sheraton, so I got early entrance into the park which I took advantage',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'RobotoMono'),
-                ),
-              )),
-            ],
-          ),
-          Divider(
-            color: Colors.black,
-            height: 50,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 5.0),
-              ),
-              CircleAvatar(
-                radius: 30.0,
-                backgroundImage: AssetImage('images/avatar.jpg'),
-                //  NetworkImage(
-                // "https://i.pinimg.com/originals/c8/5f/88/c85f8819972c7002ca2ff48b9cae3cf9.jpg"),
-                backgroundColor: Colors.transparent,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 10.0),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Kita Chihoko',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
-                  ),
-                  Text(
-                    'October 14, 2018',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
-              RatingBar.builder(
-                initialRating: 0,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 22,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 15.0),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
-              Flexible(
-                  child: Container(
-                child: Text(
-                  'I visit the park on 9/10, I stayed at the Universal Sheraton, so I got early entrance into the park which I took advantage',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'RobotoMono'),
-                ),
-              )),
-            ],
-          ),
-          Divider(
-            color: Colors.black,
-            height: 50,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 5.0),
-              ),
-              CircleAvatar(
-                radius: 30.0,
-                backgroundImage: NetworkImage(
-                    "https://i.pinimg.com/originals/24/1b/19/241b19d0d0f20089797ea27efe5cb18e.jpg"),
-                backgroundColor: Colors.transparent,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 10.0),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Kita Chihoko',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
-                  ),
-                  Text(
-                    'October 14, 2018',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'RobotoMono'),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
-              RatingBar.builder(
-                initialRating: 0,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 22,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 15.0),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 60.0),
-              ),
-              Flexible(
-                  child: Container(
-                child: Text(
-                  'I visit the park on 9/10, I stayed at the Universal Sheraton, so I got early entrance into the park which I took advantage',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'RobotoMono'),
-                ),
-              )),
-            ],
+            width: MediaQuery.of(context).size.width - 60,
+            margin: EdgeInsets.only(left: 60),
+            child: Text(
+              this.dto.content,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'RobotoMono'),
+            ),
           ),
           Divider(
             color: Colors.black,
