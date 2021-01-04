@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:user_library/bloc/book_bloc.dart';
 import 'package:user_library/bloc/category_bloc.dart';
 import 'package:user_library/context.dart';
+import 'package:user_library/dao/BookDAO.dart';
+import 'package:user_library/dao/CategoryDAO.dart';
 import 'package:user_library/dto/CategoryDTO.dart';
 import 'package:user_library/event/book_event.dart';
 import 'package:user_library/state/book_state.dart';
-import 'package:user_library/widget/bottombar.dart';
 import 'package:user_library/widget/book_grid.dart';
+import 'package:user_library/widget/bottombar_2.dart';
 import 'package:user_library/widget/category_bar.dart';
 import 'package:user_library/widget/searchbar.dart';
 
@@ -39,15 +41,22 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
     setState(() {
       this.categoryID = categoryID;
     });
-    print(this.categoryID);
-    print(this.name);
-    print(this.author);
     book_bloc.eventController.sink
         .add(FetchBookEvent(this.name, this.author, categoryID));
   }
 
+  Future<void> fetchData() async {
+    if (contextData['categories'] == null) {
+      contextData['categories'] = await CategoryDAO().fetchCategory('');
+    }
+    if (contextData['books'] == null) {
+      contextData['books'] = await BookDAO().fetchBook('', '', -1);
+    }
+  }
+
   @override
   void initState() {
+    fetchData();
     this.name = '';
     this.author = '';
     cats = [];
@@ -89,7 +98,6 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
           cats: cats,
           searchByCategory: searchBooksByCategory,
         ),
-
         Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 70, left: 5, right: 5),
@@ -114,7 +122,7 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
                 ),
                 // list book, grid book
                 Container(
-                  height: MediaQuery.of(context).size.height - 230,
+                  height: MediaQuery.of(context).size.height - 225,
                   width: MediaQuery.of(context).size.width,
                   child: StreamBuilder<BookState>(
                       stream: book_bloc.stateController.stream,
@@ -129,29 +137,11 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
             ),
           ),
         ),
-
         Container(
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height - 130),
-            child: BottomBar()),
-        // Book image
+            child: BottomBar_Home()),
       ]),
-      floatingActionButton: Container(
-        margin: EdgeInsets.only(bottom: 20, left: 5, right: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              backgroundColor: Color.fromRGBO(44, 209, 172, 1),
-              child: Icon(Icons.qr_code),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
