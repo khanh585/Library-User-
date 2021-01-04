@@ -10,7 +10,7 @@ class FeedbackDAO {
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<Map> fetchFeedback(int rating) async {
+  Future<Map> fetchFeedback(int bookGroupID, int rating) async {
     if (list == null) {
       list = new List();
     }
@@ -21,6 +21,7 @@ class FeedbackDAO {
     String url = prefixUrl +
         '?PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}' +
+        '&BookGroupId=${bookGroupID}' +
         rateString;
     var response = await http.get(url);
     if (response.statusCode == 200) {
@@ -45,7 +46,7 @@ class FeedbackDAO {
   Future<FeedbackDTO> sentFeedback(FeedbackDTO dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
 
-    Map body = dto.toJson();
+    String body = json.encode(dto.toJson());
 
     var response = await http.post(prefixUrl, headers: headers, body: body);
 

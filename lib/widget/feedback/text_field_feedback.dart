@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:user_library/widget/popup.dart';
+import 'package:user_library/context.dart';
+import 'package:user_library/dto/FeedbackDTO.dart';
 
 class TextFieldFeedback extends StatefulWidget {
   const TextFieldFeedback({
     Key key,
     this.onSendMessage,
+    this.bookGroupID,
   }) : super(key: key);
-
-  final Function(String, String) onSendMessage;
+  final int bookGroupID;
+  final Function(FeedbackDTO) onSendMessage;
 
   @override
   _TextFieldFeedbackState createState() => _TextFieldFeedbackState();
@@ -18,10 +20,32 @@ class TextFieldFeedback extends StatefulWidget {
 class _TextFieldFeedbackState extends State<TextFieldFeedback> {
   TextEditingController txtSearch;
   double sizeRating = 200;
+  int rate = 5;
+
   @override
   void initState() {
+    txtSearch = TextEditingController();
     sizeRating = 200;
     super.initState();
+  }
+
+  bool validMessage() {
+    if (rate == -1) {
+      return false;
+    }
+    if (txtSearch.text.trim().length == 0) {
+      return false;
+    }
+    return true;
+  }
+
+  FeedbackDTO createFeedback(int rate, String content) {
+    return FeedbackDTO.feedbackID(
+      bookGroupID: this.widget.bookGroupID,
+      content: content,
+      rating: rate,
+      customerID: contextData['customerID'],
+    );
   }
 
   @override
@@ -70,7 +94,9 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) {
-                      print(rating);
+                      setState(() {
+                        rate = rating.toInt();
+                      });
                     },
                   ),
                 ),
@@ -79,6 +105,7 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
             padding: EdgeInsets.all(5),
             color: Colors.white,
             child: TextField(
+              controller: txtSearch,
               onTap: () {
                 setState(() {
                   sizeRating = 50;
@@ -99,16 +126,28 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                   fillColor: Colors.grey[200]),
             ),
           ),
-          Container(
-              width: 50,
-              height: 58,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Icon(
-                Icons.send,
-                color: Colors.grey,
-              )),
+          GestureDetector(
+            onTap: () {
+              if (this.validMessage()) {
+                print('sended');
+                this.widget.onSendMessage(
+                    createFeedback(rate, this.txtSearch.text.trim()));
+                setState(() {
+                  txtSearch.text = '';
+                });
+              }
+            },
+            child: Container(
+                width: 50,
+                height: 58,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Icon(
+                  Icons.send,
+                  color: Colors.grey,
+                )),
+          ),
         ],
       ),
     );

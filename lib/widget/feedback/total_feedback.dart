@@ -30,8 +30,13 @@ class _TotalFeedbackState extends State<TotalFeedback> {
         print(rating);
       }
     });
+    rating = double.parse((rating / this.widget.total).toStringAsFixed(2));
+    print(rating.toInt());
+    if (rating - rating.toInt() >= 0.1) {
+      rating = rating.toInt() + 0.5;
+    }
     setState(() {
-      rating = double.parse((rating / this.widget.total).toStringAsFixed(2));
+      rating = rating;
     });
     return SizedBox(
       height: 1,
@@ -83,7 +88,7 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                           Container(
                             margin: EdgeInsets.only(top: 20, right: 50),
                             child: Text(
-                              this.rating.toString(),
+                              this.rating.toStringAsFixed(2),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 40,
@@ -92,10 +97,11 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                             ),
                           ),
                           RatingBar.builder(
-                            initialRating: 5,
+                            initialRating:
+                                double.parse(this.rating.toStringAsFixed(1)),
                             minRating: 1,
                             direction: Axis.horizontal,
-                            allowHalfRating: false,
+                            allowHalfRating: true,
                             itemCount: 5,
                             itemSize: 20,
                             //itemPadding: EdgeInsets.symmetric(horizontal: 0.3),
@@ -183,7 +189,9 @@ class _RateItemState extends State<RateItem> {
               lineHeight: 13.0,
               linearStrokeCap: LinearStrokeCap.roundAll,
               center: Text(
-                (this.widget.numb / this.widget.total * 100).toString() + '%',
+                (this.widget.numb / this.widget.total * 100)
+                        .toStringAsFixed(2) +
+                    '%',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               percent: this.widget.numb / this.widget.total,

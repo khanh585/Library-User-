@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:stack/stack.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/event/Feedback_event.dart';
 import 'package:user_library/state/Feedback_state.dart';
-
-import '../context.dart';
 
 class FeedbackBloc {
   var state = FeedbackState(
@@ -24,7 +23,8 @@ class FeedbackBloc {
       if (event is FetchFeedbackEvent) {
         Map result = {};
         int rating = event.rating;
-        result = await FeedbackDAO().fetchFeedback(rating);
+        int bookGroupID = event.bookGroupID;
+        result = await FeedbackDAO().fetchFeedback(bookGroupID, rating);
 
         state = FeedbackState(
             feedbacks: result['list'],
@@ -33,7 +33,13 @@ class FeedbackBloc {
       } else if (event is SentFeedbackEvent) {
         FeedbackDTO dto = event.feedback;
         dto = await FeedbackDAO().sentFeedback(dto);
+        print(json.encode(dto));
         state.feedbacks.add(dto);
+        state.total += 1;
+        if (state.typeFeedbacks[dto.rating] == null) {
+          state.typeFeedbacks[dto.rating] = [];
+        }
+        state.typeFeedbacks[dto.rating].add(dto);
       }
       stateController.sink.add(state);
     });
