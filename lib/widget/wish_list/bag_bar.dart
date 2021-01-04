@@ -11,7 +11,7 @@ class BagBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-          margin: const EdgeInsets.only(left: 35.0, top: 30),
+          margin: const EdgeInsets.only(left: 35.0, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -23,8 +23,8 @@ class BagBar extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                     fontFamily: 'RobotoMono'),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10.0),
+              SizedBox(
+                height: 5,
               ),
               Text(
                 'Check your wish list',

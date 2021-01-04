@@ -37,26 +37,18 @@ class _ProductGridState extends State<ProductGrid> {
                 Container(
                   padding: EdgeInsets.only(right: 10, left: 10),
                   width: MediaQuery.of(context).size.width - 30,
-                  height: MediaQuery.of(context).size.height - 20,
+                  height: MediaQuery.of(context).size.height - 270,
                   child: GridView.count(
                     crossAxisCount: 3,
                     primary: false,
                     crossAxisSpacing: 10,
-                    mainAxisSpacing: 15,
+                    mainAxisSpacing: 10,
                     childAspectRatio: 0.7,
                     children: [
                       for (BookDTO book in this.widget.listBooks)
                         BookItem(
                           book: book,
                         ),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
-                      // ProductItem(),
                     ],
                   ),
                 ),

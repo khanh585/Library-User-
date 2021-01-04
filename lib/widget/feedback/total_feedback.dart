@@ -54,9 +54,10 @@ class _TotalFeedbackState extends State<TotalFeedback> {
     return GestureDetector(
       onTap: () {},
       child: Container(
+        width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        margin: EdgeInsets.only(left: 30, right: 30, bottom: 10),
-        padding: EdgeInsets.only(left: 20, top: 15, bottom: 15),
+        margin: EdgeInsets.only(left: 15, right: 15, bottom: 10),
+        padding: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -109,9 +110,7 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                               Icons.star,
                               color: Colors.amber,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
+                            ignoreGestures: true,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 4, top: 5),
