@@ -1,5 +1,6 @@
 import 'package:user_library/constants.dart';
 import 'package:user_library/screen/favorite_selection_screen.dart';
+import 'package:user_library/screen/history_screen.dart';
 import 'package:user_library/screen/login_screen.dart';
 import 'package:user_library/bloc/category_bloc.dart';
 import 'package:user_library/context.dart';
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // return Favorite_Selection_Screen();
     fetchCat();
 
-    return Home_Screen();
+    return History_Screen();
   }
 }
 //   final bloc = RemoteBloc();
