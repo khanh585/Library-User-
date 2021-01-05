@@ -12,6 +12,7 @@ import 'package:user_library/screen/search_book_screen.dart';
 import 'package:user_library/screen/feedback_screen.dart';
 import 'package:user_library/screen/wish_list_screen.dart';
 import 'package:user_library/screen/qrcode_borrow_book_screen.dart';
+import 'package:user_library/screen/profile_screen.dart';
 
 import 'bloc/remote_bloc.dart';
 import 'dao/BookDAO.dart';
@@ -73,8 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
 
-
-    return Favorite_Selection_Screen();
+    return Profile_Screen();
 
     // return Feedback_Screen();
   }
