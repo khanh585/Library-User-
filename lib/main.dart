@@ -73,10 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
 
+    // return Favorite_Selection_Screen();
+    fetchCat();
 
-    return Favorite_Selection_Screen();
-
-    // return Feedback_Screen();
+    return Home_Screen();
   }
 }
 //   final bloc = RemoteBloc();
