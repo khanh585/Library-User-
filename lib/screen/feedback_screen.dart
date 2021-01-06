@@ -5,6 +5,7 @@ import 'package:user_library/event/Feedback_event.dart';
 import 'package:user_library/state/Feedback_state.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
 import 'package:user_library/widget/feedback/BookInfo.dart';
+import 'package:user_library/widget/feedback/popupFeedback.dart';
 import 'package:user_library/widget/feedback/text_field_feedback.dart';
 import 'package:user_library/widget/feedback/total_feedback.dart';
 import 'package:user_library/widget/feedback/view_all_feedback.dart';
@@ -18,6 +19,7 @@ class Feedback_Screen extends StatefulWidget {
 
 class _Feedback_ScreenState extends State<Feedback_Screen> {
   final feedback_bloc = FeedbackBloc();
+  int sorted = -1;
   @override
   void initState() {
     refreshRating();
@@ -25,11 +27,25 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
   }
 
   void refreshRating() {
-    feedback_bloc.eventController.sink.add(FetchFeedbackEvent(1, -1));
+    print(123123);
+    feedback_bloc.eventController.sink
+        .add(FetchFeedbackEvent(bookGroupID: 1, rating: -1));
   }
 
   void sendFeedback(FeedbackDTO dto) {
     feedback_bloc.eventController.sink.add(SentFeedbackEvent(dto));
+  }
+
+  void PopupSort() {
+    PopupFeedback('Sorted by', sorted, context, sortBy);
+  }
+
+  void sortBy(int sorted) {
+    feedback_bloc.eventController.sink.add(SortedFeedbackEvent(sorted));
+
+    setState(() {
+      this.sorted = sorted;
+    });
   }
 
   @override
@@ -65,10 +81,35 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
                         endIndent: 20,
                         thickness: 2,
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          this.PopupSort();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Sorted by',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 15),
+                              ),
+                              Icon(
+                                Icons.filter_list_sharp,
+                                color: Colors.black38,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
                       ViewAllFeedback(
                         listData: snapshot.data.feedbacks,
-                        typeData: snapshot.data.typeFeedbacks,
-                      )
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
                     ],
                   );
                 }),
