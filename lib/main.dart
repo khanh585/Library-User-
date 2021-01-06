@@ -1,5 +1,6 @@
 import 'package:user_library/constants.dart';
 import 'package:user_library/screen/favorite_selection_screen.dart';
+import 'package:user_library/screen/history_screen.dart';
 import 'package:user_library/screen/login_screen.dart';
 import 'package:user_library/bloc/category_bloc.dart';
 import 'package:user_library/context.dart';
@@ -8,11 +9,13 @@ import 'package:user_library/event/category_event.dart';
 import 'package:user_library/screen/book_detail_screen.dart';
 import 'package:user_library/screen/home_screen.dart';
 import 'package:user_library/screen/list_notify_screen.dart';
+import 'package:user_library/screen/main_profile_screen.dart';
 import 'package:user_library/screen/search_book_screen.dart';
 import 'package:user_library/screen/feedback_screen.dart';
 import 'package:user_library/screen/wish_list_screen.dart';
 import 'package:user_library/screen/qrcode_borrow_book_screen.dart';
 import 'package:user_library/screen/profile_screen.dart';
+import 'package:user_library/temp.dart';
 
 import 'bloc/remote_bloc.dart';
 import 'dao/BookDAO.dart';
@@ -73,9 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
-
-    return Profile_Screen();
-
+    return MainProfileScreen();
+    // return profilePage();
     // return Feedback_Screen();
   }
 }

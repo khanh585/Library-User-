@@ -21,25 +21,25 @@ class TotalFeedback extends StatefulWidget {
 class _TotalFeedbackState extends State<TotalFeedback> {
   List stars = [5, 4, 3, 2, 1];
   double rating = 0;
+  double ratingIcon = 0;
 
   Widget refreshRate() {
     rating = 0;
     stars.forEach((element) {
       if (this.widget.feedbacks[element] != null) {
         rating += this.widget.feedbacks[element].length * element;
-        print(rating);
       }
     });
     rating = double.parse((rating / this.widget.total).toStringAsFixed(2));
-    print(rating.toInt());
     if (rating - rating.toInt() >= 0.1) {
-      rating = rating.toInt() + 0.5;
+      ratingIcon = rating.toInt() + 0.5;
     }
     setState(() {
       rating = rating;
+      ratingIcon = ratingIcon;
     });
     return SizedBox(
-      height: 1,
+      height: 0,
     );
   }
 
@@ -98,8 +98,7 @@ class _TotalFeedbackState extends State<TotalFeedback> {
                             ),
                           ),
                           RatingBar.builder(
-                            initialRating:
-                                double.parse(this.rating.toStringAsFixed(1)),
+                            initialRating: this.ratingIcon,
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

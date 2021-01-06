@@ -28,6 +28,7 @@ class _BookItemState extends State<BookItem> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(
+          child: Text(this.widget.book.id.toString()),
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("images/notebook.png"), fit: BoxFit.cover),

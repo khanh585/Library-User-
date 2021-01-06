@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/bloc/Feedback_bloc.dart';
+import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/dto/BookDTO.dart';
+import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/screen/feedback_screen.dart';
 import 'package:user_library/widget/add_tocart_bar.dart';
 import 'package:user_library/widget/app_bar_custom.dart';
@@ -15,7 +17,37 @@ class BookDetail_Screen extends StatefulWidget {
 }
 
 class _BookDetail_ScreenState extends State<BookDetail_Screen> {
-  final feedback_bloc = FeedbackBloc();
+  double rating = 0;
+  List<FeedbackDTO> listFeedbacks = [];
+
+  @override
+  void initState() {
+    subFeedback();
+    super.initState();
+  }
+
+  void subFeedback() async {
+    Map data = await FeedbackDAO().fetchFeedback(this.widget.book.id, -1);
+    if (data == null) {
+      return;
+    }
+    data['list'].forEach((FeedbackDTO element) {
+      rating += element.rating;
+    });
+    rating = rating / data['list'].length;
+    int le = 2;
+    if (le > data['list'].length) {
+      le = data['list'].length;
+    }
+    for (int i = 0; i < le; i++) {
+      listFeedbacks.add(data['list'][i]);
+    }
+
+    setState(() {
+      rating = rating;
+      listFeedbacks = listFeedbacks;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +116,7 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  this.widget.book.rating.toString(),
+                                  this.rating.toStringAsFixed(2),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22,
@@ -253,7 +285,9 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                       SizedBox(
                         height: 10,
                       ),
-                      ViewAllFeedback(),
+                      ViewAllFeedback(
+                        listData: this.listFeedbacks,
+                      ),
                       SizedBox(
                         height: 10,
                       ),

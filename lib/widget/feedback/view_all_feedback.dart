@@ -4,12 +4,10 @@ import 'package:user_library/dto/FeedbackDTO.dart';
 
 class ViewAllFeedback extends StatefulWidget {
   final void Function() refresh;
-  final Map typeData;
   final List listData;
   const ViewAllFeedback({
     Key key,
     this.refresh,
-    this.typeData,
     this.listData,
   }) : super(key: key);
   @override
@@ -17,11 +15,10 @@ class ViewAllFeedback extends StatefulWidget {
 }
 
 class _ViewAllFeedbackState extends State<ViewAllFeedback> {
-  List<FeedbackDTO> list = [];
-
   @override
   void initState() {
-    list = this.widget.listData;
+    // list = this.widget.listData;
+
     super.initState();
   }
 
@@ -29,11 +26,11 @@ class _ViewAllFeedbackState extends State<ViewAllFeedback> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      child: this.list == null
+      child: this.widget.listData == null
           ? null
           : Column(
               children: [
-                for (FeedbackDTO dto in list)
+                for (FeedbackDTO dto in this.widget.listData.reversed)
                   ItemFeedback(
                     dto: dto,
                   ),
@@ -65,8 +62,6 @@ class ItemFeedback extends StatelessWidget {
                   CircleAvatar(
                     radius: 30.0,
                     backgroundImage: AssetImage('images/avatar.jpg'),
-                    //  NetworkImage(
-                    // "https://i.pinimg.com/originals/c8/5f/88/c85f8819972c7002ca2ff48b9cae3cf9.jpg"),
                     backgroundColor: Colors.transparent,
                   ),
                   Column(

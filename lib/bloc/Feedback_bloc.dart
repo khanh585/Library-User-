@@ -9,7 +9,7 @@ import 'package:user_library/state/Feedback_state.dart';
 
 class FeedbackBloc {
   var state = FeedbackState(
-      feedbacks: [], total: 0, typeFeedbacks: {}); // khoi tao gia tri
+      feedbacks: [], total: 0, typeFeedbacks: {}, temp: []); // khoi tao gia tri
 
   //tao 2 controller
   // 1 cai quan ly event, dam nhan nhiem vu nhan event tu UI
@@ -25,7 +25,6 @@ class FeedbackBloc {
         int rating = event.rating;
         int bookGroupID = event.bookGroupID;
         result = await FeedbackDAO().fetchFeedback(bookGroupID, rating);
-
         state = FeedbackState(
             feedbacks: result['list'],
             total: result['total'],
@@ -33,13 +32,28 @@ class FeedbackBloc {
       } else if (event is SentFeedbackEvent) {
         FeedbackDTO dto = event.feedback;
         dto = await FeedbackDAO().sentFeedback(dto);
-        print(json.encode(dto));
         state.feedbacks.add(dto);
         state.total += 1;
         if (state.typeFeedbacks[dto.rating] == null) {
           state.typeFeedbacks[dto.rating] = [];
         }
-        state.typeFeedbacks[dto.rating].add(dto);
+        state.typeFeedbacks[dto.rating].insert(0, dto);
+      } else if (event is SortedFeedbackEvent) {
+        int sorted = event.sorted;
+        print(state.temp == null);
+
+        if (state.temp == null) {
+          state.temp = [];
+        }
+        print('${state.feedbacks.length} ${state.total} ${state.temp.length}');
+        if (state.feedbacks.length >= state.total) {
+          state.temp = state.feedbacks;
+        }
+        if (sorted > 0) {
+          state.feedbacks = state.typeFeedbacks[sorted];
+        } else if (sorted == -1) {
+          state.feedbacks = state.temp;
+        } else if (sorted == 0) {}
       }
       stateController.sink.add(state);
     });

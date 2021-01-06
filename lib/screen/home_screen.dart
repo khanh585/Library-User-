@@ -195,20 +195,20 @@ class ItemBookBottom extends StatelessWidget {
                   SizedBox(
                     height: 7,
                   ),
-                  Container(
-                    width: 300,
-                    height: 30,
-                    child: ListView_CategoryOfBook(
-                      categoies: [
-                        'Design',
-                        'Architec',
-                        'Science',
-                        'Comic',
-                        'Fashion',
-                        'Novel'
-                      ],
-                    ),
-                  )
+                  // Container(
+                  //   width: 300,
+                  //   height: 30,
+                  //   child: ListView_CategoryOfBook(
+                  //     categoies: [
+                  //       'Design',
+                  //       'Architec',
+                  //       'Science',
+                  //       'Comic',
+                  //       'Fashion',
+                  //       'Novel'
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
             ),
