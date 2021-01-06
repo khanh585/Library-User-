@@ -10,6 +10,14 @@ class Profile_Screen extends StatefulWidget {
 }
 
 class _Profile_Screen_ScreenState extends State<Profile_Screen> {
+  final txtName = TextEditingController();
+  final txtEmail = TextEditingController();
+  final txtBirthDate = TextEditingController();
+  final txtPhoneNumber = TextEditingController();
+  final txtIdentityId = TextEditingController();
+
+  GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,7 +25,10 @@ class _Profile_Screen_ScreenState extends State<Profile_Screen> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.close_outlined,
+            size: 30,
+          ),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
@@ -27,13 +38,42 @@ class _Profile_Screen_ScreenState extends State<Profile_Screen> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.check_outlined,
+                size: 30,
+              ),
+              onPressed: () => {_validate()}),
+        ],
         centerTitle: true,
         title: const Text(
-          'PROFILE',
+          'EDIT PROFILE',
           textAlign: TextAlign.center,
         ),
       ),
-      body: Profile_Screen_Body(),
+      body: Form(
+        key: _form,
+        child: Profile_Screen_Body(
+          txtBirthDate: txtBirthDate,
+          txtName: txtName,
+          txtEmail: txtEmail,
+          txtIdentityId: txtIdentityId,
+          txtPhoneNumber: txtPhoneNumber,
+        ),
+      ),
     );
+  }
+
+  Function _validate() {
+    // _form.currentState.validate();
+    if (_form.currentState.validate()) {
+      final snackBar = new SnackBar(
+          content: new Text('Updated Successfully!'),
+          backgroundColor: Colors.deepPurple[900]);
+
+      // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+      Scaffold.of(_form.currentContext).showSnackBar(snackBar);
+    }
   }
 }

@@ -17,7 +17,6 @@ class Profile_Background extends StatelessWidget {
       height: size.height,
       width: double.infinity,
       child: Stack(
-        alignment: Alignment.center,
         children: <Widget>[
           Positioned(
             top: 0,
@@ -35,7 +34,7 @@ class Profile_Background extends StatelessWidget {
               width: size.width * 0.2,
             ),
           ),
-          child,
+          Container(alignment: Alignment.topCenter, child: child),
         ],
       ),
     );
