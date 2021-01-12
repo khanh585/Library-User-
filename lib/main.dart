@@ -1,4 +1,5 @@
 import 'package:user_library/constants.dart';
+import 'package:user_library/screen/checkin_screen.dart';
 import 'package:user_library/screen/favorite_selection_screen.dart';
 import 'package:user_library/screen/history_screen.dart';
 import 'package:user_library/screen/login_screen.dart';
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // cat_bloc.eventController.sink.add(FetchCategoryEvent());
-    return View_History_Screen();
+    return Checkin_Screen();
     // return profilePage();
     // return Feedback_Screen();
   }
