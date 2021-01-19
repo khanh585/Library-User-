@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/screen/home_screen.dart';
-import 'package:user_library/widget/profile/profile_body.dart';
+import 'package:user_library/widgets/profile/profile_body.dart';
+
+import 'main_layout/main_layout.dart';
 
 class Profile_Screen extends StatefulWidget {
   Profile_Screen({Key key}) : super(key: key);
@@ -33,7 +34,7 @@ class _Profile_Screen_ScreenState extends State<Profile_Screen> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return Home_Screen();
+                return MainLayout();
               },
             ),
           ),

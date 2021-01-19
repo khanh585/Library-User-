@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/widget/wish_list/bag_bar.dart';
-import 'package:user_library/widget/wish_list/book_cart.dart';
 
 class Schedule_Borrow_Book_Screen extends StatefulWidget {
   Schedule_Borrow_Book_Screen({Key key}) : super(key: key);
@@ -19,7 +17,7 @@ class _Schedule_Borrow_Book_ScreenState
     double wi = MediaQuery.of(context).size.width;
     double he = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(      
+      appBar: AppBar(
         title: Text(
           'Schedule',
           style: TextStyle(color: Colors.black87, fontSize: 28),
@@ -192,34 +190,34 @@ class CartItem extends StatelessWidget {
                   ),
                 ),
                 Container(
-                      height: 50,
-                      width: 130,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: Colors.purple,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: FlatButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => SearchBook_Screen(
-                          //               catID: catID,
-                          //             )));
-                        },
-                        minWidth: 130,
-                        height: 53,
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30),
-                        ),
-                        child: Text(
-                          'See Details',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w600),
-                        ),
-                      ),
+                  height: 50,
+                  width: 130,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: FlatButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => SearchBook_Screen(
+                      //               catID: catID,
+                      //             )));
+                    },
+                    minWidth: 130,
+                    height: 53,
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30),
                     ),
+                    child: Text(
+                      'See Details',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

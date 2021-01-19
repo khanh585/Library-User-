@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/widget/bottombar_2.dart';
-import 'package:user_library/widget/notification_content.dart';
-import 'package:user_library/widget/notify_type.dart';
+import 'package:user_library/widgets/notification_content.dart';
+import 'package:user_library/widgets/notify_type.dart';
 
 class History_Screen extends StatefulWidget {
   History_Screen({Key key}) : super(key: key);
@@ -110,7 +109,6 @@ class _History_ScreenState extends State<History_Screen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar_Home(),
     );
   }
 }

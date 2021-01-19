@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/widget/wish_list/bag_bar.dart';
-import 'package:user_library/widget/wish_list/book_cart.dart';
 
 class WishList_Screen extends StatefulWidget {
   WishList_Screen({Key key}) : super(key: key);
