@@ -3,12 +3,11 @@ import 'package:user_library/bloc/Feedback_bloc.dart';
 import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/event/Feedback_event.dart';
 import 'package:user_library/state/Feedback_state.dart';
-import 'package:user_library/widget/app_bar_custom.dart';
-import 'package:user_library/widget/feedback/BookInfo.dart';
-import 'package:user_library/widget/feedback/popupFeedback.dart';
-import 'package:user_library/widget/feedback/text_field_feedback.dart';
-import 'package:user_library/widget/feedback/total_feedback.dart';
-import 'package:user_library/widget/feedback/view_all_feedback.dart';
+import 'package:user_library/widgets/app_bar_custom.dart';
+import 'package:user_library/widgets/feedback/popupFeedback.dart';
+import 'package:user_library/widgets/feedback/text_field_feedback.dart';
+import 'package:user_library/widgets/feedback/total_feedback.dart';
+import 'package:user_library/widgets/feedback/view_all_feedback.dart';
 
 class Feedback_Screen extends StatefulWidget {
   Feedback_Screen({Key key}) : super(key: key);
@@ -62,6 +61,7 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
                 stream: feedback_bloc.stateController.stream,
                 initialData: feedback_bloc.state,
                 builder: (context, snapshot) {
+                  print("RENDER");
                   return Column(
                     children: [
                       SizedBox(

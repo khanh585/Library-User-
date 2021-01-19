@@ -7,10 +7,9 @@ import 'package:user_library/dao/CategoryDAO.dart';
 import 'package:user_library/dto/CategoryDTO.dart';
 import 'package:user_library/event/book_event.dart';
 import 'package:user_library/state/book_state.dart';
-import 'package:user_library/widget/book_grid.dart';
-import 'package:user_library/widget/bottombar_2.dart';
-import 'package:user_library/widget/category_bar.dart';
-import 'package:user_library/widget/searchbar.dart';
+import 'package:user_library/widgets/book_grid.dart';
+import 'package:user_library/widgets/category_bar.dart';
+import 'package:user_library/widgets/searchbar.dart';
 
 class SearchBook_Screen extends StatefulWidget {
   SearchBook_Screen({Key key, this.catID}) : super(key: key);
@@ -137,10 +136,6 @@ class _SearchBook_ScreenState extends State<SearchBook_Screen> {
             ),
           ),
         ),
-        Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height - 130),
-            child: BottomBar_Home()),
       ]),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-import 'package:user_library/screen/home_screen.dart';
+
+import 'main_layout/main_layout.dart';
 
 class QRCode_Borrow_Book_Screen extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ class _QRCode_Borrow_Book_ScreenState extends State<QRCode_Borrow_Book_Screen> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return Home_Screen();
+                  return MainLayout();
                 },
               ),
             ),

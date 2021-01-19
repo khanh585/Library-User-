@@ -4,10 +4,11 @@ import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/dto/BookDTO.dart';
 import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/screen/feedback_screen.dart';
-import 'package:user_library/widget/add_tocart_bar.dart';
-import 'package:user_library/widget/app_bar_custom.dart';
-import 'package:user_library/widget/feedback/view_all_feedback.dart';
-import 'package:user_library/widget/list_category_button.dart';
+import 'package:user_library/widgets/app_bar_custom.dart';
+import 'package:user_library/widgets/feedback/view_all_feedback.dart';
+import 'package:user_library/widgets/list_category_button.dart';
+
+import 'book_detail_screen_copy.dart';
 
 class BookDetail_Screen extends StatefulWidget {
   const BookDetail_Screen({Key key, this.book}) : super(key: key);
