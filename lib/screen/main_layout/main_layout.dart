@@ -13,6 +13,7 @@ class MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: PageView(
         controller: pageController,
         physics: new NeverScrollableScrollPhysics(),

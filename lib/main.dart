@@ -36,6 +36,7 @@ class MyAppState extends State<MyApp> {
               initialData: authenticateBloc.state,
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
+                  print(snapshot.data.currentUser);
                   if (snapshot.data.currentUser != null) {
                     return MainLayout();
                   } else {
@@ -54,8 +55,12 @@ class MyAppState extends State<MyApp> {
   }
 
   Future<void> handelLogin() async {
-    await signInWithGoogle().then((value) {
-      authenticateBloc.eventController.sink.add(Connect(firebaseUser: value));
-    });
+    await signInWithGoogle()
+        .then((value) {
+          authenticateBloc.eventController.sink
+              .add(Connect(firebaseUser: value));
+        })
+        .whenComplete(() => print("COMPLETE"))
+        .timeout(Duration(seconds: 30));
   }
 }

@@ -7,10 +7,13 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 
 Future<User> signInWithGoogle() async {
   await Firebase.initializeApp();
+  await googleSignIn.disconnect();
+  await FirebaseAuth.instance.signOut();
 
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
+
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,

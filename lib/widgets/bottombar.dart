@@ -34,7 +34,7 @@ class BottomBarState extends State<BottomBar> {
                   child: Icon(
                     Icons.home_outlined,
                     color: Colors.grey,
-                    size: 35,
+                    size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
@@ -53,7 +53,7 @@ class BottomBarState extends State<BottomBar> {
                   child: Icon(
                     Icons.book_outlined,
                     color: Colors.grey,
-                    size: 35,
+                    size: 24,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
@@ -72,7 +72,7 @@ class BottomBarState extends State<BottomBar> {
                   child: Icon(
                     Icons.shopping_basket_outlined,
                     color: Colors.grey,
-                    size: 35,
+                    size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
@@ -91,7 +91,7 @@ class BottomBarState extends State<BottomBar> {
                   child: Icon(
                     Icons.more_horiz_outlined,
                     color: Colors.grey,
-                    size: 35,
+                    size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),

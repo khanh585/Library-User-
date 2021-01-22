@@ -15,9 +15,6 @@ class RemoteBloc {
   RemoteBloc() {
     // lang nghe khi eventController push event moi
     eventController.stream.listen((event) {
-      //thuong thi se tach ra ham rieng roi ten la mapEventToState
-      //ham nay nhan event xu ly va cho ra output laf state
-
       if (event is IncrementEvent) {
         // tang am luong
         state = RemoteState(state.volume + event.increment);
