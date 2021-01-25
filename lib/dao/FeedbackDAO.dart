@@ -7,11 +7,10 @@ import 'package:user_library/models/feedback.dart';
 
 class FeedbackDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Feedback';
-  int pageSize = 20;
-  int pageNumber = 1;
 
-  Future<List> fetchFeedback(int bookId, int page) async {
-    String url = prefixUrl + '?&BookGroupId=${bookId}&PageNumber=${page}';
+  Future<List> fetchFeedback(int bookId, int page, int pageSize) async {
+    String url = prefixUrl +
+        '?&BookGroupId=${bookId}&PageNumber=${page}&PageSize=${pageSize}';
     var response = await http.get(url);
 
     Map json = jsonDecode(response.body);
@@ -19,7 +18,7 @@ class FeedbackDAO {
 
     List data = json['data'];
     int total = json['meta']['totalCount'];
-
+    print('---- ${data}  ---  ${total} ----');
     data.forEach((element) {
       Feedback tmp = Feedback.fromJson(element);
       feedbacks.add(tmp);

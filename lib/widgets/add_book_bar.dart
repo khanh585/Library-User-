@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/helper/database_helper.dart';
+import 'package:user_library/models/book.dart';
 
-class AddToCartButton extends StatelessWidget {
+class AddBookButton extends StatelessWidget {
+  final Book book;
+  AddBookButton({this.book});
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -29,8 +33,8 @@ class AddToCartButton extends StatelessWidget {
           child: FlatButton(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
-            onPressed: () {
-              print('Borrow Book');
+            onPressed: () async {
+              await DatabaseHelper.instance.insertBook(this.book);
             },
             child: Text(
               'Borrow Book',

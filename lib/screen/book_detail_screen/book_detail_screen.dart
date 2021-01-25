@@ -5,8 +5,8 @@ import 'package:user_library/dto/BookDTO.dart';
 import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen.dart';
-import 'package:user_library/screen/feedback_screen.dart';
-import 'package:user_library/widgets/add_tocart_bar.dart';
+import 'package:user_library/screen/feedback_screen1.dart';
+import 'package:user_library/widgets/add_book_bar.dart';
 import 'package:user_library/widgets/app_bar_custom.dart';
 import 'package:user_library/widgets/description_handel.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
@@ -278,7 +278,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
             ],
           ),
 
-          AddToCartButton(),
+          AddBookButton(
+            book: this.widget.book,
+          ),
           // Appbar
           AppBarCustom(
             // background: Colors.white,

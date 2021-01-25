@@ -2,6 +2,7 @@
 .dart_tool/
 .packages
 .pub/
+.pubspec.yaml
 build/
 pubspec.lock  # Except for application packages
 # API documentation directory created by dartdoc

@@ -26,7 +26,6 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
   }
 
   void refreshRating() {
-    print(123123);
     feedback_bloc.eventController.sink
         .add(FetchFeedbackEvent(bookGroupID: 1, rating: -1));
   }

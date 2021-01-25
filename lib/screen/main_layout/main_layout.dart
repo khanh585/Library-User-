@@ -20,12 +20,6 @@ class MainLayoutState extends State<MainLayout> {
         allowImplicitScrolling: false,
         children: [
           HomeScreen(),
-          Container(
-            child: Text("asdasd"),
-          ),
-          Container(
-            child: Text("213123"),
-          ),
         ],
       ),
       bottomNavigationBar: BottomBar(handelPageView: handelPageView),

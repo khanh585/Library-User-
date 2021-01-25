@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/dto/BookDTO.dart';
+import 'package:user_library/models/book.dart';
 
 import 'book_item.dart';
 
 class ProductGrid extends StatefulWidget {
-  final List<BookDTO> listBooks;
+  final List<Book> listBooks;
   const ProductGrid({
     Key key,
     this.listBooks,
@@ -45,7 +45,7 @@ class _ProductGridState extends State<ProductGrid> {
                     mainAxisSpacing: 10,
                     childAspectRatio: 0.7,
                     children: [
-                      for (BookDTO book in this.widget.listBooks)
+                      for (Book book in this.widget.listBooks)
                         BookItem(
                           book: book,
                         ),

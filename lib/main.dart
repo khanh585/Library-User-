@@ -29,7 +29,6 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Bloc Demo",
       home: Container(
           child: StreamBuilder<AuthenticateState>(
               stream: authenticateBloc.stateController.stream,
@@ -40,7 +39,8 @@ class MyAppState extends State<MyApp> {
                   if (snapshot.data.currentUser != null) {
                     return MainLayout();
                   } else {
-                    return Login_Screen(handelLogin: this.handelLogin);
+                    // return Login_Screen(handelLogin: this.handelLogin);
+                    return MainLayout();
                   }
                 }
                 return Text("Error");

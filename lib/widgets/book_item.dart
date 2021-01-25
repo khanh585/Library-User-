@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/dto/BookDTO.dart';
+import 'package:user_library/models/book.dart';
 import 'package:user_library/screen/book_detail_screen.dart';
 
 class BookItem extends StatefulWidget {
-  final BookDTO book;
+  final Book book;
   const BookItem({
     Key key,
     this.book,

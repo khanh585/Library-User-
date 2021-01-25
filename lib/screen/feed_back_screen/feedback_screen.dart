@@ -28,7 +28,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   void initState() {
     feedbackScreenBloc.eventController.sink
-        .add(FetchFeedback(bookId: widget.book.id, page: 1));
+        .add(FetchFeedback(bookId: widget.book.id, page: 1, pageSize: 10));
   }
 
   void refreshRating() {
