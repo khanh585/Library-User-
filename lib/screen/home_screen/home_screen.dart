@@ -2,12 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:user_library/screen/home_screen/widgets/suggest_book_item/suggest_book_section.dart';
-
-import 'package:user_library/widgets/home_screen/midle_bar.dart';
-import 'package:user_library/widgets/searchbar.dart';
-
-import '../home_screen/widgets/item_book_bottom/item_book_bottom.dart';
+import 'package:user_library/screen/search_screen/search_screen.dart';
 import '../home_screen/widgets/top_bar/top_bar.dart';
+import 'widgets/tab_view_books/tab_view_books.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -24,7 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 330,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage('images/homescreen.jpg'),
@@ -32,26 +29,40 @@ class HomeScreenState extends State<HomeScreen> {
           )),
           child: Text(""),
         ),
-        Positioned(
-            top: 320,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(10),
-                  )),
-              height: 330,
-              child: Text(""),
-            )),
         Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: [
-              Container(
-                child: SearchBar(atHomePage: true),
-              ),
+              FlatButton(
+                  height: 60,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        right: 15, left: 15, top: 12, bottom: 12),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: Colors.grey,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text(
+                              "Find your book",
+                              style: TextStyle(color: Colors.black54),
+                            ))
+                      ],
+                    ),
+                  )),
               TopBar(),
               Container(
                   width: MediaQuery.of(context).size.width - 15,
@@ -72,32 +83,7 @@ class HomeScreenState extends State<HomeScreen> {
                         )
                       ]),
                   child: SuggestBookSection()),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(10),
-                    )),
-                child: Column(
-                  children: [
-                    MidleBar(
-                      callback: null,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Column(
-                        children: [
-                          ItemBookBottom(),
-                          ItemBookBottom(),
-                          ItemBookBottom(),
-                          ItemBookBottom(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              TabViewBooks()
             ],
           ),
         ),

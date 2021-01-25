@@ -1,9 +1,5 @@
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/login_screen/login_screen.dart';
-import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
-import 'package:user_library/screen/shedule_screen/schedule_borrow_book_screen.dart';
-import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_screen.dart';
-import 'package:user_library/screen/wish_list_screen.dart';
 import 'package:user_library/service/Authenticate.dart';
 
 import 'package:flutter/material.dart';
@@ -33,19 +29,20 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Bloc Demo",
       home: Container(
           child: StreamBuilder<AuthenticateState>(
               stream: authenticateBloc.stateController.stream,
               initialData: authenticateBloc.state,
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.data.currentUser == null) {
-                    return MainProfileScreen();
+                  print(snapshot.data.currentUser);
+                  if (snapshot.data.currentUser != null) {
+                    return MainLayout();
                   } else {
-                    return Login_Screen(handelLogin: this.handelLogin);
+                    // return Login_Screen(handelLogin: this.handelLogin);
+                    return MainLayout();
                   }
-                } 
+                }
                 return Text("Error");
               })),
       theme: ThemeData(
@@ -58,8 +55,12 @@ class MyAppState extends State<MyApp> {
   }
 
   Future<void> handelLogin() async {
-    await signInWithGoogle().then((value) {
-      authenticateBloc.eventController.sink.add(Connect(firebaseUser: value));
-    });
+    await signInWithGoogle()
+        .then((value) {
+          authenticateBloc.eventController.sink
+              .add(Connect(firebaseUser: value));
+        })
+        .whenComplete(() => print("COMPLETE"))
+        .timeout(Duration(seconds: 30));
   }
 }

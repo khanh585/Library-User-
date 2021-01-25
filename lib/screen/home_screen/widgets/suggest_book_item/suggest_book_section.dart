@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'suggest_book_item.dart';
+import 'package:user_library/widgets/book/book_item_suggestion.dart';
 
 class SuggestBookSection extends StatefulWidget {
   SuggestBookSection();
@@ -60,10 +60,10 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    SuggestBookItem(),
-                    SuggestBookItem(),
-                    SuggestBookItem(),
-                    SuggestBookItem(),
+                    BookItemSuggestion(),
+                    BookItemSuggestion(),
+                    BookItemSuggestion(),
+                    BookItemSuggestion(),
                   ],
                 )),
           ],

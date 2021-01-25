@@ -1,6 +1,6 @@
-import 'package:user_library/dto/BookDTO.dart';
+import 'package:user_library/models/book.dart';
 
 class BookState {
-  final List<BookDTO> books;
+  final List<Book> books;
   BookState({this.books});
 }

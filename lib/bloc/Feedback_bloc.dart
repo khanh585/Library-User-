@@ -24,7 +24,7 @@ class FeedbackBloc {
         Map result = {};
         int rating = event.rating;
         int bookGroupID = event.bookGroupID;
-        result = await FeedbackDAO().fetchFeedback(bookGroupID, rating);
+        //result = await FeedbackDAO().fetchFeedback(bookGroupID, rating);
         state = FeedbackState(
             feedbacks: result['list'],
             total: result['total'],

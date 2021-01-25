@@ -13,18 +13,13 @@ class MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: PageView(
         controller: pageController,
         physics: new NeverScrollableScrollPhysics(),
         allowImplicitScrolling: false,
         children: [
           HomeScreen(),
-          Container(
-            child: Text("asdasd"),
-          ),
-          Container(
-            child: Text("213123"),
-          ),
         ],
       ),
       bottomNavigationBar: BottomBar(handelPageView: handelPageView),

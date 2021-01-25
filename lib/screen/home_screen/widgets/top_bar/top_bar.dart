@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/widgets/checkin/scanner.dart';
 
 import 'navigation_item.dart';
 
@@ -27,7 +28,10 @@ class TopBar extends StatelessWidget {
           FlatButton(
             padding: EdgeInsets.all(0),
             onPressed: () {
-              print('QR');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Scanner_Screen()),
+              );
             },
             child: NavigationItem(
               icon: Icons.qr_code_outlined,

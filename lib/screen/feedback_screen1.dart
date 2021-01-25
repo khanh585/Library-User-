@@ -4,10 +4,10 @@ import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/event/Feedback_event.dart';
 import 'package:user_library/state/Feedback_state.dart';
 import 'package:user_library/widgets/app_bar_custom.dart';
-import 'package:user_library/widgets/feedback/popupFeedback.dart';
-import 'package:user_library/widgets/feedback/text_field_feedback.dart';
-import 'package:user_library/widgets/feedback/total_feedback.dart';
-import 'package:user_library/widgets/feedback/view_all_feedback.dart';
+import 'package:user_library/screen/feed_back_screen/widgets/popupFeedback.dart';
+import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
+import 'package:user_library/screen/feed_back_screen/widgets/statistic_feedback.dart';
+import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
 
 class Feedback_Screen extends StatefulWidget {
   Feedback_Screen({Key key}) : super(key: key);
@@ -26,7 +26,6 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
   }
 
   void refreshRating() {
-    print(123123);
     feedback_bloc.eventController.sink
         .add(FetchFeedbackEvent(bookGroupID: 1, rating: -1));
   }
@@ -69,11 +68,11 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
                       ),
 
                       // BookInfo(),
-                      TotalFeedback(
-                        refresh: refreshRating,
-                        total: snapshot.data.total,
-                        feedbacks: snapshot.data.typeFeedbacks,
-                      ),
+                      // TotalFeedback(
+                      //   refresh: refreshRating,
+                      //   total: snapshot.data.total,
+                      //   feedbacks: snapshot.data.typeFeedbacks,
+                      // ),
                       Divider(
                         color: Colors.black,
                         height: 50,
@@ -104,9 +103,9 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
                         ),
                       ),
 
-                      ViewAllFeedback(
-                        listData: snapshot.data.feedbacks,
-                      ),
+                      // ViewAllFeedback(
+                      //   listData: snapshot.data.feedbacks,
+                      // ),
                       SizedBox(
                         height: 100,
                       ),

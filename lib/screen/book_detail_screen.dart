@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/bloc/Feedback_bloc.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
-import 'package:user_library/dto/BookDTO.dart';
 import 'package:user_library/dto/FeedbackDTO.dart';
-import 'package:user_library/screen/feedback_screen.dart';
+import 'package:user_library/models/book.dart';
+import 'package:user_library/screen/feed_back_screen/feedback_screen.dart';
 import 'package:user_library/widgets/app_bar_custom.dart';
 import 'package:user_library/widgets/feedback/view_all_feedback.dart';
 import 'package:user_library/widgets/list_category_button.dart';
@@ -12,7 +11,7 @@ import 'book_detail_screen_copy.dart';
 
 class BookDetail_Screen extends StatefulWidget {
   const BookDetail_Screen({Key key, this.book}) : super(key: key);
-  final BookDTO book;
+  final Book book;
   @override
   _BookDetail_ScreenState createState() => _BookDetail_ScreenState();
 }
@@ -28,25 +27,12 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
   }
 
   void subFeedback() async {
-    Map data = await FeedbackDAO().fetchFeedback(this.widget.book.id, -1);
+    List data = await FeedbackDAO().fetchFeedback(this.widget.book.id, 1, 4);
     if (data == null) {
       return;
     }
-    data['list'].forEach((FeedbackDTO element) {
-      rating += element.rating;
-    });
-    rating = rating / data['list'].length;
-    int le = 2;
-    if (le > data['list'].length) {
-      le = data['list'].length;
-    }
-    for (int i = 0; i < le; i++) {
-      listFeedbacks.add(data['list'][i]);
-    }
-
     setState(() {
-      rating = rating;
-      listFeedbacks = listFeedbacks;
+      listFeedbacks = data[0];
     });
   }
 
@@ -165,34 +151,6 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                             ),
                           ),
                         ),
-                        //   Container(height: 40, width: 1, color: Colors.grey),
-                        //   Container(
-                        //     padding: EdgeInsets.only(left: 30, right: 30),
-                        //     child: SizedBox(
-                        //       child: Column(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           Text(
-                        //             'Eng',
-                        //             style: TextStyle(
-                        //                 color: Colors.white,
-                        //                 fontSize: 22,
-                        //                 fontWeight: FontWeight.w600),
-                        //           ),
-                        //           SizedBox(
-                        //             height: 5,
-                        //           ),
-                        //           Text(
-                        //             'Language',
-                        //             style: TextStyle(
-                        //                 color: Colors.white,
-                        //                 fontSize: 14,
-                        //                 fontWeight: FontWeight.w400),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   )
                       ],
                     ),
                   )
@@ -297,7 +255,9 @@ class _BookDetail_ScreenState extends State<BookDetail_Screen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Feedback_Screen()));
+                                  builder: (context) => FeedbackScreen(
+                                        book: this.widget.book,
+                                      )));
                         },
                         child: Container(
                           child: Row(
