@@ -1,4 +1,4 @@
-import 'package:user_library/dto/ScheduleDTO.dart';
+import 'package:user_library/models/schedule.dart';
 
 abstract class ScheduleEvent {}
 

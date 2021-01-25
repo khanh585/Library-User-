@@ -1,5 +1,9 @@
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/login_screen/login_screen.dart';
+import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
+import 'package:user_library/screen/shedule_screen/schedule_borrow_book_screen.dart';
+import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_screen.dart';
+import 'package:user_library/screen/wish_list_screen.dart';
 import 'package:user_library/service/Authenticate.dart';
 
 import 'package:flutter/material.dart';
@@ -36,12 +40,12 @@ class MyAppState extends State<MyApp> {
               initialData: authenticateBloc.state,
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.data.currentUser != null) {
-                    return MainLayout();
+                  if (snapshot.data.currentUser == null) {
+                    return MainProfileScreen();
                   } else {
                     return Login_Screen(handelLogin: this.handelLogin);
                   }
-                }
+                } 
                 return Text("Error");
               })),
       theme: ThemeData(

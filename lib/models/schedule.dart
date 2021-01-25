@@ -1,31 +1,34 @@
 import 'package:user_library/dto/CategoryDTO.dart';
 
-class ScheduleDTO {
+class Schedule {
   int id;
   String customerName;
   DateTime startTime;
   DateTime endTime;
+  String image;
   int quantity;
   double total;
 
-  ScheduleDTO(
+  Schedule(
       {this.id,
       this.customerName,
       this.startTime,
       this.endTime,
       this.quantity,
+      this.image,
       this.total});
 
-  ScheduleDTO.feedbackID(
-      {this.id,this.customerName, this.startTime, this.endTime, this.quantity,this.total});
+  Schedule.feedbackID(
+      {this.id,this.customerName, this.startTime, this.endTime, this.quantity, this.image,this.total});
 
-  factory ScheduleDTO.fromJson(Map<String, dynamic> json) {
-    return ScheduleDTO(
+  factory Schedule.fromJson(Map<String, dynamic> json) {
+    return Schedule(
       id: json['id'],
       customerName: json['customerName'],
       startTime: DateTime.parse(json['startTime']),
       endTime: DateTime.parse(json['endTime']),
       quantity: json['quantity'],
+      image: json['image'],
       total: json['total'],
     );
   }
@@ -37,6 +40,7 @@ class ScheduleDTO {
         'startTime': startTime,
         'returnTime': endTime,
         'quantity': quantity,
+        'image': image,
         'total' : total
       };
 }
