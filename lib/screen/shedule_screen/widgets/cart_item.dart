@@ -1,96 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:user_library/dto/ScheduleDTO.dart';
 
-class Schedule_Borrow_Book_Screen extends StatefulWidget {
-  Schedule_Borrow_Book_Screen({Key key}) : super(key: key);
-
+class ViewAllSchedule extends StatefulWidget {
+  final List schedules;
+  const ViewAllSchedule({
+    this.schedules,
+  });
   @override
-  _Schedule_Borrow_Book_ScreenState createState() =>
-      _Schedule_Borrow_Book_ScreenState();
+  _ViewAllScheduleState createState() => _ViewAllScheduleState();
 }
 
-class _Schedule_Borrow_Book_ScreenState
-    extends State<Schedule_Borrow_Book_Screen> {
-  final txtSearch = TextEditingController();
+class _ViewAllScheduleState extends State<ViewAllSchedule> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: this.widget.schedules == null
+          ? null
+          : SingleChildScrollView(
+            child: Column(
+              children: [
+                for (ScheduleDTO dto in this.widget.schedules.reversed)
+                  CartItem(
+                    dto: dto,
+                  ),
+              ],
+            ),
+          )         
+    );
+  }
+}
+class CartItem extends StatelessWidget {
+  final ScheduleDTO dto;
+  const CartItem({
+    Key key,
+    this.dto,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double wi = MediaQuery.of(context).size.width;
     double he = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Schedule',
-          style: TextStyle(color: Colors.black87, fontSize: 28),
-        ),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              print('cancel');
-            },
-            child: Icon(
-              Icons.delete_forever,
-              color: Color(0xFF545D68),
-              size: 30,
-            ),
-          ),
-        ],
-        backgroundColor: Colors.purple,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Color(0xFF545D68),
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-            color: Color.fromRGBO(246, 246, 246, 1)),
-        height: he,
-        width: wi,
-        child: Column(
-          children: [
-            Container(
-                height: he - 143,
-                margin: EdgeInsets.only(top: 5),
-                child: ListView(
-                  children: [
-                    Column(
-                      children: [
-                        CartItem(wi: wi),
-                        CartItem(wi: wi),
-                        CartItem(wi: wi),
-                        CartItem(wi: wi),
-                        CartItem(wi: wi),
-                      ],
-                    ),
-                  ],
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CartItem extends StatelessWidget {
-  const CartItem({
-    Key key,
-    @required this.wi,
-  }) : super(key: key);
-
-  final double wi;
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 15, left: 15, right: 15),
         width: wi - 15 * 2,
@@ -113,7 +68,7 @@ class CartItem extends StatelessWidget {
                         height: 30,
                       ),
                       Text(
-                        'Name of customer',
+                        this.dto.customerName,
                         style: TextStyle(
                             color: Color.fromRGBO(75, 81, 136, 1),
                             fontSize: 22,
@@ -122,7 +77,7 @@ class CartItem extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('Quantity: 5',
+                      Text(this.dto.quantity.toString(),
                           style: TextStyle(
                               color: Color.fromRGBO(80, 80, 170, 1),
                               fontSize: 20,
@@ -190,34 +145,34 @@ class CartItem extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 50,
-                  width: 130,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: FlatButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => SearchBook_Screen(
-                      //               catID: catID,
-                      //             )));
-                    },
-                    minWidth: 130,
-                    height: 53,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30),
+                      height: 50,
+                      width: 130,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                          color: Colors.purple,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: FlatButton(
+                        onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => SearchBook_Screen(
+                          //               catID: catID,
+                          //             )));
+                        },
+                        minWidth: 130,
+                        height: 53,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          'See Details',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      'See Details',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
               ],
             ),
           ],
