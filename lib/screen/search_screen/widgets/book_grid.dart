@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:user_library/models/book.dart';
-import 'package:user_library/widget/animation/fade_side_up.dart';
+
+import 'package:user_library/widgets/animation/fade_side_up.dart';
 
 import 'package:user_library/widgets/book/book_item_grid.dart';
 

@@ -2,21 +2,22 @@ import 'package:http/http.dart' as http;
 import 'package:stack/stack.dart';
 import 'dart:convert';
 import 'package:user_library/config.dart';
+import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/schedule.dart';
 
-class ScheduleDAO {
-  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'BorrowBook';
+class BorrowDetailDAO {
+  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'BorrowDetail';
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<List<Schedule>> fetchSchedule() async {
+  Future<List<BorrowDetail>> fetchBorrowDetail(int borrowId) async {
     print("Noasasst 200");
-    List<Schedule> list;
+    List<BorrowDetail> list;
     if (list == null) {
       list = new List();
     }
     String url =
-        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}';
+        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&BorrowId=${borrowId}';
         print(url.toString());
     var response = await http.get(url);
 
@@ -26,7 +27,7 @@ class ScheduleDAO {
       print(json.toString());
       List cats = json['data'];
       cats.forEach((element) {
-        Schedule dto = Schedule.fromJson(element);
+        BorrowDetail dto = BorrowDetail.fromJson(element);
         list.add(dto);
       });
       return list;
@@ -35,7 +36,7 @@ class ScheduleDAO {
     }
   }
 
-  Future<Schedule> sentFeedback(Schedule dto) async {
+  Future<BorrowDetail> sentFeedback(BorrowDetail dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
 
     String body = json.encode(dto.toJson());
@@ -44,7 +45,7 @@ class ScheduleDAO {
 
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      Schedule dto = Schedule.fromJson(json['data']);
+      BorrowDetail dto = BorrowDetail.fromJson(json['data']);
       return dto;
     } else {
       throw Exception('Failed');

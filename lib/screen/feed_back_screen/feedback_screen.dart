@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:user_library/dto/FeedbackDTO.dart';
 import 'package:user_library/models/book.dart';
+import 'package:user_library/models/feedback.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen_event.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen_state.dart';
 import 'package:user_library/widgets/app_bar_custom.dart';
-import 'package:user_library/widgets/feedback/BookInfo.dart';
+
 import 'package:user_library/screen/feed_back_screen/widgets/popupFeedback.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/statistic_feedback.dart';
@@ -28,7 +28,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   void initState() {
     feedbackScreenBloc.eventController.sink
-        .add(FetchFeedback(bookId: widget.book.id, page: 1));
+        .add(FetchFeedback(bookId: widget.book.id, page: 1, pageSize: 10));
   }
 
   void refreshRating() {
@@ -37,7 +37,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     //     .add(FetchFeedbackEvent(bookGroupID: 1, rating: -1));
   }
 
-  void sendFeedback(FeedbackDTO dto) {
+  void sendFeedback(Feedback dto) {
     //feedback_bloc.eventController.sink.add(SentFeedbackEvent(dto));
   }
 

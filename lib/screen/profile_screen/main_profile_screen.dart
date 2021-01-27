@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/widget/animation/fade_side_up.dart';
-import 'package:user_library/widget/loading_circle.dart';
+
+import 'package:user_library/widgets/animation/fade_side_up.dart';
+import 'package:user_library/widgets/loading_circle.dart';
 
 import 'main_profile_bloc.dart';
 import 'main_profile_event.dart';
@@ -29,12 +30,10 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double he = MediaQuery.of(context).size.height;
-    double wi = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        height: he,
-        width: wi,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: ListView(
           children: [
             StreamBuilder<MainProfileState>(

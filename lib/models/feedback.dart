@@ -26,4 +26,7 @@ class Feedback {
         "rating": rating,
         "customerId": customerId,
       };
+
+  static Feedback feedbackID(
+      {int bookGroupID, String content, int rating, customerID}) {}
 }

@@ -1,43 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:user_library/dto/ScheduleDTO.dart';
+import 'package:user_library/models/borrow_detail.dart';
+import 'package:user_library/models/schedule.dart';
+import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_screen.dart';
 
-class ViewAllSchedule extends StatefulWidget {
-  final List schedules;
-  const ViewAllSchedule({
-    this.schedules,
-  });
-  @override
-  _ViewAllScheduleState createState() => _ViewAllScheduleState();
-}
-
-class _ViewAllScheduleState extends State<ViewAllSchedule> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: this.widget.schedules == null
-          ? null
-          : SingleChildScrollView(
-            child: Column(
-              children: [
-                for (ScheduleDTO dto in this.widget.schedules.reversed)
-                  CartItem(
-                    dto: dto,
-                  ),
-              ],
-            ),
-          )         
-    );
-  }
-}
 class CartItem extends StatelessWidget {
-  final ScheduleDTO dto;
+  final Schedule dto;
   const CartItem({
     Key key,
     this.dto,
@@ -46,6 +16,7 @@ class CartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double wi = MediaQuery.of(context).size.width;
     double he = MediaQuery.of(context).size.height;
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
     return Container(
         margin: EdgeInsets.only(top: 15, left: 15, right: 15),
         width: wi - 15 * 2,
@@ -77,7 +48,7 @@ class CartItem extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(this.dto.quantity.toString(),
+                      Text('Quantity: ' + this.dto.quantity.toString(),
                           style: TextStyle(
                               color: Color.fromRGBO(80, 80, 170, 1),
                               fontSize: 20,
@@ -86,7 +57,7 @@ class CartItem extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        'Borrow Date : 22-01-2020',
+                        'Start Date: ' + formatter.format(this.dto.startTime).toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(80, 80, 170, 1),
                             fontSize: 17,
@@ -96,7 +67,7 @@ class CartItem extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        'Return Date : 29-01-2020',
+                        'End Date: ' + formatter.format(this.dto.endTime).toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(80, 80, 170, 1),
                             fontSize: 17,
@@ -106,11 +77,11 @@ class CartItem extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 80,
+                  width: 140,
                   margin:
                       EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
-                  child: Image.asset(
-                    'images/tinydragon.jpg',
+                  child: Image.network(
+                      this.dto.image,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -135,7 +106,7 @@ class CartItem extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        ' \$${1232}',
+                        this.dto.total.toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(18, 20, 37, 1),
                             fontSize: 22,
@@ -154,12 +125,12 @@ class CartItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                       child: FlatButton(
                         onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => SearchBook_Screen(
-                          //               catID: catID,
-                          //             )));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Borrow_Detail_Screen(
+                                        borrowId: this.dto.id,
+                                      )));
                         },
                         minWidth: 130,
                         height: 53,

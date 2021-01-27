@@ -18,8 +18,8 @@ class FeedbackScreenBloc implements Bloc {
   FeedbackScreenBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchFeedback) {
-        List response =
-            await FeedbackDAO().fetchFeedback(event.bookId, event.page);
+        List response = await FeedbackDAO()
+            .fetchFeedback(event.bookId, event.page, event.pageSize);
         List<Feedback> listFeedbacks = response[0];
         int total = response[1];
 

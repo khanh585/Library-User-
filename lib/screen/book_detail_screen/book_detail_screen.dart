@@ -3,13 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user_library/models/book.dart';
-<<<<<<< Updated upstream
-import 'package:user_library/screen/feed_back_screen/feedback_screen.dart';
-import 'package:user_library/screen/feedback_screen.dart';
-import 'package:user_library/widgets/add_tocart_bar.dart';
-=======
-import 'package:user_library/widget/animation/fade_side_up.dart';
->>>>>>> Stashed changes
+import 'package:user_library/widgets/animation/fade_side_up.dart';
+
 import 'package:user_library/widgets/app_bar_custom.dart';
 import 'package:user_library/widgets/description_handel.dart';
 import 'package:user_library/screen/book_detail_screen/widgets/list_categories.dart';
@@ -220,28 +215,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               ),
             ],
           ),
-<<<<<<< Updated upstream
-
-          AddToCartButton(),
-          // Appbar
-          AppBarCustom(
-            // background: Colors.white,
-            back: Icon(
-              Icons.arrow_back_ios_outlined,
-              color: Colors.white,
-            ),
-            title: Text(
-              "Book Detail",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16),
-            ),
-          ),
-        ],
-=======
         ),
->>>>>>> Stashed changes
       ),
     );
   }

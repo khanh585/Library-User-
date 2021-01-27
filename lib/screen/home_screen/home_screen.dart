@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:user_library/screen/home_screen/widgets/navigation_bar/navigation_bar.dart';
 import 'package:user_library/screen/home_screen/widgets/suggest_book_item/suggest_book_section.dart';
-import 'package:user_library/widget/animation/fade_side_in.dart';
-import 'package:user_library/widget/animation/fade_side_up.dart';
+import 'package:user_library/widgets/animation/fade_side_up.dart';
+
 import 'widgets/tab_view_books/tab_view_books.dart';
 
 class HomeScreen extends StatefulWidget {

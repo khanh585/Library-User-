@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:user_library/screen/notification_screen/notification_screen.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class NavigationBar extends StatefulWidget {
@@ -11,7 +12,6 @@ class NavigationBar extends StatefulWidget {
 class NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
-    print("RENDER");
     return Container(
         padding: EdgeInsets.fromLTRB(20, 30, 20, 15),
         child: Row(children: [
@@ -64,12 +64,14 @@ class NavigationBarState extends State<NavigationBar> {
                     width: 35,
                     height: 35,
                     child: IconButton(
-                      icon: Icon(
-                        Icons.shopping_bag_outlined,
-                        size: 20,
-                      ),
-                      onPressed: () {},
-                    ),
+                        icon: Icon(
+                          Icons.notifications_none,
+                          size: 20,
+                        ),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationScreen()))),
                   ),
                 ],
               ),

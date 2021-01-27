@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
-import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_screen.dart';
-import 'package:user_library/screen/view_detail_borrow_book/widgets/view_all_borrow_detail.dart';
 import 'package:user_library/widgets/bottombar.dart';
 import 'package:user_library/widgets/checkin/scanner.dart';
+
+import '../notification_screen/notification_screen.dart';
 
 class MainLayout extends StatefulWidget {
   @override
@@ -17,27 +17,37 @@ class MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBody: true,
       body: PageView(
         controller: pageController,
         physics: new NeverScrollableScrollPhysics(),
         allowImplicitScrolling: false,
         children: [
           HomeScreen(),
-<<<<<<< Updated upstream
-          Container(
-            child: Text("asdasd"),
-          ),
-          Container(
-            child: Text("213123"),
-          ),
-=======
           MainProfileScreen(),
-          Borrow_Detail_Screen(),
-          Scanner_Screen()
->>>>>>> Stashed changes
+          Scanner_Screen(),
         ],
       ),
-      bottomNavigationBar: BottomBar(handelPageView: handelPageView),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        width: 60,
+        height: 60,
+        child: FloatingActionButton(
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Scanner_Screen())),
+          backgroundColor: Colors.blueGrey,
+          child: Icon(
+            Icons.qr_code,
+            size: 28,
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 5,
+        color: Colors.blueGrey,
+        child: BottomBar(handelPageView: handelPageView),
+      ),
     );
   }
 

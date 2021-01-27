@@ -39,4 +39,23 @@ class Book {
         'id': id,
         'name': name,
       };
+
+  factory Book.fromMap(Map<String, dynamic> map) {
+    return Book(
+        id: map['id'],
+        name: map['name'],
+        author: map['author'],
+        image: [map['image']]);
+  }
+
+  Map<String, dynamic> toMap() {
+    final map = Map<String, dynamic>();
+    map['id'] = id;
+    map['title'] = name;
+    map['status'] = author;
+    if (image.length != 0) {
+      map['image'] = image[0];
+    }
+    return map;
+  }
 }

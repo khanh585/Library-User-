@@ -2,10 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
-import 'package:user_library/widget/animation/fade_side_in.dart';
+import 'package:user_library/widgets/animation/fade_side_in.dart';
 
 class BodyProfile extends StatelessWidget {
   final Customer customer;

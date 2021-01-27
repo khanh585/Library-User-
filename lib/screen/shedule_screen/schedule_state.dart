@@ -1,7 +1,7 @@
-import 'package:user_library/dto/ScheduleDTO.dart';
+import 'package:user_library/models/schedule.dart';
 
 class ScheduleState {
-  List<ScheduleDTO> schedules;
+  List<Schedule> schedules;
   ScheduleState({
     this.schedules
   });

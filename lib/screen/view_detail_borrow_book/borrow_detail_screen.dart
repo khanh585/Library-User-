@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/screen/shedule_screen/schedule_bloc.dart';
-import 'package:user_library/screen/shedule_screen/schedule_event.dart';
-import 'package:user_library/screen/shedule_screen/schedule_state.dart';
-import 'package:user_library/screen/shedule_screen/widgets/cart_item.dart';
+import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_bloc.dart';
+import 'package:user_library/screen/view_detail_borrow_book/borrow_detail_event.dart';
 
-import 'widgets/view_all_schedule.dart';
+import 'borrow_detail_state.dart';
+import 'widgets/view_all_borrow_detail.dart';
 
-class Schedule_Borrow_Book_Screen extends StatefulWidget {
-  Schedule_Borrow_Book_Screen({Key key}) : super(key: key);
+
+class Borrow_Detail_Screen extends StatefulWidget {
+  final int borrowId;
+  Borrow_Detail_Screen({Key key, this.borrowId}) : super(key: key);
 
   @override
-  _Schedule_Borrow_Book_ScreenState createState() =>
-      _Schedule_Borrow_Book_ScreenState();
+  _Borrow_Detail_ScreenState createState() =>
+      _Borrow_Detail_ScreenState();
 }
 
-class _Schedule_Borrow_Book_ScreenState
-    extends State<Schedule_Borrow_Book_Screen> {
+class _Borrow_Detail_ScreenState
+    extends State<Borrow_Detail_Screen> {
   final txtSearch = TextEditingController();
 
-  final schedule_bloc = ScheduleBloc();
+  final borrow_detail_bloc = BorrowDetailBloc();
   @override
   void initState() {
     super.initState();
-    schedule_bloc.eventController.sink.add(FetchScheduleEvent());
+    borrow_detail_bloc.eventController.sink.add(FetchBorrowDetailEvent(this.widget.borrowId));
   }
 
   @override
@@ -32,7 +33,7 @@ class _Schedule_Borrow_Book_ScreenState
     return Scaffold(
       appBar: AppBar(      
         title: Text(
-          'Schedule',
+          'Borrow Detail',
           style: TextStyle(color: Colors.black87, fontSize: 28),
         ),
         centerTitle: true,
@@ -74,13 +75,13 @@ class _Schedule_Borrow_Book_ScreenState
             Container(
                 height: he - 143,
                 margin: EdgeInsets.only(top: 5),
-                child: StreamBuilder<ScheduleState>(
-                  stream: schedule_bloc.stateController.stream,
-                  initialData: schedule_bloc.state,
+                child: StreamBuilder<BorrowDetailState>(
+                  stream: borrow_detail_bloc.stateController.stream,
+                  initialData: borrow_detail_bloc.state,
                   builder: (context, snapshot){
                     if(snapshot.hasError) return Text("Error");
-                    return ViewAllSchedule(
-                      schedules: snapshot.data.schedules,
+                    return ViewAllBorrowDetail(
+                      borrowDetails: snapshot.data.borrowDetails,
                     );
                   }
                 )),

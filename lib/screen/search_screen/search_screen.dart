@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/bloc/book_bloc.dart';
-import 'package:user_library/bloc/category_bloc.dart';
 
-import 'package:user_library/dto/CategoryDTO.dart';
-import 'package:user_library/event/book_event.dart';
 import 'package:user_library/models/category.dart';
 import 'package:user_library/screen/search_screen/search_screen_event.dart';
 import 'package:user_library/screen/search_screen/search_screen_state.dart';
 import 'package:user_library/screen/search_screen/widgets/book_grid.dart';
 
 import 'package:user_library/screen/search_screen/widgets/category_bar.dart';
-import 'package:user_library/widget/animation/fade_side_in.dart';
-import 'package:user_library/widget/animation/fade_side_up.dart';
+import 'package:user_library/widgets/animation/fade_side_up.dart';
+
 import 'package:user_library/widgets/loading_circle.dart';
 import 'package:user_library/screen/search_screen/widgets/search_bar.dart';
 import 'search_screen_bloc.dart';

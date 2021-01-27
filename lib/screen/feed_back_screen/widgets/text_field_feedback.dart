@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user_library/context.dart';
-import 'package:user_library/dto/FeedbackDTO.dart';
+
+import 'package:user_library/models/feedback.dart';
 
 class TextFieldFeedback extends StatefulWidget {
   const TextFieldFeedback({
@@ -11,7 +12,7 @@ class TextFieldFeedback extends StatefulWidget {
     this.bookGroupID,
   }) : super(key: key);
   final int bookGroupID;
-  final Function(FeedbackDTO) onSendMessage;
+  final Function(Feedback) onSendMessage;
 
   @override
   _TextFieldFeedbackState createState() => _TextFieldFeedbackState();
@@ -39,8 +40,8 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
     return true;
   }
 
-  FeedbackDTO createFeedback(int rate, String content) {
-    return FeedbackDTO.feedbackID(
+  Feedback createFeedback(int rate, String content) {
+    return Feedback.feedbackID(
       bookGroupID: this.widget.bookGroupID,
       content: content,
       rating: rate,
