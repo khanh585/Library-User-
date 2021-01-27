@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/screen/search_book_screen.dart';
+
 import 'package:user_library/widget/popup.dart';
 
 class SearchBar extends StatefulWidget {
@@ -118,24 +118,6 @@ class _SearchBarState extends State<SearchBar> {
                       ))),
             ],
           ),
-          widget.atHomePage
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SearchBook_Screen(
-                                catID: -1,
-                              )),
-                    );
-                  },
-                  child: Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.white.withOpacity(0),
-                  ),
-                )
-              : SizedBox(),
         ],
       ),
     );

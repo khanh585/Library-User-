@@ -14,7 +14,7 @@ class AuthenticateBloc implements Bloc {
   final eventController = StreamController<AuthenticateEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
-  final stateController = StreamController<AuthenticateState>();
+  final stateController = StreamController<AuthenticateState>.broadcast();
 
   AuthenticateBloc() {
     eventController.stream.listen((event) async {

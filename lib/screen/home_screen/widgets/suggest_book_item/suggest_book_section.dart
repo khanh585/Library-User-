@@ -9,64 +9,66 @@ class SuggestBookSection extends StatefulWidget {
 
 class SuggestBookSectionState extends State<SuggestBookSection> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(top: 20, left: 30, bottom: 20),
-        child: Column(
-          children: [
-            Container(
-                alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(bottom: 15),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(bottom: 6),
-                            child: Text(
-                              'Suggest for you',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                          Text(
-                            'Discover your mind !',
+      child: Column(
+        children: [
+          Container(
+              padding: EdgeInsets.only(left: 25, right: 0),
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(bottom: 20, top: 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
+                            'Suggest for you',
                             style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 12,
-                                color: Colors.black54),
-                          )
-                        ],
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "See All",
+                        style: TextStyle(fontSize: 13, color: Colors.black45),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "See All",
-                          style: TextStyle(fontSize: 16, color: Colors.black45),
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-            Container(
-                alignment: Alignment.topLeft,
-                height: 230,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    BookItemSuggestion(),
-                    BookItemSuggestion(),
-                    BookItemSuggestion(),
-                    BookItemSuggestion(),
-                  ],
-                )),
-          ],
-        ));
+                  )
+                ],
+              )),
+          Container(
+              height: 240,
+              alignment: Alignment.center,
+              child: ListView(
+                padding: EdgeInsets.only(left: 25, right: 25),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
+                ],
+              )),
+        ],
+      ),
+    );
   }
 }

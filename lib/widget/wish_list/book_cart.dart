@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:user_library/widget/wish_list/slidable_widget.dart';
-import 'package:user_library/widget/utils.dart';
 
 class BookCart extends StatefulWidget {
   final void Function() refresh;
@@ -165,12 +164,6 @@ class _BookCartState extends State<BookCart> {
     setState(() {
       //
     });
-
-    switch (action) {
-      case SlidableAction.delete:
-        Utils.showSnackBar(context, 'Chat has been deleted');
-        break;
-    }
   }
 }
 

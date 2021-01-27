@@ -16,15 +16,17 @@ class ListCategories extends StatefulWidget {
 class ListCategoriesState extends State<ListCategories> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        for (Category cat in this.widget.categoies)
-          CategoryItem(
-            text: cat.name,
-            catID: cat.id,
-          ),
-      ],
+    return Center(
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: [
+          for (Category cat in this.widget.categoies)
+            CategoryItem(
+              text: cat.name,
+              catID: cat.id,
+            ),
+        ],
+      ),
     );
   }
 }

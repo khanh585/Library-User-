@@ -11,17 +11,15 @@ class TopBar extends StatelessWidget {
       height: 55,
       margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 15),
       padding: EdgeInsets.only(right: 10, left: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: Offset(1, 0),
-            )
-          ]),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 3,
+          blurRadius: 5,
+          offset: Offset(1, 0),
+        )
+      ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

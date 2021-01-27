@@ -18,7 +18,6 @@ class AppBarCustom extends StatelessWidget {
       color: background == null ? Colors.white.withOpacity(0) : this.background,
       width: MediaQuery.of(context).size.width,
       height: 50,
-      padding: EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

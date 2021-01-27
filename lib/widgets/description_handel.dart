@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class DescriptionHandel extends StatefulWidget {
@@ -36,13 +38,16 @@ class DescriptionHandelState extends State<DescriptionHandel> {
           ? new Text(firstHalf)
           : new Column(
               children: <Widget>[
-                new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf)),
+                new Text(
+                  flag ? (firstHalf + "...") : (firstHalf + secondHalf),
+                  style: TextStyle(height: 1.8, fontSize: 14),
+                ),
                 new InkWell(
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       new Text(
-                        flag ? "show more" : "show less",
+                        flag ? "Show more" : "Show less",
                         style: new TextStyle(color: Colors.blue),
                       ),
                     ],

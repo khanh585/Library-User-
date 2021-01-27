@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../book_detail_screen.dart';
-
 class ItemBookBottom extends StatelessWidget {
   const ItemBookBottom({
     Key key,
@@ -11,10 +9,10 @@ class ItemBookBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BookDetail_Screen()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ()),
+        // );
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),

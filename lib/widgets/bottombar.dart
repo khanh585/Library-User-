@@ -9,16 +9,17 @@ class BottomBar extends StatefulWidget {
 }
 
 class BottomBarState extends State<BottomBar> {
+  final Color buttonColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
+      height: 60,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
         ),
-        color: Colors.white,
+        color: Color.fromRGBO(0, 0, 0, .6),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,8 +33,8 @@ class BottomBarState extends State<BottomBar> {
                     widget.handelPageView(0);
                   },
                   child: Icon(
-                    Icons.home_outlined,
-                    color: Colors.grey,
+                    Icons.menu_book_outlined,
+                    color: buttonColor,
                     size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
@@ -52,8 +53,8 @@ class BottomBarState extends State<BottomBar> {
                   },
                   child: Icon(
                     Icons.book_outlined,
-                    color: Colors.grey,
-                    size: 24,
+                    color: buttonColor,
+                    size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
@@ -71,7 +72,7 @@ class BottomBarState extends State<BottomBar> {
                   },
                   child: Icon(
                     Icons.shopping_basket_outlined,
-                    color: Colors.grey,
+                    color: buttonColor,
                     size: 26,
                   ),
                   shape: new RoundedRectangleBorder(
@@ -90,7 +91,7 @@ class BottomBarState extends State<BottomBar> {
                   },
                   child: Icon(
                     Icons.more_horiz_outlined,
-                    color: Colors.grey,
+                    color: buttonColor,
                     size: 26,
                   ),
                   shape: new RoundedRectangleBorder(

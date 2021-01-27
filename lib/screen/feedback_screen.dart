@@ -55,7 +55,11 @@ class _Feedback_ScreenState extends State<Feedback_Screen> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       body: Stack(
+<<<<<<< Updated upstream
         children: [ 
+=======
+        children: [
+>>>>>>> Stashed changes
           SingleChildScrollView(
             child: StreamBuilder<FeedbackState>(
                 stream: feedback_bloc.stateController.stream,

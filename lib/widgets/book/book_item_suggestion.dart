@@ -22,23 +22,39 @@ class BookItemSuggestion extends StatelessWidget {
         // );
       },
       child: Container(
-        margin: EdgeInsets.only(right: 15),
+        margin: EdgeInsets.only(right: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: 120,
-              height: 180,
-              margin: EdgeInsets.only(bottom: 10),
-              child: Image.asset(
-                'images/book.jpg',
-                fit: BoxFit.cover,
-                alignment: Alignment.centerLeft,
-              ),
+                width: 120,
+                height: 180,
+                margin: EdgeInsets.only(bottom: 13),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(5, 8), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    'images/book2.jpg',
+                    fit: BoxFit.cover,
+                    alignment: Alignment.centerLeft,
+                  ),
+                )),
+            Text(
+              'Book Name',
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Container(
-                margin: EdgeInsets.only(bottom: 5),
+                margin: EdgeInsets.only(top: 5),
                 child: Text(
                   'Author',
                   style: TextStyle(
@@ -46,10 +62,6 @@ class BookItemSuggestion extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.bold),
                 )),
-            Text(
-              'Book Name',
-              style: TextStyle(color: Colors.black, fontSize: 18),
-            ),
           ],
         ),
       ),
