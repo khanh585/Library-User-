@@ -32,9 +32,9 @@ class HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               SizedBox(height: 20),
-              FadeSideUp(2.0, NavigationBar()),
-              FadeSideUp(3.0, SuggestBookSection()),
-              FadeSideUp(4.0, TabViewBooks()),
+              FadeSideUp(1.0, NavigationBar()),
+              FadeSideUp(2.0, SuggestBookSection()),
+              FadeSideUp(3.0, TabViewBooks()),
             ],
           ),
         ));

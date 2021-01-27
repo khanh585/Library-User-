@@ -49,7 +49,10 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                           BodyProfile(customer: snapshot.data.mainProfile),
                         ]));
                   } else
-                    return Container(child: LoadingCircle(60, Colors.amber));
+                    return Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: LoadingCircle(60, Colors.amber));
                 }),
           ],
         ),

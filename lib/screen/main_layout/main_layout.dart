@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
+import 'package:user_library/screen/scanner_screen/scanner_screen.dart';
 import 'package:user_library/widgets/bottombar.dart';
-import 'package:user_library/widgets/checkin/scanner.dart';
 
-import '../notification_screen/notification_screen.dart';
+import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class MainLayout extends StatefulWidget {
   @override
@@ -24,8 +24,9 @@ class MainLayoutState extends State<MainLayout> {
         allowImplicitScrolling: false,
         children: [
           HomeScreen(),
+          Container(child: Text("asdasd")),
+          ScannerScreen(),
           MainProfileScreen(),
-          Scanner_Screen(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -33,11 +34,11 @@ class MainLayoutState extends State<MainLayout> {
         width: 60,
         height: 60,
         child: FloatingActionButton(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Scanner_Screen())),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchScreen())),
           backgroundColor: Colors.blueGrey,
           child: Icon(
-            Icons.qr_code,
+            Icons.search,
             size: 28,
           ),
         ),

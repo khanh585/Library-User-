@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:signalr_core/signalr_core.dart';
-import 'package:user_library/widgets/checkin/obj.dart';
+import 'package:user_library/models/message.dart';
+import 'package:flutter/material.dart';
 
 class Util {
   static final connection =
@@ -15,9 +16,10 @@ class Util {
           .then((value) {
         barcodeScanRes = value;
         if (connection != null) {
-          var obj = Obj(StaffId: 9, Wishlist: [1, 2, 3, 55, 99], CustomerId: 5);
+          var message =
+              Message(staffId: 9, wishlist: [1, 2, 3, 55, 99], customerId: 5);
           connection.start().then((value) async {
-            connection.invoke('SendMessage', args: <Object>[obj]);
+            connection.invoke('SendMessage', args: <Object>[message]);
           }).whenComplete(() => connection.stop());
         }
       });
@@ -26,4 +28,11 @@ class Util {
     }
     return barcodeScanRes;
   }
+
+  static void showSnackBar(BuildContext context, String message) =>
+      Scaffold.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(message)),
+        );
 }

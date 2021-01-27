@@ -5,7 +5,6 @@ class BookItemHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        decoration: BoxDecoration(),
         margin: EdgeInsets.only(bottom: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +35,6 @@ class BookItemHorizontal extends StatelessWidget {
               width: MediaQuery.of(context).size.width - 140,
               height: 120,
               margin: EdgeInsets.only(left: 10),
-              decoration: BoxDecoration(color: Colors.white),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

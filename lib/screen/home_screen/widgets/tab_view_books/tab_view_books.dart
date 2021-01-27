@@ -14,8 +14,10 @@ class TabViewBooksState extends State<TabViewBooks> {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 15, left: 25, right: 20),
-        margin: EdgeInsets.only(top: 35),
+        padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 65),
+        margin: EdgeInsets.only(
+          top: 35,
+        ),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [

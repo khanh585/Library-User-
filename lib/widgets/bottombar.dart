@@ -36,13 +36,13 @@ class BottomBarState extends State<BottomBar> {
                     widget.handelPageView(1);
                   },
                   child: Icon(
-                    Icons.book_outlined,
+                    Icons.shopping_basket_outlined,
                     color: buttonColor,
                     size: 24,
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
-                )
+                ),
               ],
             ),
           ),
@@ -55,7 +55,7 @@ class BottomBarState extends State<BottomBar> {
                     widget.handelPageView(2);
                   },
                   child: Icon(
-                    Icons.shopping_basket_outlined,
+                    Icons.qr_code_outlined,
                     color: buttonColor,
                     size: 24,
                   ),
@@ -67,7 +67,7 @@ class BottomBarState extends State<BottomBar> {
                     widget.handelPageView(3);
                   },
                   child: Icon(
-                    Icons.more_horiz_outlined,
+                    Icons.account_box_outlined,
                     color: buttonColor,
                     size: 24,
                   ),

@@ -34,7 +34,9 @@ class NavigationBarState extends State<NavigationBar> {
             flex: 8,
             child: Container(
               padding: EdgeInsets.only(left: 10),
-              child: Text("Nguyen Huynh Phu"),
+              child: Text(
+                "Nguyen Huynh Phu",
+              ),
             ),
           ),
           Expanded(
@@ -46,27 +48,27 @@ class NavigationBarState extends State<NavigationBar> {
                 runSpacing: 0,
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  Container(
-                    width: 35,
-                    height: 35,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        size: 20,
-                      ),
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SearchScreen())),
-                    ),
-                  ),
+                  // Container(
+                  //   width: 35,
+                  //   height: 35,
+                  //   child: IconButton(
+                  //     icon: Icon(
+                  //       Icons.search,
+                  //       size: 20,
+                  //     ),
+                  //     onPressed: () => Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => SearchScreen())),
+                  //   ),
+                  // ),
                   Container(
                     width: 35,
                     height: 35,
                     child: IconButton(
                         icon: Icon(
                           Icons.notifications_none,
-                          size: 20,
+                          size: 24,
                         ),
                         onPressed: () => Navigator.push(
                             context,
