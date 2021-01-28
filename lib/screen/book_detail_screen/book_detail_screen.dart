@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:user_library/helper/database_helper.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/widgets/animation/fade_side_up.dart';
 
@@ -194,21 +195,25 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                         ),
                       ),
                       FlatButton(
+                          onPressed: () {
+                            DatabaseHelper.instance
+                                .insertBook(this.widget.book);
+                          },
                           child: Container(
-                        height: 48,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.black,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Add to Wishlist ",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      )),
+                            height: 48,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: Colors.black,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Add to Wishlist ",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 ),
