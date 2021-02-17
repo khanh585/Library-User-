@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
-import 'package:user_library/widgets/checkin/scanner.dart';
+import 'scanner_screen/scanner_screen.dart';
 
 class Checkin_Screen extends StatefulWidget {
   Checkin_Screen({Key key}) : super(key: key);
@@ -34,7 +34,7 @@ class _Checkin_ScreenState extends State<Checkin_Screen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Scanner_Screen(),
+                      builder: (context) => ScannerScreen(),
                     ),
                   );
                 },

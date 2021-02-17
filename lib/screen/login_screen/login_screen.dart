@@ -1,101 +1,155 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:user_library/screen/login_screen/login_screen_bloc.dart';
-import 'package:user_library/screen/login_screen/login_screen_event.dart';
-import 'package:user_library/screen/login_screen/login_screen_state.dart';
-import 'package:user_library/widgets/loading_circle.dart';
-import 'package:user_library/widgets/login/login_background.dart';
+import 'package:user_library/widgets/animation/fade_side_out.dart';
 
-import '../../constants.dart';
+import 'widgets/login_background.dart';
 
-class Login_Screen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   final Future<void> Function() handelLogin;
 
-  Login_Screen({this.handelLogin});
+  LoginScreen({this.handelLogin});
 
   @override
-  _Login_Screen_State createState() => _Login_Screen_State();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _Login_Screen_State extends State<Login_Screen> {
+class _LoginScreenState extends State<LoginScreen>
+    with TickerProviderStateMixin {
+  bool _visible;
+  AnimationController _controller;
+  Animation<Offset> _offsetAnimation;
+
   LoginBloc loginBloc = LoginBloc();
   @override
+  void initState() {
+    _visible = false;
+    Future.delayed(
+        Duration(milliseconds: 300),
+        () => setState(() {
+              _visible = !_visible;
+            }));
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(-1, 0.0),
+    ).animate(_controller);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Login_Background(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'PAPV',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-                color: kPrimaryColor,
-              ),
+      child: AnimatedOpacity(
+        opacity: _visible ? 1.0 : 0.0,
+        duration: Duration(milliseconds: 300),
+        child: SlideTransition(
+          position: _offsetAnimation,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 250,
+                ),
+                Icon(
+                  Icons.credit_card,
+                  size: 100,
+                  color: Colors.white,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'PAPV',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 38,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      ' Library',
+                      style: TextStyle(
+                        fontSize: 34,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 30, bottom: 30),
+                  child: Wrap(
+                    direction: Axis.vertical,
+                    children: [
+                      FlatButton(
+                          onPressed: () {
+                            setState(() {
+                              _visible = false;
+                            });
+                            _controller.forward();
+                          },
+                          child: Container(
+                            width: 240,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.0),
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 1,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Sign In",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      FlatButton(
+                          child: Container(
+                        width: 240,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30.0),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 1,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
+                                color: Color.fromRGBO(78, 105, 218, 1),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                      )),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: size.height * 0.08),
-            SvgPicture.asset(
-              'icons/chat.svg',
-              height: size.height * 0.45,
-            ),
-            SizedBox(height: size.height * 0.05),
-            StreamBuilder<LoginScreenState>(
-                stream: loginBloc.stateController.stream,
-                initialData: loginBloc.state,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  } else {
-                    bool loading = snapshot.data.isLoading;
-
-                    return GestureDetector(
-                        onTap: () async {
-                          loginBloc.eventController.sink.add(LoginLoading());
-                          await widget.handelLogin().whenComplete(() {
-                            loginBloc.eventController.sink.add(FinishProcess());
-                          });
-                        },
-                        child: AnimatedContainer(
-                          width: loading ? 100 : 250,
-                          height: 50,
-                          duration: Duration(milliseconds: 200),
-                          decoration: BoxDecoration(
-                              color: Color(0xff7B35BA),
-                              borderRadius: BorderRadius.circular(12)),
-                          child: loading
-                              ? LoadingCircle(20, Colors.white)
-                              : OverflowBox(
-                                  minWidth: 50,
-                                  maxWidth: 200,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'images/google-login.png',
-                                        width: 30,
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 10),
-                                        child: Text(
-                                          "SIGN IN WITH GOOGLE",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13),
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                        ));
-                  }
-                })
-          ],
+          ),
         ),
       ),
     ));

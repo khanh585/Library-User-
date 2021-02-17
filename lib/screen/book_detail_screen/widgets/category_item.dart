@@ -10,11 +10,13 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
       margin: EdgeInsets.all(2),
-      padding: EdgeInsets.only(top: 2, bottom: 2),
+      height: 25,
+      padding: EdgeInsets.only(top: 5, bottom: 5),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(6)),
+          border: Border.all(color: Colors.black26),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10)),
       child: FlatButton(
         onPressed: () {
           Navigator.push(
@@ -29,7 +31,8 @@ class CategoryItem extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: Colors.black, fontSize: 12, fontWeight: FontWeight.w600),
         ),
       ),
     );

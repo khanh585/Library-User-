@@ -1,204 +1,122 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
+import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
+import 'package:user_library/widgets/animation/fade_side_in.dart';
 
 class BodyProfile extends StatelessWidget {
-  final Customer dto;
-  const BodyProfile({
+  final Customer customer;
+  BodyProfile({
     Key key,
-    this.dto,
-  }) : super(key: key);
+    this.customer,
+  });
   @override
   Widget build(BuildContext context) {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
-    double wi = MediaQuery.of(context).size.width;
-    double he = MediaQuery.of(context).size.height;
+
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 30),
-      width: wi - 15 * 2,
-      height: he,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - 320,
+      padding: EdgeInsets.only(top: 15, left: 25, right: 20),
+      margin: EdgeInsets.only(top: 5),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 8,
+              offset: Offset(-1, -5),
+            )
+          ],
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(35),
+          )),
+      child: Column(
         children: [
-          Column(
-            children: [
-              Container(
-                width: wi - 30,
-                //padding: EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
+          Container(
+            width: 40,
+            height: 4,
+            margin: EdgeInsets.only(bottom: 20),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: const Text('', textAlign: TextAlign.center),
+          ),
+          FadeSideIn(
+              2,
+              ProfileItem(
+                title: "Email",
+                infor: this.customer.email,
+                color: Colors.black,
+              )),
+          FadeSideIn(
+              2,
+              ProfileItem(
+                title: "Name",
+                infor: this.customer.address,
+                color: Colors.black,
+              )),
+          FadeSideIn(
+            2,
+            ProfileItem(
+              title: "Address",
+              infor: this.customer.name,
+              color: Colors.black,
+            ),
+          ),
+          FadeSideIn(
+            2,
+            ProfileItem(
+              title: "Birthdate",
+              infor: formatter.format(this.customer.doB).toString(),
+              color: Colors.black,
+            ),
+          ),
+          FadeSideIn(
+            2,
+            ProfileItem(
+              title: "Created Time",
+              infor: formatter.format(this.customer.createdTime).toString(),
+              color: Colors.black,
+            ),
+          ),
+          FadeSideIn(
+            2,
+            Container(
+              height: 40,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                      flex: 8,
+                      child: Text(
+                        "Log out",
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      )),
+                  Expanded(
+                    flex: 2,
+                    child: Icon(
+                      Icons.logout,
+                      color: Colors.red,
+                      size: 22,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      this.dto.email,
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      thickness: 0.2,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: wi - 30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Họ và tên",
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      this.dto.name,
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      thickness: 0.2,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: wi - 30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Địa chỉ",
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      this.dto.address,
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      thickness: 0.2,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: wi - 30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ngày tháng năm sinh",
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      formatter.format(this.dto.doB).toString(),
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      thickness: 0.2,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: wi - 30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Thời gian tạo",
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      formatter.format(this.dto.createdTime).toString(),
-                      style: TextStyle(
-                          color: Color.fromRGBO(75, 81, 136, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      thickness: 0.2,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
+            ),
+          ),
+          Divider(
+            color: Colors.black,
+            thickness: 0.2,
+          ),
         ],
       ),
     );

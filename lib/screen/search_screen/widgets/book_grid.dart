@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:user_library/models/book.dart';
+
+import 'package:user_library/widgets/animation/fade_side_up.dart';
 
 import 'package:user_library/widgets/book/book_item_grid.dart';
 
@@ -46,16 +50,26 @@ class BookGridState extends State<BookGrid> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     childAspectRatio: 0.7,
-                    children: [
-                      for (Book book in this.widget.listBooks)
-                        BookItemGrid(
-                          book: book,
-                        ),
-                    ],
+                    children: renderBookItemm(),
                   ),
                 ),
               ],
             ),
     );
+  }
+
+  List<Widget> renderBookItemm() {
+    List<Widget> tmp = new List<Widget>();
+    Random random = new Random();
+    for (Book book in this.widget.listBooks) {
+      double randomNumber = random.nextDouble() * 3;
+      tmp.add(FadeSideUp(
+        randomNumber,
+        BookItemGrid(
+          book: book,
+        ),
+      ));
+    }
+    return tmp;
   }
 }

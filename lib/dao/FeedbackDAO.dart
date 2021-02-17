@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 import 'package:user_library/config.dart';
-import 'package:user_library/dto/FeedbackDTO.dart';
+
 import 'package:user_library/models/feedback.dart';
 
 class FeedbackDAO {
@@ -37,19 +37,19 @@ class FeedbackDAO {
     return data;
   }
 
-  Future<FeedbackDTO> sentFeedback(FeedbackDTO dto) async {
-    Map<String, String> headers = {"Content-type": "application/json"};
+  // Future<Feedback> sentFeedback(FeedbackDTO dto) async {
+  //   Map<String, String> headers = {"Content-type": "application/json"};
 
-    String body = json.encode(dto.toJson());
+  //   String body = json.encode(dto.toJson());
 
-    var response = await http.post(prefixUrl, headers: headers, body: body);
+  //   var response = await http.post(prefixUrl, headers: headers, body: body);
 
-    if (response.statusCode == 200) {
-      Map json = jsonDecode(response.body);
-      FeedbackDTO dto = FeedbackDTO.fromJson(json['data']);
-      return dto;
-    } else {
-      throw Exception('Failed');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     Map json = jsonDecode(response.body);
+  //     FeedbackDTO dto = FeedbackDTO.fromJson(json['data']);
+  //     return dto;
+  //   } else {
+  //     throw Exception('Failed');
+  //   }
+  // }
 }

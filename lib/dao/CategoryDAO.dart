@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:user_library/config.dart';
-import 'package:user_library/dto/CategoryDTO.dart';
 import 'package:user_library/models/category.dart';
 
 class CategoryDAO {

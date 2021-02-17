@@ -1,63 +1,87 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
 
 class HeaderProfile extends StatelessWidget {
-  final Customer dto;
-  const HeaderProfile({
-    Key key,
-    this.dto,
-  }) : super(key: key);
+  final Customer customer;
+  HeaderProfile({
+    this.customer,
+  });
   @override
   Widget build(BuildContext context) {
-    DateFormat formatter = DateFormat('yyyy-MM-dd');
-    double wi = MediaQuery.of(context).size.width;
-    double he = MediaQuery.of(context).size.height;
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 15, right: 15),
-      width: wi - 15 * 2,
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      margin: EdgeInsets.only(top: 5),
+      padding: EdgeInsets.only(left: 25, right: 25),
+      child: Column(
         children: [
-          Container(
-            width: 80,
-            child: CircleAvatar(
-              radius: 80.0,
-                backgroundImage:
-                    NetworkImage("${this.dto.image}"),
-                backgroundColor: Colors.transparent,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 9,
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Profile",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.edit_outlined,
+                    size: 20,
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            ],
           ),
-          Container(
-            width: wi - 30 * 2 - 60,
-            padding: EdgeInsets.only(top: 15,bottom: 20,left: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  this.dto.name,
-                  style: TextStyle(
-                      color: Color.fromRGBO(75, 81, 136, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 90,
+                height: 90,
+                margin: EdgeInsets.only(bottom: 15),
+                child: CircleAvatar(
+                  radius: 90.0,
+                  backgroundImage: NetworkImage("${customer.image}"),
+                  backgroundColor: Colors.transparent,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Column(
                   children: [
-                    Text(this.dto.phone,
+                    Text(
+                      customer.name,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(customer.phone,
                         style: TextStyle(
-                            color: Color.fromRGBO(83, 80, 170, 1),
-                            fontSize: 18,
+                            color: Colors.black,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400))
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
