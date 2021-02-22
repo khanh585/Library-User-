@@ -1,1 +1,1 @@
-var contextData = {'hasTable': false};
+var contextData = {};

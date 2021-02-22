@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:user_library/context.dart';
 import 'package:user_library/models/book.dart';
 
 class DatabaseHelper {
@@ -21,14 +20,13 @@ class DatabaseHelper {
     if (_db == null) {
       _db = await _initDb();
     }
-    if (!contextData['hasTable'] || contextData['hasTable'] == null) {
-      await tableIsEmpty();
-    }
-
+    await tableIsEmpty();
     return _db;
   }
 
   Future<Database> _initDb() async {
+    print('INIT DATABASE');
+
     Directory dir = await getApplicationDocumentsDirectory();
     String path = dir.path + '/wishlist.db';
     final wishListDb = await openDatabase(path);
@@ -37,13 +35,11 @@ class DatabaseHelper {
 
   Future<void> tableIsEmpty() async {
     try {
-      Sqflite.firstIntValue(
+      int count = Sqflite.firstIntValue(
           await _db.rawQuery('SELECT COUNT(*) FROM $booksTable'));
-      contextData['hasTable'] = true;
+      print(count);
     } catch (e) {
-      if (e.toString().contains('no such table')) {
-        _createDb(_db, 1);
-      }
+      _createDb(_db, 1);
     }
   }
 
@@ -52,11 +48,15 @@ class DatabaseHelper {
         '($colId INTEGER PRIMARY KEY AUTOINCREMENT, ' +
         ' $colName TEXT, ' +
         ' $colAuthor TEXT,' +
-        ' $colImage TEXT)';
-    await db.execute(sql);
+        ' $colImage TEXT,';
+    await db.execute(
+      sql,
+    );
   }
 
   Future<List<Map<String, dynamic>>> getBookMapList() async {
+    await tableIsEmpty();
+
     Database db = await this.db;
     final List<Map<String, dynamic>> result = await db.query(booksTable);
     return result;
@@ -72,14 +72,11 @@ class DatabaseHelper {
   }
 
   Future<int> insertBook(Book book) async {
-    int result = 0;
-    try {
-      Database db = await this.db;
-      result = await db.insert(booksTable, book.toMap());
-      return result;
-    } catch (e) {} finally {
-      return result;
-    }
+    tableIsEmpty();
+
+    Database db = await this.db;
+    final int result = await db.insert(booksTable, book.toMap());
+    return result;
   }
 
   Future<int> deleteBook(int bookId) async {

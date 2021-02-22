@@ -51,8 +51,8 @@ class Book {
   Map<String, dynamic> toMap() {
     final map = Map<String, dynamic>();
     map['id'] = id;
-    map['name'] = name;
-    map['author'] = author;
+    map['title'] = name;
+    map['status'] = author;
     if (image.length != 0) {
       map['image'] = image[0];
     }

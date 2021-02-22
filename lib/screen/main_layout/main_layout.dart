@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/helper/database_helper.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
 import 'package:user_library/screen/scanner_screen/scanner_screen.dart';
-import 'package:user_library/screen/wishlish_screen/wishlist_screen.dart';
 import 'package:user_library/widgets/bottombar.dart';
 
 import 'package:user_library/screen/search_screen/search_screen.dart';
@@ -14,11 +12,6 @@ class MainLayout extends StatefulWidget {
 }
 
 class MainLayoutState extends State<MainLayout> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final pageController = PageController(initialPage: 0, keepPage: false);
   @override
   Widget build(BuildContext context) {
@@ -31,7 +24,7 @@ class MainLayoutState extends State<MainLayout> {
         allowImplicitScrolling: false,
         children: [
           HomeScreen(),
-          WishListScreen(),
+          Container(child: Text("asdasd")),
           ScannerScreen(),
           MainProfileScreen(),
         ],
