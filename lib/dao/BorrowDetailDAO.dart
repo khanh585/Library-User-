@@ -1,9 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:stack/stack.dart';
 import 'dart:convert';
 import 'package:user_library/config.dart';
 import 'package:user_library/models/borrow_detail.dart';
-import 'package:user_library/models/schedule.dart';
 
 class BorrowDetailDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'BorrowDetail';
@@ -25,6 +23,28 @@ class BorrowDetailDAO {
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       print(json.toString());
+      List cats = json['data'];
+      cats.forEach((element) {
+        BorrowDetail dto = BorrowDetail.fromJson(element);
+        list.add(dto);
+      });
+      return list;
+    } else {
+      print("Not 200");
+    }
+  }
+
+  Future<List<BorrowDetail>> fetchBorrowDetailOfCustomer(int customerId) async {
+    List<BorrowDetail> list;
+    if (list == null) {
+      list = new List();
+    }
+    String url =
+        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&CustomerId=2';
+        print(url.toString());
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
       List cats = json['data'];
       cats.forEach((element) {
         BorrowDetail dto = BorrowDetail.fromJson(element);
