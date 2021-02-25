@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/models/book.dart';
-import 'package:user_library/screen/wishlish_screen/widget/book_item.dart';
+import 'package:user_library/database/database.dart';
+import 'package:user_library/models/wishlist.dart';
+import 'package:user_library/screen/wishlish_screen/widget/wishlist_item.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_bloc.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_event.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_state.dart';
 
 class WishListScreen extends StatefulWidget {
   WishListScreen({Key key}) : super(key: key);
-
   @override
   _WishListScreenState createState() => _WishListScreenState();
 }
@@ -16,29 +16,31 @@ class _WishListScreenState extends State<WishListScreen> {
   final _wishlistScreenBloc = WishListScreenBloc();
   @override
   void initState() {
-    _refreshWishList(true);
+    _refreshWishList();
     super.initState();
   }
 
-  Future<void> _refreshWishList(bool isInit) {
-    _wishlistScreenBloc.eventController.sink.add(RefreshWishList(true));
-    setState(() {});
+  Future<void> _refreshWishList() async {
+    _wishlistScreenBloc.eventController.sink.add(RefreshWishList());
   }
 
-  void _add_delete_ToListBorrow(int bookID) {
-    _wishlistScreenBloc.eventController.sink
-        .add(AddOrRemoveToListBorrow(bookID));
-    setState(() {});
+  void _add_delete_ToListBorrow(WishList wish) {
+    _wishlistScreenBloc.eventController.sink.add(AddOrRemoveToListBorrow(wish));
   }
 
-  void _genQRCode(List<int> listBookID) {
-    print(listBookID);
+  void _genQRCode(List<WishList> wishlist) {
+    List<int> listID = [];
+    wishlist.forEach((element) {
+      if (element.isChecked) listID.add(element.id);
+    });
+    print(listID);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<WishListScreenState>(
+        stream: _wishlistScreenBloc.stateController.stream,
         initialData: _wishlistScreenBloc.state,
         builder: (context, snapshot) {
           if (snapshot.hasError) return Text("Error");
@@ -49,7 +51,7 @@ class _WishListScreenState extends State<WishListScreen> {
           }
           return RefreshIndicator(
             onRefresh: () async {
-              _refreshWishList(false);
+              _refreshWishList();
               return;
             },
             child: ListView(
@@ -67,7 +69,9 @@ class _WishListScreenState extends State<WishListScreen> {
                       height: 10,
                     ),
                     Text(
-                      '${snapshot.data.listBorrow.length} of ${snapshot.data.wishlist.length}',
+                      snapshot.data.wishlist != null
+                          ? '${snapshot.data.wishlist.where((element) => element.isChecked).length} of ${snapshot.data.wishlist.length}'
+                          : '0 of 0',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -75,18 +79,18 @@ class _WishListScreenState extends State<WishListScreen> {
                     ),
                   ],
                 ),
-                for (Book book in snapshot.data.wishlist)
+                for (WishList wish in snapshot.data.wishlist)
                   GestureDetector(
                     onTap: () {
-                      this._add_delete_ToListBorrow(book.id);
+                      this._add_delete_ToListBorrow(wish);
                     },
-                    child: BookItem(
-                      book: book,
-                      isTick: snapshot.data.listBorrow.contains(book.id),
+                    child: WishListItem(
+                      wishlist: wish,
+                      isTick: wish.isChecked,
                     ),
                   ),
                 FlatButton(
-                    onPressed: () => {_genQRCode(snapshot.data.listBorrow)},
+                    onPressed: () => {_genQRCode(snapshot.data.wishlist)},
                     child: Text('Gen QRcode')),
               ],
             ),

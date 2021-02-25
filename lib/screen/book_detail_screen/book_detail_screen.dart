@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:user_library/helper/database_helper.dart';
+import 'package:user_library/database/database.dart';
 import 'package:user_library/models/book.dart';
+import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/widgets/animation/fade_side_up.dart';
 
 import 'package:user_library/widgets/app_bar_custom.dart';
@@ -19,9 +20,39 @@ class BookDetailScreen extends StatefulWidget {
 }
 
 class _BookDetailScreenState extends State<BookDetailScreen> {
+  bool _inWishList = false;
   @override
   void initState() {
+    _checkInWishList();
     super.initState();
+  }
+
+  Future<void> _checkInWishList() async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final wishListDAO = database.wishListDao;
+    wishListDAO
+        .findWishListById(this.widget.book.id)
+        .then((value) => setState(() {
+              _inWishList = value != null;
+            }));
+  }
+
+  Future<void> _addToWishList() async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final wishListDAO = database.wishListDao;
+    final id = this.widget.book.id;
+    final name = this.widget.book.name;
+    final author = this.widget.book.author;
+    final thumnail =
+        this.widget.book.image.length != 0 ? this.widget.book.image[0] : '';
+
+    final wish = WishList(id, name, author, thumnail, true);
+    wishListDAO.insertWishList(wish);
+    setState(() {
+      _inWishList = true;
+    });
   }
 
   @override
@@ -196,8 +227,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                       ),
                       FlatButton(
                           onPressed: () {
-                            DatabaseHelper.instance
-                                .insertBook(this.widget.book);
+                            if (!this._inWishList) {
+                              this._addToWishList();
+                            }
                           },
                           child: Container(
                             height: 48,
@@ -209,7 +241,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                "Add to Wishlist ",
+                                _inWishList
+                                    ? "Added in Wishlist"
+                                    : "Add to Wishlist ",
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
