@@ -1,10 +1,8 @@
-import 'package:user_library/models/book.dart';
+import 'package:user_library/models/wishlist.dart';
 
 class WishListScreenState {
-  List<Book> wishlist;
-  List<int> listBorrow;
+  List<WishList> wishlist;
   WishListScreenState({
     this.wishlist,
-    this.listBorrow,
   });
 }

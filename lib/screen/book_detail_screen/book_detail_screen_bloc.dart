@@ -6,9 +6,8 @@ import 'package:user_library/screen/book_detail_screen/book_detail_screen_state.
 
 class BookDetailScreenBloc implements Bloc {
   var state = BookDetailScreenState(); // khoi tao gia tri
-  final eventController = StreamController<BookDetailScreenEvent>();
 
-  // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
+  final eventController = StreamController<BookDetailScreenEvent>();
   final stateController = StreamController<BookDetailScreenState>();
 
   BookDetailScreenBloc() {
