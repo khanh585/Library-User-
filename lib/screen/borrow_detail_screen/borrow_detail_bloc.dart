@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:user_library/dao/BorrowDetailDAO.dart';
-import 'borrow_detail_event.dart';
-import 'borrow_detail_state.dart';
+import 'package:user_library/models/borrow_detail.dart';
+import 'package:user_library/screen/borrow_detail_screen/borrow_detail_event.dart';
+import 'package:user_library/screen/borrow_detail_screen/borrow_detail_state.dart';
+
 
 class BorrowDetailBloc {
   var state = BorrowDetailState(borrowDetails: []); // khoi tao gia tri
@@ -16,9 +18,10 @@ class BorrowDetailBloc {
   BorrowDetailBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchBorrowDetailEvent) {
-        List result;
-        int borrowId = event.borrowId;
-        result = await BorrowDetailDAO().fetchBorrowDetail(borrowId);
+        List<BorrowDetail> result;
+        int customerId = event.customerId;
+        result = await BorrowDetailDAO().fetchBorrowDetailOfCustomer(customerId);
+        print(result);
         state = BorrowDetailState(
           borrowDetails: result,
         );

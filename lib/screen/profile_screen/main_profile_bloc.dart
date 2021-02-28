@@ -1,12 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:stack/stack.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
-import 'package:user_library/dao/ScheduleDAO.dart';
 import 'package:user_library/models/customer.dart';
-import 'package:user_library/screen/shedule_screen/schedule_event.dart';
-import 'package:user_library/screen/shedule_screen/schedule_state.dart';
 
 import 'main_profile_event.dart';
 import 'main_profile_state.dart';
