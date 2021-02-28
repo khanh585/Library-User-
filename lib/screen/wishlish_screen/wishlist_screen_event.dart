@@ -1,11 +1,12 @@
+import 'package:user_library/models/wishlist.dart';
+
 abstract class WishListScreenEvent {}
 
 class RefreshWishList extends WishListScreenEvent {
-  bool isInit;
-  RefreshWishList(this.isInit);
+  RefreshWishList();
 }
 
 class AddOrRemoveToListBorrow extends WishListScreenEvent {
-  int bookID;
-  AddOrRemoveToListBorrow(this.bookID);
+  WishList wish;
+  AddOrRemoveToListBorrow(this.wish);
 }

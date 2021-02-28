@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:user_library/bloc/bloc.dart';
-import 'package:user_library/helper/database_helper.dart';
-import 'package:user_library/models/book.dart';
-import 'package:user_library/screen/wishlish_screen/wishlist_screen_event.dart';
+import 'package:user_library/database/database.dart';
+import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_state.dart';
+
+import 'wishlist_screen_event.dart';
 
 class WishListScreenBloc implements Bloc {
   var state = WishListScreenState(
     wishlist: [],
-    listBorrow: [],
   );
   final eventController = StreamController<WishListScreenEvent>();
 
@@ -18,28 +18,31 @@ class WishListScreenBloc implements Bloc {
   WishListScreenBloc() {
     eventController.stream.listen((event) async {
       if (event is RefreshWishList) {
-        await DatabaseHelper.instance.getBookList().then((value) {
-          state.wishlist = value;
-        });
-        if (event.isInit) {
-          state.wishlist.forEach((element) {
-            if (!state.listBorrow.contains(element.id)) {
-              state.listBorrow.add(element.id);
-            }
-          });
-        }
-        print(state.wishlist.length);
-        print('RUN WishListScreenBloc');
-        stateController.sink.add(state);
+        // get data in function was add data in state
+        _getAllWishList();
       } else if (event is AddOrRemoveToListBorrow) {
-        if (!state.listBorrow.contains(event.bookID)) {
-          state.listBorrow.add(event.bookID);
-        } else {
-          state.listBorrow.remove(event.bookID);
-        }
+        _addOrRemoveWishList(event.wish);
       }
       stateController.sink.add(state);
     });
+  }
+
+  Future<void> _getAllWishList() async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final wishlistDao = database.wishListDao;
+    await wishlistDao.findAllWishLists().then((value) {
+      this.state.wishlist = value;
+      print('-------- ${value.length}');
+    });
+  }
+
+  Future<void> _addOrRemoveWishList(WishList wish) async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final wishlistDao = database.wishListDao;
+    wish.isChecked = !wish.isChecked;
+    wishlistDao.updateWishList(wish);
   }
 
   // khi không cần thiết thì close tất cả controller
