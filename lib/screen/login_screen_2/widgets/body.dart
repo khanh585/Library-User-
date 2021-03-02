@@ -43,7 +43,7 @@ class Body extends StatelessWidget {
               press: () {
                 username = usernameController.text;
                 password = passwordController.text;
-                print("First text field: $username + $password");
+                
               },
             ),
             SizedBox(height: size.height * 0.03),
