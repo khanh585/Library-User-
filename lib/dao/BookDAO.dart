@@ -39,4 +39,51 @@ class BookDAO {
       throw Exception('Failed');
     }
   }
+
+  Future<List<Book>> fetchSuggestBook() async {
+    List<Book> list = new List<Book>();
+    String url = prefixUrl +
+        '?CustomerId=1' +
+        '&PageSize=10';
+    var response = await http.get(url);
+    print(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List books = json['data'];
+      books.forEach((book) {
+        if (book != null) {
+          Book dto = Book.fromJson(book);
+          list.add(dto);
+        }
+      });
+      print(list);
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
+  Future<List<Book>> fetchNewestBook() async {
+    List<Book> list = new List<Book>();
+    String url = prefixUrl +
+        '?IsNewest=true' +
+        '&PageSize=10';
+    var response = await http.get(url);
+    print(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List books = json['data'];
+
+      books.forEach((book) {
+        if (book != null) {
+          Book dto = Book.fromJson(book);
+          list.add(dto);
+        }
+      });
+      print(list);
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
 }

@@ -1,0 +1,3 @@
+class BookDetailState {
+  BookDetailState();
+}

@@ -27,12 +27,12 @@ class _MainProfileState extends State<FullProfile> {
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    HeaderProfile(dto: this.widget.customer),
+                    //HeaderProfile(dto: this.widget.customer),
                     Divider(
                       color: Colors.black,
                       thickness: 0.2,
                     ),
-                    BodyProfile(dto: this.widget.customer),
+                    //BodyProfile(dto: this.widget.customer),
                   ],
                 ),
               ));
