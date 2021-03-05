@@ -1,6 +1,6 @@
 
 import 'package:user_library/screen/book_detail_screen/book_detail_screen.dart';
-import 'package:user_library/screen/book_detail_screen_2/home_detail_screen.dart';
+import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 import 'package:user_library/screen/librarian_home_screen/librarian_home_screen.dart';
 import 'package:user_library/screen/login_screen/login_screen.dart';
 import 'package:user_library/screen/main_layout/main_layout.dart';

@@ -40,10 +40,10 @@ class BookDAO {
     }
   }
 
-  Future<List<Book>> fetchSuggestBook() async {
+  Future<List<Book>> fetchSuggestBook(int customerId) async {
     List<Book> list = new List<Book>();
     String url = prefixUrl +
-        '?CustomerId=1' +
+        '?CustomerId=$customerId' +
         '&PageSize=10';
     var response = await http.get(url);
     print(url);
@@ -67,6 +67,30 @@ class BookDAO {
     List<Book> list = new List<Book>();
     String url = prefixUrl +
         '?IsNewest=true' +
+        '&PageSize=10';
+    var response = await http.get(url);
+    print(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List books = json['data'];
+
+      books.forEach((book) {
+        if (book != null) {
+          Book dto = Book.fromJson(book);
+          list.add(dto);
+        }
+      });
+      print(list);
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
+  Future<List<Book>> fetchPopularBook() async {
+    List<Book> list = new List<Book>();
+    String url = prefixUrl +
+        '?IsPopular=true' +
         '&PageSize=10';
     var response = await http.get(url);
     print(url);

@@ -18,8 +18,9 @@ class HomeBloc implements Bloc {
   HomeBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchSuggestBook) {
+        int customerId = event.customerId;
         List responseSuggest = await BookDAO()
-            .fetchSuggestBook();
+            .fetchSuggestBook(customerId);
         List responseNewest = await BookDAO()
             .fetchNewestBook();
         List<Book> listSuggestBook = responseSuggest;

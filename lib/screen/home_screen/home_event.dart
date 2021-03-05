@@ -1,7 +1,8 @@
 abstract class HomeEvent {}
 
 class FetchSuggestBook extends HomeEvent {
-  FetchSuggestBook();
+  final int customerId;
+  FetchSuggestBook(this.customerId);
 }
 
 class FetchNewestBook extends HomeEvent {

@@ -19,7 +19,6 @@ class MainProfileBloc {
   MainProfileBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchMainProfileEvent) {
-        print("sfsjfksjfhskjfshk");
         Customer result;
         int customerId = event.customerId;
         result = await CustomerDAO().fetchCustomer(customerId);

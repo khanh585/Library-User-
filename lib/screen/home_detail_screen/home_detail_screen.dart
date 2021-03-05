@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/screen/home_detail_screen/home_detail_event.dart';
+import 'package:user_library/screen/home_detail_screen/home_detail_state.dart';
+import 'package:user_library/screen/home_detail_screen/home_detail_bloc.dart';
 import 'package:user_library/models/newbook_model.dart';
 import 'package:user_library/models/popularbook_model.dart';
-import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
 
 import '../../constants.dart';
-import 'widgets/custom_tab_indicator.dart';
+import '../book_detail_screen_2/widgets/custom_tab_indicator.dart';
 
 class HomeDetailScreen extends StatefulWidget {
   @override
@@ -15,6 +17,16 @@ class HomeDetailScreen extends StatefulWidget {
 }
 
 class _HomeDetailScreenState extends State<HomeDetailScreen> {
+
+  final home_detail_bloc = HomeDetailBloc();
+  @override
+  void initState() {
+    super.initState();
+    home_detail_bloc.eventController.sink
+        .add(FetchPopularBook());
+
+    home_detail_bloc.eventController.sink.add(FetchNewestBook());
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

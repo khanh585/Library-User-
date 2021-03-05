@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/notification_screen/notification_screen.dart';
-import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class NavigationBar extends StatefulWidget {
+  final TmpUser user;
+  NavigationBar({this.user});
   @override
   NavigationBarState createState() => NavigationBarState();
 }
@@ -21,8 +23,8 @@ class NavigationBarState extends State<NavigationBar> {
               fit: BoxFit.fill,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
-                child: Image.asset(
-                  "images/user.jpg",
+                child: Image.network(
+                  this.widget.user.image,
                   fit: BoxFit.cover,
                   width: 25,
                   height: 25,
@@ -35,7 +37,7 @@ class NavigationBarState extends State<NavigationBar> {
             child: Container(
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                "Nguyen Huynh Phu",
+                this.widget.user.name,
               ),
             ),
           ),

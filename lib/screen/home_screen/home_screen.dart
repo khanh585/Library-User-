@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_bloc.dart';
 import 'package:user_library/screen/home_screen/home_event.dart';
 import 'package:user_library/screen/home_screen/home_state.dart';
@@ -11,8 +12,8 @@ import 'package:user_library/widgets/animation/fade_side_up.dart';
 import 'widgets/tab_view_books/tab_view_books.dart';
 
 class HomeScreen extends StatefulWidget {
-  //final int customerId;
-  //const HomeScreen({Key key, this.customerId}) : super(key: key);
+  final TmpUser user;
+  HomeScreen({this.user});
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -26,7 +27,7 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     home_bloc.eventController.sink
-        .add(FetchSuggestBook());
+        .add(FetchSuggestBook(int.parse(this.widget.user.id)));
 
     home_bloc.eventController.sink.add(FetchNewestBook());
   }
@@ -56,7 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
                 return Column(
                   children: [
                     SizedBox(height: 20),
-                    FadeSideUp(1.0, NavigationBar()),
+                    FadeSideUp(1.0, NavigationBar(user: this.widget.user)),
                     FadeSideUp(2.0, SuggestBookSection(
                       listSuggestBook: snapshot.data.listSuggestBook
                     )),
