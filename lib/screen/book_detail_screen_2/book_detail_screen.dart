@@ -70,7 +70,7 @@ class _BookDetailState extends State<BookDetailScreen>
         color: Colors.transparent,
         child: FlatButton(
           color: kMainColor,
-          onPressed: () {},
+          onPressed: () => _addToWishList(),
           child: Text(
             'Add to wishlist',
             style: GoogleFonts.openSans(
@@ -211,7 +211,7 @@ class _BookDetailState extends State<BookDetailScreen>
                         children: [
                           Container(
                               child: Padding(
-                            padding: EdgeInsets.only( top: 15),
+                            padding: EdgeInsets.only(top: 15),
                             child: Text(
                               this.widget.book.description,
                               style: GoogleFonts.openSans(
@@ -225,8 +225,8 @@ class _BookDetailState extends State<BookDetailScreen>
                           )),
                           SingleChildScrollView(
                             child: Container(
-                              width: 600,
-                              margin: EdgeInsets.only(left: 48, top: 15),
+                                width: 600,
+                                margin: EdgeInsets.only(left: 48, top: 15),
                                 child: Column(
                                   children: [
                                     Divider(
@@ -241,8 +241,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                       listData: this.widget.feedbacks,
                                     ),
                                   ],
-                                )
-                                ),
+                                )),
                           )
                         ],
                         controller: _tabController,
