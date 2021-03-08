@@ -9,6 +9,7 @@ class Book {
   int pageNumber;
   String description;
   List<Category> categories;
+  double fee;
   double rating;
 
   Book({
@@ -19,6 +20,7 @@ class Book {
     this.pageNumber,
     this.image,
     this.categories,
+    this.fee,
     this.rating = 0,
   });
 
@@ -29,6 +31,7 @@ class Book {
       author: json['author'],
       description: json['description'],
       pageNumber: json['pageNumber'],
+      fee: json['fee'],
       image: Image().formatImage(json['image']),
       rating: json['ratingAverage'],
       categories: Category().fromListJson(json['category']),
@@ -45,6 +48,7 @@ class Book {
         id: map['id'],
         name: map['name'],
         author: map['author'],
+        fee: map['fee'],
         image: [map['image']]);
   }
 
@@ -53,6 +57,7 @@ class Book {
     map['id'] = id;
     map['name'] = name;
     map['author'] = author;
+    map['fee'] = fee;
     if (image.length != 0) {
       map['image'] = image[0];
     }

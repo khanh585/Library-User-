@@ -49,12 +49,13 @@ class Body extends StatelessWidget {
                 TokenDAO dao = new TokenDAO();
                 String role;
                 dao.loginWithJWT(username, password).then((value) {
-                  if (value.role.toString() == "user") {
+                  print("role ne" + value.roleId.toString());
+                  if (value.roleId.toString() == "2") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MainLayout(user: value)),
                     );
-                  }else if (value.role.toString() == "librarian") {
+                  }else if (value.roleId.toString() == "3") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => LibrarianHomeScreen()),

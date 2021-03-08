@@ -17,6 +17,7 @@ class HomeDetailBloc implements Bloc {
   HomeDetailBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchPopularBook) {
+        print("co vao bloc day");
         List responseSuggest = await BookDAO()
             .fetchPopularBook();
         List responseNewest = await BookDAO()

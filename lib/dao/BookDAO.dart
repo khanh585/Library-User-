@@ -93,6 +93,7 @@ class BookDAO {
         '?IsPopular=true' +
         '&PageSize=10';
     var response = await http.get(url);
+    print("co url day");
     print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
