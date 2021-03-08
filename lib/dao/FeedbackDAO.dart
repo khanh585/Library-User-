@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:user_library/config.dart';
 
-import 'package:user_library/models/user_feedback.dart';
+import 'package:user_library/models/feedback.dart';
 
 class FeedbackDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Feedback';
@@ -12,16 +12,15 @@ class FeedbackDAO {
     String url = prefixUrl +
         '?&BookGroupId=${bookId}&PageNumber=${page}&PageSize=${pageSize}';
     var response = await http.get(url);
-    print(url);
 
     Map json = jsonDecode(response.body);
-    List<UserFeedback> feedbacks = new List<UserFeedback>();
+    List<Feedback> feedbacks = new List<Feedback>();
 
     List data = json['data'];
     int total = json['meta']['totalCount'];
     print('---- ${data}  ---  ${total} ----');
     data.forEach((element) {
-      UserFeedback tmp = UserFeedback.fromJson(element);
+      Feedback tmp = Feedback.fromJson(element);
       feedbacks.add(tmp);
     });
 
@@ -38,19 +37,19 @@ class FeedbackDAO {
     return data;
   }
 
-  Future<UserFeedback> sentFeedback(UserFeedback dto) async {
-    Map<String, String> headers = {"Content-type": "application/json"};
+  // Future<Feedback> sentFeedback(FeedbackDTO dto) async {
+  //   Map<String, String> headers = {"Content-type": "application/json"};
 
-    String body = json.encode(dto.toJson());
+  //   String body = json.encode(dto.toJson());
 
-    var response = await http.post(prefixUrl, headers: headers, body: body);
+  //   var response = await http.post(prefixUrl, headers: headers, body: body);
 
-    if (response.statusCode == 200) {
-      Map json = jsonDecode(response.body);
-      UserFeedback dto = UserFeedback.fromJson(json['data']);
-      return dto;
-    } else {
-      throw Exception('Failed');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     Map json = jsonDecode(response.body);
+  //     FeedbackDTO dto = FeedbackDTO.fromJson(json['data']);
+  //     return dto;
+  //   } else {
+  //     throw Exception('Failed');
+  //   }
+  // }
 }
