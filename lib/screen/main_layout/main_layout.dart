@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
 import 'package:user_library/screen/scanner_screen/scanner_screen.dart';
@@ -9,8 +8,6 @@ import 'package:user_library/widgets/bottombar.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class MainLayout extends StatefulWidget {
-  final TmpUser user;
-  MainLayout({this.user});
   @override
   MainLayoutState createState() => MainLayoutState();
 }
@@ -32,10 +29,10 @@ class MainLayoutState extends State<MainLayout> {
         physics: new NeverScrollableScrollPhysics(),
         allowImplicitScrolling: false,
         children: [
-          HomeScreen(user: this.widget.user),
+          HomeScreen(),
           WishListScreen(),
           ScannerScreen(),
-          MainProfileScreen(customerId: int.parse(this.widget.user.id)),
+          MainProfileScreen(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

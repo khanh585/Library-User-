@@ -1,30 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/models/book.dart';
-import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
 
-class BookItemHorizontal extends StatefulWidget {
-  final Book book;
-
-  const BookItemHorizontal({Key key, this.book}) : super(key: key);
-  @override
-  State<StatefulWidget> createState() => BookItemHorizontalState();
-}
-
-class BookItemHorizontalState extends State<BookItemHorizontal> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class BookItemHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => BookDetailScreen(book: this.widget.book)),
-          );
-        },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
         child: Row(
@@ -46,8 +25,8 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    this.widget.book.image[0],
+                  child: Image.asset(
+                    'images/book2.jpg',
                     fit: BoxFit.cover,
                     alignment: Alignment.centerLeft,
                   ),
@@ -61,13 +40,13 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    this.widget.book.name,
+                    'Book name',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 2, bottom: 5),
                       child: Text(
-                        this.widget.book.author,
+                        'Author',
                         style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w400,
@@ -77,7 +56,7 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                       height: 45,
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        this.widget.book.description,
+                        "Authority is a 2014 novel by Jeff VanderMeer. It is the second in a series of three books called the Southern Reach Trilogy",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 12,
