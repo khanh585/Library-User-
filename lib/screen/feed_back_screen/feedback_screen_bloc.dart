@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:user_library/bloc/bloc.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
-import 'package:user_library/models/feedback.dart';
+import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen_event.dart';
 
 import 'feedback_screen_state.dart';
 
 class FeedbackScreenBloc implements Bloc {
   var state = FeedbackScreenState(
-      listFeedback: new List<Feedback>(), totalFeedback: 0, rating: new List());
+      listFeedback: new List<UserFeedback>(), totalFeedback: 0, rating: new List());
   final eventController = StreamController<FeedbackScreenEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
@@ -20,10 +20,10 @@ class FeedbackScreenBloc implements Bloc {
       if (event is FetchFeedback) {
         List response = await FeedbackDAO()
             .fetchFeedback(event.bookId, event.page, event.pageSize);
-        List<Feedback> listFeedbacks = response[0];
+        List<UserFeedback> listFeedbacks = response[0];
         int total = response[1];
 
-        List<Feedback> concatList = new List.from(state.listFeedback)
+        List<UserFeedback> concatList = new List.from(state.listFeedback)
           ..addAll(listFeedbacks);
         List rating = await FeedbackDAO().fetchCountFeedback(event.bookId);
 

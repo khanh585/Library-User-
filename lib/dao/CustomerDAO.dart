@@ -12,20 +12,19 @@ class CustomerDAO {
   int pageNumber = 1;
 
   Future<Customer> fetchCustomer(int customerId) async {
-    print("Noasasst 200");
     Customer customer;
+    print("Dfdfdf" + '$customerId');
     if (customer == null) {
       customer = new Customer();
     }
     String url =
-        prefixUrl + '/1';
+        prefixUrl + '/$customerId';
         print(url.toString());
     var response = await http.get(url);
 
     print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json.toString());
       customer = Customer.fromJson(json['data']);
       return customer;
     } else {
@@ -34,7 +33,6 @@ class CustomerDAO {
   }
 
   Future<List<Customer>> fetchAllCustomer() async {
-    print("Noasasst 200");
     List<Customer> list = new List<Customer>();
     String url =
         prefixUrl;

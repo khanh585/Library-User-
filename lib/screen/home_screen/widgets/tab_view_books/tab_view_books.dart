@@ -1,15 +1,23 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:user_library/models/book.dart';
 import 'package:user_library/widgets/book/book_item_horizontal.dart';
 
 class TabViewBooks extends StatefulWidget {
-  TabViewBooks();
+  final List<Book> listNewestBook;
+
+  const TabViewBooks({Key key, this.listNewestBook}) : super(key: key);
   @override
   TabViewBooksState createState() => TabViewBooksState();
 }
 
 class TabViewBooksState extends State<TabViewBooks> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,10 +95,8 @@ class TabViewBooksState extends State<TabViewBooks> {
             decoration: BoxDecoration(color: Colors.white),
             child: Column(
               children: [
-                BookItemHorizontal(),
-                BookItemHorizontal(),
-                BookItemHorizontal(),
-                BookItemHorizontal(),
+                for(Book book in this.widget.listNewestBook)
+                BookItemHorizontal(book: book)
               ],
             ),
           )
