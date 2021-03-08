@@ -1,4 +1,3 @@
-
 import 'package:user_library/screen/book_detail_screen/book_detail_screen.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
@@ -43,10 +42,10 @@ class MyAppState extends State<MyApp> {
                 if (snapshot.hasData) {
                   if (snapshot.data.currentUser == null) {
                     return WelcomeScreen();
-                  } else {                  
+                  } else {
                     return WelcomeScreen();
                   }
-                } 
+                }
                 return Text("Error");
               })),
       theme: ThemeData(
