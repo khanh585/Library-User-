@@ -86,10 +86,10 @@ class _BookDetailState extends State<BookDetailScreen>
             slivers: <Widget>[
               SliverAppBar(
                 backgroundColor: Color(0xff392850).withOpacity(0.5),
-                expandedHeight: MediaQuery.of(context).size.height * 0.5,
+                expandedHeight: MediaQuery.of(context).size.height * 0.4,
                 flexibleSpace: Container(
                   //color: Color(this.widget.book.color),
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   child: Stack(
                     children: <Widget>[
                       // Positioned(

@@ -10,7 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:user_library/screen/home_screen/widgets/navigation_bar/navigation_bar.dart';
 import 'package:user_library/screen/home_screen/widgets/suggest_book_item/suggest_book_section.dart';
 import 'package:user_library/widgets/animation/fade_side_up.dart';
-
+import 'package:user_library/widgets/loading_circle.dart';
 import 'widgets/tab_view_books/tab_view_books.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,6 +32,7 @@ class HomeScreenState extends State<HomeScreen> {
     _firebaseMessaging.subscribeToTopic('all');
     _firebaseMessaging.getToken().then((token) => print(token));
   }
+
   @override
   void initState() {
     _registerOnFirebase();
@@ -89,20 +90,31 @@ class HomeScreenState extends State<HomeScreen> {
             stream: home_bloc.stateController.stream,
             initialData: home_bloc.state,
             builder: (context, snapshot) {
-              if (snapshot.hasError) return Text("Error");
-              else{
-                return Column(
-                  children: [
-                    SizedBox(height: 20),
-                    FadeSideUp(1.0, NavigationBar(user: this.widget.user)),
-                    FadeSideUp(2.0, SuggestBookSection(
-                      listSuggestBook: snapshot.data.listSuggestBook
-                    )),
-                    FadeSideUp(3.0, TabViewBooks(
-                      listNewestBook: snapshot.data.listNewestBook,
-                    )),
-                  ],
-                );
+              if (snapshot.hasError)
+                return Text("Error");
+              else {
+                if (snapshot.data.listSuggestBook.length != 0 &&
+                    snapshot.data.listNewestBook.length != 0) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 20),
+                      FadeSideUp(1.0, NavigationBar(user: this.widget.user)),
+                      FadeSideUp(
+                          2.0,
+                          SuggestBookSection(
+                              listSuggestBook: snapshot.data.listSuggestBook)),
+                      FadeSideUp(
+                          3.0,
+                          TabViewBooks(
+                            listNewestBook: snapshot.data.listNewestBook,
+                          )),
+                    ],
+                  );
+                } else {
+                  return Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: LoadingCircle(60, Colors.black));
+                }
               }
             }),
       ),
