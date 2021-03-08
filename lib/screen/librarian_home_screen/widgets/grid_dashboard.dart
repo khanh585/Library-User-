@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
 import 'package:user_library/screen/profile_screen/widgets/full_profile.dart';
+import 'package:user_library/service/utils.dart';
 
 class GridDashboard extends StatelessWidget {
   Items item1 = new Items(
@@ -61,11 +63,16 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
                     );
-                  }else if(data.title == "Profile"){
+                  } else if (data.title == "Profile") {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ManageBorrowScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => ManageBorrowScreen()),
                     );
+                  } else if (data.title == "Borrow Book") {
+                    Util.scanQR();
+                  } else if (data.title == "Return Book") {
+                    Util.returnBook();
                   }
                 },
                 child: Container(
