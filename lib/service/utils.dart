@@ -18,10 +18,9 @@ class Util {
           .then((value) {
         barcodeScanRes = value;
         if (connection != null) {
-          print("LVAUE " + value);
+          Map tmpMsg = jsonDecode("${value}");
+          print(tmpMsg);
           var msg = Message.fromJson(jsonDecode(value));
-          var message =
-              Message(staffId: 9, wishlist: [1, 2, 3, 55, 99], customerId: 5);
           connection.start().then((value) async {
             connection.invoke('SendMessage', args: <Object>[msg]);
           }).whenComplete(() => connection.stop());
@@ -35,11 +34,24 @@ class Util {
 
   static Future<String> returnBook() async {
     String barcodeScanRes;
-    await FlutterBarcodeScanner.scanBarcode("#ff6666", "Huỷ", true, ScanMode.QR)
-        .then((value) {
-      // barcodeScanRes = value;
-      print(value);
-    });
+    try {
+      await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Huỷ", true, ScanMode.QR)
+          .then((value) {
+        barcodeScanRes = value;
+        if (connection != null) {
+          Map tmpMsg = jsonDecode("${value}");
+          print(tmpMsg);
+          var msg = Message.fromJson(jsonDecode(value));
+          connection.start().then((value) async {
+            connection.invoke('SendMessageReturnBook', args: <Object>[msg]);
+          }).whenComplete(() => connection.stop());
+        }
+      });
+    } on PlatformException {
+      barcodeScanRes = 'Không thể nhận diện.';
+    }
+    return barcodeScanRes;
   }
 
   static void showSnackBar(BuildContext context, String message) =>

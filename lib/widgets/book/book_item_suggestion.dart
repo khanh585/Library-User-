@@ -3,6 +3,7 @@ import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 
 class BookItemSuggestion extends StatefulWidget {
   final Book book;
@@ -17,10 +18,10 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
   @override
   void initState() {
     super.initState();
-    fetchFeedback().then((value) => _listFeedback =value);
+    fetchFeedback().then((value) => _listFeedback = value);
   }
 
-  Future<List<UserFeedback>> fetchFeedback() async{
+  Future<List<UserFeedback>> fetchFeedback() async {
     List response =
         await FeedbackDAO().fetchFeedback(this.widget.book.id, 1, 10);
     List<UserFeedback> listFeedbacks = response[0];
@@ -34,7 +35,8 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => BookDetailScreen(book: this.widget.book, feedbacks: _listFeedback)),
+                builder: (context) => BookDetailScreen(
+                    book: this.widget.book, feedbacks: _listFeedback)),
           );
         },
         child: Row(
@@ -63,8 +65,20 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.network(
                           this.widget.book.image[0],
-                          fit: BoxFit.cover,
-                          alignment: Alignment.centerLeft,
+                          fit: BoxFit.fill,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes
+                                    : null,
+                              ),
+                            );
+                          },
                         ),
                       )),
                   Text(

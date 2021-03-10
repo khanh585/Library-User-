@@ -11,6 +11,7 @@ class Message {
       wishlist: json['WishList'],
     );
   }
-  Map<String, dynamic> toJson() =>
-      {'StaffId': staffId, 'CustomerId': customerId, 'WishList': wishlist};
+
+  toJson() =>
+      {"StaffId": staffId, "CustomerId": customerId, "WishList": wishlist};
 }

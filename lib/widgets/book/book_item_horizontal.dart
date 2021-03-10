@@ -20,11 +20,12 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => BookDetailScreen(book: this.widget.book)),
-          );
-        },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDetailScreen(book: this.widget.book)),
+        );
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
         child: Row(
@@ -48,8 +49,19 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.network(
                     this.widget.book.image[0],
-                    fit: BoxFit.cover,
-                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.fill,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 )),
             Container(
