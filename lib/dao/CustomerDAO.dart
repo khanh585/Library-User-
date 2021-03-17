@@ -5,17 +5,18 @@ import 'package:user_library/config.dart';
 import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/schedule.dart';
+import 'package:user_library/models/tmpUser.dart';
 
 class CustomerDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Customer';
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<Customer> fetchCustomer(int customerId) async {
-    Customer customer;
+  Future<TmpUser> fetchCustomer(int customerId) async {
+    TmpUser tmpUser;
     print("Dfdfdf" + '$customerId');
-    if (customer == null) {
-      customer = new Customer();
+    if (tmpUser == null) {
+      tmpUser = new TmpUser();
     }
     String url =
         prefixUrl + '/$customerId';
@@ -25,8 +26,8 @@ class CustomerDAO {
     print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      customer = Customer.fromJson(json['data']);
-      return customer;
+      tmpUser = TmpUser.fromJson(json['data']);
+      return tmpUser;
     } else {
       print("Not 200");
     }

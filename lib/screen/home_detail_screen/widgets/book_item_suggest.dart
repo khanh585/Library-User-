@@ -33,9 +33,10 @@ class BookItemSuggestState extends State<BookItemSuggest> {
         width: 153,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: kMainColor,
+            //color: kMainColor,
             image: DecorationImage(
               image: NetworkImage(this.widget.book.image[0]),
+              fit: BoxFit.fill
             )),
       ),
     );

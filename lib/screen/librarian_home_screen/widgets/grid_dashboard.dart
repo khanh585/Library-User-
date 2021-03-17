@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/models/tmpUser.dart';
+import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
+import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
 import 'package:user_library/service/utils.dart';
 
 class GridDashboard extends StatelessWidget {
@@ -33,9 +35,16 @@ class GridDashboard extends StatelessWidget {
     img: "images/profile.png",
   );
 
+  Items item2 = new Items(
+    title: "Profile",
+    subtitle: "",
+    event: "2 Items",
+    img: "images/profile.png",
+  );
+
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item4, item5, item6];
+    List<Items> myList = [item1, item4, item5, item6, item2];
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
@@ -51,7 +60,7 @@ class GridDashboard extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeScreen(
+                          builder: (context) => HomeDetailScreen(
                                 user: this.user,
                               )),
                     );
@@ -65,6 +74,16 @@ class GridDashboard extends StatelessWidget {
                     Util.scanQR();
                   } else if (data.title == "Return Book") {
                     Util.returnBook();
+                  }else if (data.title == "Profile") {
+                    print("profile id " + this.user.id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainProfileScreen(
+                                customerId: int.parse(this.user.id),
+                                roleId: this.user.roleId,
+                              )),
+                    );
                   }
                 },
                 child: Container(

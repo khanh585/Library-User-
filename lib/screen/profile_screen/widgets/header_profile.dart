@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
+import 'package:user_library/models/tmpUser.dart';
 
 class HeaderProfile extends StatelessWidget {
-  final Customer customer;
+  final TmpUser tmpUser;
   HeaderProfile({
-    this.customer,
+    this.tmpUser,
   });
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class HeaderProfile extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 15),
                 child: CircleAvatar(
                   radius: 90.0,
-                  backgroundImage: NetworkImage("${customer.image}"),
+                  backgroundImage: NetworkImage("${tmpUser.image}"),
                   backgroundColor: Colors.transparent,
                 ),
               ),
@@ -64,7 +65,7 @@ class HeaderProfile extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      customer.name,
+                      tmpUser.name,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -73,7 +74,7 @@ class HeaderProfile extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(customer.phone,
+                    Text(tmpUser.phone,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 12,

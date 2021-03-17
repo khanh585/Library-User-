@@ -35,18 +35,19 @@ class TmpUser {
 
   factory TmpUser.fromJson(Map<String, dynamic> json) {
     return TmpUser(
-      id: json['id'],
+      id: json['id'].toString(),
       username: json['username'],
       name: json['name'],
       address:json['address'],
       image: json['image'],
-      doB: json['DoB'],
+      phone: json['phone'],
+      doB: json['doB'],
       email: json['email'],
       deviceToken: json['deviceToken'],
       createdTime: json['createdTime'],
       password: json['password'],
       gender: json['gender'],
-      roleId: int.parse(json['role'])
+      roleId: int.parse(json['roleId'].toString())
     );
   }
 
@@ -63,6 +64,6 @@ class TmpUser {
         'password': password,
         'createdTime': createdTime,
         'gender': gender,
-        'role' : roleId
+        'roleId' : roleId
       };
 }

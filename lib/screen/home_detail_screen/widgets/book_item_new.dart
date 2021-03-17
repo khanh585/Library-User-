@@ -35,14 +35,16 @@ class BookItemNewState extends State<BookItemNew> {
       child: Row(
         children: [
           Container(
-            height: 81,
-            width: 62,
+            height: 80,
+            width: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                   image: NetworkImage(this.widget.book.image[0]),
+                  fit: BoxFit.fill
                 ),
-                color: kMainColor),
+                //color: Color(0xff9966).withOpacity(0.5)
+                ),
           ),
           SizedBox(
             width: 21,
