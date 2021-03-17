@@ -14,19 +14,6 @@ class GridDashboard extends StatelessWidget {
       subtitle: "March, Wednesday",
       event: "3 Events",
       img: "images/book.png");
-
-  Items item2 = new Items(
-    title: "Check Location",
-    subtitle: "Bocali, Apple",
-    event: "4 Items",
-    img: "images/map.png",
-  );
-  Items item3 = new Items(
-    title: "QR Code",
-    subtitle: "Lucy Mao going to Office",
-    event: "",
-    img: "images/qr-code.png",
-  );
   Items item4 = new Items(
     title: "Return Book",
     subtitle: "Rose favirited your Post",
@@ -48,7 +35,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2, item3, item4, item5, item6];
+    List<Items> myList = [item1, item4, item5, item6];
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
@@ -63,7 +50,10 @@ class GridDashboard extends StatelessWidget {
                   if (data.title == "Manage Book") {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen(user: this.user,)),
+                      MaterialPageRoute(
+                          builder: (context) => HomeScreen(
+                                user: this.user,
+                              )),
                     );
                   } else if (data.title == "Manage Borrow") {
                     Navigator.push(

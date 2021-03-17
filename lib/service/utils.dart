@@ -40,11 +40,13 @@ class Util {
           .then((value) {
         barcodeScanRes = value;
         if (connection != null) {
-          Map tmpMsg = jsonDecode("${value}");
-          print(tmpMsg);
           var msg = Message.fromJson(jsonDecode(value));
           connection.start().then((value) async {
-            connection.invoke('SendMessageReturnBook', args: <Object>[msg]);
+            print("====================" + msg.toString());
+            print(msg.staffId);
+            print(msg.customerId);
+            print(msg.wishlist);
+            connection.invoke('SendMessageToReturn', args: <Object>[msg]);
           }).whenComplete(() => connection.stop());
         }
       });
