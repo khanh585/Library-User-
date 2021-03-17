@@ -35,7 +35,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   }
 
   void sendFeedback(UserFeedback dto) {
-    //feedback_bloc.eventController.sink.add(SentFeedbackEvent(dto));
+    print(dto.customerId);
+    feedbackScreenBloc.eventController.sink.add(SentFeedbackEvent(userFeedback: dto));
   }
 
   void sortBy(int sorted) {

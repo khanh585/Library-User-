@@ -81,10 +81,15 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
                           },
                         ),
                       )),
-                  Text(
+                  SizedBox(
+                    width: 130,
+                    child:Text(
                     this.widget.book.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
+                  ),                  
                   Container(
                       margin: EdgeInsets.only(top: 5),
                       child: Text(

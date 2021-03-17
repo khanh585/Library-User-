@@ -28,5 +28,5 @@ class UserFeedback {
       };
 
   static UserFeedback feedbackID(
-      {int bookGroupID, String content, int rating, customerID}) {}
+      {int bookGroupID, String content, int rating, int customerID}) {}
 }

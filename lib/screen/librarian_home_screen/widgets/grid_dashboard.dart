@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/models/tmpUser.dart';
 
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
-import 'package:user_library/screen/profile_screen/widgets/full_profile.dart';
 import 'package:user_library/service/utils.dart';
 
 class GridDashboard extends StatelessWidget {
+  final TmpUser user;
+  GridDashboard({this.user});
   Items item1 = new Items(
       title: "Manage Book",
       subtitle: "March, Wednesday",
@@ -38,7 +40,7 @@ class GridDashboard extends StatelessWidget {
     img: "images/borrow-book.png",
   );
   Items item6 = new Items(
-    title: "Profile",
+    title: "Manage Borrow",
     subtitle: "",
     event: "2 Items",
     img: "images/profile.png",
@@ -61,9 +63,9 @@ class GridDashboard extends StatelessWidget {
                   if (data.title == "Manage Book") {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => HomeScreen(user: this.user,)),
                     );
-                  } else if (data.title == "Profile") {
+                  } else if (data.title == "Manage Borrow") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

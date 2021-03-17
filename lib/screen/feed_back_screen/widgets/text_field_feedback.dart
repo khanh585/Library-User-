@@ -6,14 +6,13 @@ import 'package:user_library/context.dart';
 import 'package:user_library/models/user_feedback.dart';
 
 class TextFieldFeedback extends StatefulWidget {
+  final int bookGroupID;
+  final Function(UserFeedback) onSendMessage;
   const TextFieldFeedback({
     Key key,
     this.onSendMessage,
     this.bookGroupID,
   }) : super(key: key);
-  final int bookGroupID;
-  final Function(UserFeedback) onSendMessage;
-
   @override
   _TextFieldFeedbackState createState() => _TextFieldFeedbackState();
 }
@@ -45,8 +44,15 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
       bookGroupID: this.widget.bookGroupID,
       content: content,
       rating: rate,
-      customerID: contextData['customerID'],
+      customerID: int.parse(contextData['customerID']),
     );
+  }
+
+  void _onSendPressed() {
+    UserFeedback dto =
+        new UserFeedback(content: "Asdasd", customerId: 1, rating: 4);
+    widget.onSendMessage(dto);
+    print("sended");
   }
 
   @override
@@ -76,9 +82,9 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                       )),
                 )
               : Container(
-                  width: 200,
+                  width: 120,
                   height: 58,
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+                  padding: EdgeInsets.only(left: 15, top: 20),
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),
@@ -102,20 +108,20 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                   ),
                 ),
           Container(
-            width: MediaQuery.of(context).size.width - 50 - sizeRating,
+            width: MediaQuery.of(context).size.width - sizeRating,
             padding: EdgeInsets.all(5),
             color: Colors.white,
             child: TextField(
               controller: txtSearch,
               onTap: () {
                 setState(() {
-                  sizeRating = 50;
+                  sizeRating = 200;
                 });
               },
               maxLines: null,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 20, left: 15),
+                  contentPadding: EdgeInsets.only(top: 20),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -129,14 +135,7 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
           ),
           GestureDetector(
             onTap: () {
-              if (this.validMessage()) {
-                print('sended');
-                this.widget.onSendMessage(
-                    createFeedback(rate, this.txtSearch.text.trim()));
-                setState(() {
-                  txtSearch.text = '';
-                });
-              }
+              _onSendPressed();
             },
             child: Container(
                 width: 50,

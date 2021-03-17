@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/librarian_home_screen/widgets/grid_dashboard.dart';
 
 class LibrarianHomeScreen extends StatefulWidget {
+  final TmpUser user;
+  LibrarianHomeScreen({this.user});
   @override
   LibrarianHomeScreenState createState() => LibrarianHomeScreenState();
 }
@@ -62,7 +65,7 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
           SizedBox(
             height: 40,
           ),
-          GridDashboard()
+          GridDashboard(user: this.widget.user,)
         ],
       ),
     );

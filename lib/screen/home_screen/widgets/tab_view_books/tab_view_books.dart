@@ -20,6 +20,7 @@ class TabViewBooksState extends State<TabViewBooks> {
 
   @override
   Widget build(BuildContext context) {
+    print("Ádasdasdas" + this.widget.listNewestBook.toString());
     return Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 65),
@@ -93,9 +94,9 @@ class TabViewBooksState extends State<TabViewBooks> {
           ),
           Container(
             decoration: BoxDecoration(color: Colors.white),
-            child: Column(
-              children: [
-                for(Book book in this.widget.listNewestBook)
+            child: Column(            
+              children: [               
+                for(Book book in this.widget.listNewestBook)              
                 BookItemHorizontal(book: book)
               ],
             ),

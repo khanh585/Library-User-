@@ -90,6 +90,7 @@ class HomeScreenState extends State<HomeScreen> {
             stream: home_bloc.stateController.stream,
             initialData: home_bloc.state,
             builder: (context, snapshot) {
+              print("Sfsfs" + snapshot.data.listNewestBook.toString());
               if (snapshot.hasError)
                 return Text("Error");
               else {
@@ -105,7 +106,7 @@ class HomeScreenState extends State<HomeScreen> {
                               listSuggestBook: snapshot.data.listSuggestBook)),
                       FadeSideUp(
                           3.0,
-                          TabViewBooks(
+                          TabViewBooks(                           
                             listNewestBook: snapshot.data.listNewestBook,
                           )),
                     ],

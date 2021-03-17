@@ -58,7 +58,7 @@ class Body extends StatelessWidget {
                   }else if (value.roleId.toString() == "3") {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LibrarianHomeScreen()),
+                      MaterialPageRoute(builder: (context) => LibrarianHomeScreen(user: value)),
                     );
                   }
                 });
