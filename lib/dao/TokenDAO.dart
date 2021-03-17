@@ -21,7 +21,8 @@ class TokenDAO {
     var token = tmp['token'];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     TmpUser tmpUser = TmpUser.fromJson(payload);
-    //String role = tmpUser.role.toString();
+    String role = tmpUser.roleId.toString();
+    print("sdfsdfsd" + role);
     return tmpUser;
   }
 }

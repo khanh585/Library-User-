@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_event.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_bloc.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_state.dart';
@@ -12,6 +13,8 @@ import '../../constants.dart';
 import '../book_detail_screen_2/widgets/custom_tab_indicator.dart';
 
 class HomeDetailScreen extends StatefulWidget {
+  final TmpUser user;
+  HomeDetailScreen({this.user});
   @override
   _HomeDetailScreenState createState() => _HomeDetailScreenState();
 }
@@ -46,7 +49,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Hi, Rizki',
+                                'Hi, '+ this.widget.user.name,
                                 style: GoogleFonts.openSans(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
