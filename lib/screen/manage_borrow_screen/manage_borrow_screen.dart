@@ -27,18 +27,19 @@ class _ManageBorrowState extends State<ManageBorrowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color(0xFF9966).withOpacity(1),
           centerTitle: true,
           title: Column(
             children: <Widget>[
               Text(
-                'Your dream team',
+                'Newest borrow request',
                 //style: Theme.of(context).appBarTheme.textTheme.subtitle1,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                'Group of 5 will make it happen.',
+                'Swipe right to see details',
                 //style: Theme.of(context).appBarTheme.textTheme.subtitle1,
               )
             ],

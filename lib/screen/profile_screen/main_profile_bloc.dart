@@ -25,14 +25,15 @@ class MainProfileBloc {
         TmpUser result;
         int customerId = event.customerId;
         int roleId = event.roleId;
+        print("zo cai nay ne" + roleId.toString());
         if (roleId.toString() == "2") {
+          
           result = await CustomerDAO().fetchCustomer(customerId);
           state = MainProfileState(
             mainProfile: result,
           );
         }else{
           result = await StaffDAO().fetchStaff(customerId);
-          print("phone" + result.phone);
           state = MainProfileState(
             mainProfile: result,
           );

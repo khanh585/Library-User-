@@ -43,7 +43,7 @@ class CircleProfile extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(80),
-                    color: Color(0xff01d468),
+                    color: Colors.orange
                   ),
                   child: Icon(
                     Icons.check,

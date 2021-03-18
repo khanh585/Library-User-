@@ -36,7 +36,7 @@ class MainLayoutState extends State<MainLayout> {
           HomeScreen(user: this.widget.user),
           WishListScreen(),
           SearchScreen(),
-          MainProfileScreen(customerId: int.parse(this.widget.user.id)),
+          MainProfileScreen(customerId: int.parse(this.widget.user.id), roleId: this.widget.user.roleId),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

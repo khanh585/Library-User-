@@ -31,8 +31,8 @@ class UserCard extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xff00a294),
-                    Color(0xff01d468),
+                    Color(0xffff8a65),
+                    Color(0xffff5722),                   
                   ],
                 ),
               ),
@@ -112,7 +112,7 @@ class UserCard extends StatelessWidget {
                         child: Container(),
                       ),
                       ProgressCircleIndicator(
-                        completedPercentage: 50,
+                        completedPercentage: 100,
                         radius: 30,
                         fontSize: 15,
                       ),

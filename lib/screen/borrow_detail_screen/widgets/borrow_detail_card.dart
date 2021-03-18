@@ -22,7 +22,7 @@ class BorrowDetailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Personal goals',
+                      'Return books',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -70,14 +70,13 @@ class BorrowDetailCard extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              Text('3/5')
                             ],
                           ),
                           SizedBox(
                             height: 15,
                           ),
                           ProgressLineIndicator(
-                            completedPercentage: (3 / 5 * 100).toInt(),
+                            completedPercentage: (5 / 5 * 100).toInt(),
                             width: MediaQuery.of(context).size.width * 0.8,
                             strokeWidth: 5,
                           )
@@ -99,7 +98,10 @@ class BorrowDetailCard extends StatelessWidget {
               CircleIndicator(
                 count: 4,
                 //current: _goalPageCurrent,
-              )
+              ),
+              SizedBox(
+                height: 25,
+              ),
             ],
           ),
           Column(
@@ -110,24 +112,17 @@ class BorrowDetailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Current tasks',
+                      'Current borrow books',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'Calendar >',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    )
                   ],
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 height: 180,
@@ -156,11 +151,11 @@ class BorrowDetailCard extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(80),
-                                  color: Colors.greenAccent,
+                                  color: Colors.orangeAccent,
                                 ),
                                 child: Icon(
                                   Icons.arrow_upward,
-                                  color: Colors.green,
+                                  color: Colors.orange,
                                   size: 18,
                                 ),
                               ),

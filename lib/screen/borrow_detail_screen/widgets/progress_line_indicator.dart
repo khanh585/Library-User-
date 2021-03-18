@@ -97,9 +97,9 @@ class ProgressLinePainter extends CustomPainter {
         end: Alignment.centerRight,
         tileMode: TileMode.repeated,
         colors: [
-          Color(0xff01d468),
-          Color(0xff00a294),
-          Color(0xff01d468),
+          Color(0xFF64A19), 
+          Color(0xFFF4511E),
+          Color(0xFFD84315),            
         ]);
 
     canvas.drawLine(Offset(0,0), Offset(size.width, 0), defaultPaint);

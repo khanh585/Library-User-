@@ -36,8 +36,8 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final Shader linearGradient = LinearGradient(colors: [
-      Color(0xff00a294),
-      Color(0xff01d468),
+      Color(0xffff8a65),
+      Color(0xffff5722),
     ]).createShader(Rect.fromLTWH(0, 0, 150, 300));
 
     return Scaffold(
@@ -124,7 +124,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                         Column(
                           children: <Widget>[
                             ProgressCircleIndicator(
-                              completedPercentage: 50,
+                              completedPercentage: 100,
                               radius: 55,
                               fontSize: 30,
                             ),
