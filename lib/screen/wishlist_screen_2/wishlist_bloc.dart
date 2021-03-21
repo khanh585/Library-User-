@@ -5,6 +5,7 @@ import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_state.dart';
 
 import 'wishlist_event.dart';
+import 'wishlist_event.dart';
 
 class WishListBloc implements Bloc {
   var state = WishListState(
@@ -20,9 +21,14 @@ class WishListBloc implements Bloc {
       if (event is RefreshWishList) {
         // get data in function was add data in state
         _getAllWishList();
-      } else if (event is AddOrRemoveToListBorrow) {
-        _addOrRemoveWishList(event.wish);
+      } else if (event is DeleteToListBorrow) {
+        _deleteWishList(event.wish);
+        _getAllWishList();
       }
+      //else if (event is AddToListBorrow) {
+      //   _addWishList(event.wish);
+      // }
+
       stateController.sink.add(state);
     });
   }
@@ -33,17 +39,21 @@ class WishListBloc implements Bloc {
     final wishlistDao = database.wishListDao;
     await wishlistDao.findAllWishLists().then((value) {
       this.state.wishlist = value;
-     
-      stateController.sink.add(state);
     });
   }
 
-  Future<void> _addOrRemoveWishList(WishList wish) async {
+  // Future<void> _addWishList(WishList wish) async {
+  //   final database =
+  //       await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  //   final wishlistDao = database.wishListDao;
+  //   wishlistDao.updateWishList(wish);
+  // }
+
+  Future<void> _deleteWishList(WishList wish) async {
     final database =
         await $FloorAppDatabase.databaseBuilder('app_database.db').build();
     final wishlistDao = database.wishListDao;
-    wish.isChecked = !wish.isChecked;
-    wishlistDao.updateWishList(wish);
+    wishlistDao.deleteWishLists(wish);
   }
 
   // khi không cần thiết thì close tất cả controller

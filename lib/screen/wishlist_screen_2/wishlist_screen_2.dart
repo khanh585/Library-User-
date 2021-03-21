@@ -10,6 +10,7 @@ import 'package:user_library/screen/wishlist_screen_2/wishlist_bloc.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_event.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_state.dart';
 import 'package:user_library/widgets/loading_circle.dart';
+import '../../models/wishlist.dart';
 import 'constants_wish.dart';
 
 class WishListScreen extends StatefulWidget {
@@ -37,8 +38,8 @@ class _WishListScreenState extends State<WishListScreen> {
     _wishlistScreenBloc.eventController.sink.add(RefreshWishList());
   }
 
-  void _add_delete_ToListBorrow(WishList wish) {
-    _wishlistScreenBloc.eventController.sink.add(AddOrRemoveToListBorrow(wish));
+  void _delete_ToListBorrow(WishList wish) {
+    _wishlistScreenBloc.eventController.sink.add(DeleteToListBorrow(wish));
   }
 
   void _genQRCode(List<WishList> wishlist) {
@@ -60,8 +61,6 @@ class _WishListScreenState extends State<WishListScreen> {
                 ),
               )),
     );
-
-    print(listID);
   }
 
   //final CategoriesScroller categoriesScroller = CategoriesScroller();
@@ -180,12 +179,12 @@ class _WishListScreenState extends State<WishListScreen> {
                       ),
                       // AnimatedOpacity(
                       //   duration: const Duration(milliseconds: 200),
-                      //   opacity: closeTopContainer?0:1,
+                      //   opacity: closeTopContainer ? 0 : 1,
                       //   child: AnimatedContainer(
                       //       duration: const Duration(milliseconds: 200),
                       //       width: size.width,
                       //       alignment: Alignment.topCenter,
-                      //       height: closeTopContainer?0:categoryHeight,
+                      //       height: closeTopContainer ? 0 : categoryHeight,
                       //       child: categoriesScroller),
                       // ),
                       Expanded(
@@ -196,7 +195,7 @@ class _WishListScreenState extends State<WishListScreen> {
                             itemBuilder: (context, index) {
                               double scale = 1.0;
                               if (topContainer > 0.5) {
-                                scale = index + 0.5 - topContainer;
+                                scale = index + 0.5;
                                 if (scale < 0) {
                                   scale = 0;
                                 } else if (scale > 1) {
@@ -210,86 +209,109 @@ class _WishListScreenState extends State<WishListScreen> {
                                     ..scale(scale, scale),
                                   alignment: Alignment.bottomCenter,
                                   child: Align(
-                                      heightFactor: 0.7,
+                                      heightFactor: 0.9,
                                       alignment: Alignment.topCenter,
-                                      child: Container(
-                                          height: 150,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.0)),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black
-                                                        .withAlpha(100),
-                                                    blurRadius: 10.0),
-                                              ]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0, vertical: 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      width: 200,
-                                                      child: Text(
+                                      child: Dismissible(
+                                        onDismissed: (direction) {
+                                          WishList wish =
+                                              snapshot.data.wishlist[index];
+                                          snapshot.data.wishlist
+                                              .removeAt(index);
+                                          _delete_ToListBorrow(wish);
+                                        },
+                                        background: Container(
+                                          color: Colors.red,
+                                        ),
+                                        key: Key(snapshot
+                                            .data.wishlist[index].id
+                                            .toString()),
+                                        child: Container(
+                                            height: 150,
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20.0)),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black
+                                                          .withAlpha(100),
+                                                      blurRadius: 10.0),
+                                                ]),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        width: 200,
+                                                        child: Text(
+                                                          snapshot
+                                                              .data
+                                                              .wishlist[index]
+                                                              .name,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: const TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Text(
                                                         snapshot
                                                             .data
                                                             .wishlist[index]
-                                                            .name,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
+                                                            .author,
                                                         style: const TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 17,
+                                                            color: Colors.grey),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Text(
+                                                        "\$ ${snapshot.data.wishlist[index].fee}",
+                                                        style: const TextStyle(
+                                                            fontSize: 25,
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data
-                                                          .wishlist[index]
-                                                          .author,
-                                                      style: const TextStyle(
-                                                          fontSize: 17,
-                                                          color: Colors.grey),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      "\$ ${snapshot.data.wishlist[index].fee}",
-                                                      style: const TextStyle(
-                                                          fontSize: 25,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )
-                                                  ],
-                                                ),
-                                                Image.network(
-                                                  "${snapshot.data.wishlist[index].image}",
-                                                  height: double.infinity,
-                                                )
-                                              ],
-                                            ),
-                                          ))),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Image.network(
+                                                    "${snapshot.data.wishlist[index].image}",
+                                                    // height: double.infinity,
+                                                    width:
+                                                        (size.width - 25 * 2) /
+                                                                3 -
+                                                            18 * 2,
+                                                  )
+                                                ],
+                                              ),
+                                            )),
+                                      )),
                                 ),
                               );
                             }),
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.only(left: 25, right: 25, bottom: 25, top: 25),
+                        margin: EdgeInsets.only(
+                            left: 25, right: 25, bottom: 25, top: 25),
                         height: 49,
                         width: 300,
                         color: Colors.transparent,
@@ -309,7 +331,7 @@ class _WishListScreenState extends State<WishListScreen> {
                   ),
                 );
               } else {
-                return LoadingCircle(50, Colors.grey);
+                return Center(child: Text("Empty wish list"));
               }
               // return LoadingCircle(50, Colors.grey);
             }),

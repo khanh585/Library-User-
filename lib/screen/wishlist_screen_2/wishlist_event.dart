@@ -6,7 +6,12 @@ class RefreshWishList extends WishListEvent {
   RefreshWishList();
 }
 
-class AddOrRemoveToListBorrow extends WishListEvent {
+class AddToListBorrow extends WishListEvent {
   WishList wish;
-  AddOrRemoveToListBorrow(this.wish);
+  AddToListBorrow(this.wish);
+}
+
+class DeleteToListBorrow extends WishListEvent {
+  WishList wish;
+  DeleteToListBorrow(this.wish);
 }
