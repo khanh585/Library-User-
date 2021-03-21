@@ -52,11 +52,19 @@ class _BookDetailState extends State<BookDetailScreen>
     final id = this.widget.book.id;
     final name = this.widget.book.name;
     final author = this.widget.book.author;
-    final thumnail =
+    final fee = this.widget.book.fee;
+    final image =
         this.widget.book.image.length != 0 ? this.widget.book.image[0] : '';
 
-    final wish = WishList(id, name, author, thumnail, true);
+    final wish = WishList(id, name, author, fee, image, true);
+    
     wishListDAO.insertWishList(wish);
+    wishListDAO.findWishListById(id).then((value) => {
+       print('===='+value.image.toString())
+    });
+
+   
+   
     setState(() {
       _inWishList = true;
     });
@@ -71,8 +79,12 @@ class _BookDetailState extends State<BookDetailScreen>
         color: Colors.transparent,
         child: FlatButton(
           color: Color(0xFF9966).withOpacity(0.95),
-          onPressed: () => _addToWishList(),
-          child: Text(
+          onPressed: () => _inWishList ? null : _addToWishList(),
+          child: _inWishList?Text(
+            'Added',
+            style: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w600, color: kWhiteColor),
+          ): Text(
             'Add to wishlist',
             style: TextStyle(
                 fontSize: 14, fontWeight: FontWeight.w600, color: kWhiteColor),

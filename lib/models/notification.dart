@@ -1,42 +1,45 @@
 
-// class Notification {
-//   int userId;
-//   String message;
-//   DateTime time;
-//   DateTime createdDate;
-//   String author;
-//   String image;
-//   double fee;
+class UserNotification {
+  int id;
+  int userId;
+  String message;
+  String time;
+  String createdDate;
+  String bookGroupName;
+  String image;
 
-//   Notification(
-//       {this.id,
-//       this.bookName,
-//       this.startTime,
-//       this.author,
-//       this.image,
-//       this.fee});
+  UserNotification(
+      {this.id,
+      this.userId,
+      this.message,
+      this.time,
+      this.createdDate,
+      this.bookGroupName,
+      this.image});
 
-//   Notification.userId(
-//       {this.id,this.bookName, this.startTime,this.author, this.image, this.fee});
+  UserNotification.userId(
+      {this.id,this.userId, this.message,this.time, this.createdDate, this.bookGroupName, this.image});
 
-//   factory Notification.fromJson(Map<String, dynamic> json) {
-//     return Notification(
-//       id: json['id'],
-//       bookName: json['bookName'],
-//       startTime: DateTime.parse(json['startTime']),
-//       author: json['author'],
-//       image: json['image'],
-//       fee: json['total'],
-//     );
-//   }
+  factory UserNotification.fromJson(Map<String, dynamic> json) {
+    return UserNotification(
+      id: json['id'],
+      userId: json['userId'],
+      message: json['message'],
+      time: json['time'],
+      createdDate: json['createdDate'],
+      bookGroupName: json['bookGroupName'],
+      image: json['image']
+    );
+  }
 
-//   Map<String, dynamic> toJson() => {
-//         // 'id': feedbackID,
-//         'id' : id,
-//         'bookName': bookName,
-//         'startTime': startTime,
-//         'author' : author,
-//         'image': image,
-//         'fee': fee
-//       };
-// }
+  Map<String, dynamic> toJson() => {
+        // 'id': feedbackID,
+        'id' : id,
+        'userId': userId,
+        'message': message,
+        'time' : time,
+        'createdDate': createdDate,
+        'bookGroupName': bookGroupName,
+        'image': image
+      };
+}

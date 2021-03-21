@@ -74,7 +74,7 @@ class UserCard extends StatelessWidget {
                       Hero(
                         tag: customer[index].name,
                         child: CircleProfile(
-                          image: 'images/1.png',
+                          image: customer[index].image,
                           width: 50,
                           height: 50,
                           acceptSize: 15,

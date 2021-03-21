@@ -6,6 +6,7 @@ import 'package:user_library/screen/login_screen/login_screen.dart';
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
 import 'package:user_library/screen/welcome_screen/welcome_screen.dart';
+import 'package:user_library/screen/wishlist_screen_2/wishlist_screen_2.dart';
 import 'package:user_library/service/Authenticate.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';

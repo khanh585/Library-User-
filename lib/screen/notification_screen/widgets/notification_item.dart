@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
 class NotificationItem extends StatefulWidget {
-  final status;
-  final content;
-  final title;
+  final message;
+  final image;
   final time;
+  final createdDate;
+  final bookGroupName;
 
   const NotificationItem({
-    this.status,
-    this.content,
-    this.title,
+    this.message,
+    this.image,
     this.time,
+    this.createdDate,
+    this.bookGroupName
   });
 
   @override
@@ -22,23 +24,23 @@ class NotificationItem extends StatefulWidget {
 class NotificationItemState extends State<NotificationItem> {
   List<Color> colors = [Colors.red, Colors.green, Colors.amber];
   int pickColor = 0;
-  setColor() {
-    if (this.widget.status == 'success') {
-      pickColor = 1;
-    } else if (this.widget.status == 'warning') {
-      pickColor = 0;
-    } else if (this.widget.status == 'processing') {
-      pickColor = 2;
-    }
-    setState(() {
-      pickColor = pickColor;
-    });
-  }
+  // setColor() {
+  //   if (this.widget.status == 'success') {
+  //     pickColor = 1;
+  //   } else if (this.widget.status == 'warning') {
+  //     pickColor = 0;
+  //   } else if (this.widget.status == 'processing') {
+  //     pickColor = 2;
+  //   }
+  //   setState(() {
+  //     pickColor = pickColor;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    setColor();
+    //setColor();
   }
 
   bool isDetail = false;
@@ -70,7 +72,7 @@ class NotificationItemState extends State<NotificationItem> {
                         children: [
                           Container(
                             child: Text(
-                              this.widget.title,
+                              this.widget.message,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -93,7 +95,7 @@ class NotificationItemState extends State<NotificationItem> {
                       Container(
                         margin: EdgeInsets.only(top: 5),
                         child: Text(
-                          this.widget.content,
+                          this.widget.message,
                           style: TextStyle(color: Colors.black87, fontSize: 14),
                         ),
                       )

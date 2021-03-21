@@ -45,10 +45,11 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     final id = this.widget.book.id;
     final name = this.widget.book.name;
     final author = this.widget.book.author;
-    final thumnail =
+    final fee = this.widget.book.fee;
+    final image =
         this.widget.book.image.length != 0 ? this.widget.book.image[0] : '';
 
-    final wish = WishList(id, name, author, thumnail, true);
+    final wish = WishList(id, name, author, fee, image, true);
     wishListDAO.insertWishList(wish);
     setState(() {
       _inWishList = true;

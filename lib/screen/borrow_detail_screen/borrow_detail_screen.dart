@@ -30,7 +30,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
     super.initState();
     _goalPageController = PageController(viewportFraction: 0.9);
     borrow_detail_bloc.eventController.sink
-        .add(FetchBorrowDetailEvent(this.widget.customerId));
+        .add(FetchBorrowDetailEvent(this.widget.customer.id));
   }
 
   @override
@@ -47,15 +47,18 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
         title: Column(
           children: <Widget>[
             Text(
-              this.widget.customer.name,
-              style: TextStyle(color: Colors.red),
+              widget.customer.name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black),
+              //style: Theme.of(context).appBarTheme.textTheme.title,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              this.widget.customer.name,
-              style: TextStyle(color: Colors.red),
+              widget.customer.email,
+              style: TextStyle(
+                  color: Colors.grey[500]),
             )
           ],
         ),
@@ -67,7 +70,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
           if (snapshot.hasError) return Text("Error");
           if (snapshot.data.borrowDetails.length != 0) {
             //return BorrowDetailCard(borrowDetail: snapshot.data.borrowDetails);
-            print(snapshot.data.borrowDetails);
+            print("return " + snapshot.data.returnDetails.toString());
             return Container(
               child: ListView(
                 children: <Widget>[
@@ -93,7 +96,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                             Hero(
                               tag: snapshot.data.borrowDetails[1].bookName,
                               child: CircleProfile(
-                                image: 'images/1.png',
+                                image: this.widget.customer.image,
                                 width: 120,
                                 height: 120,
                                 acceptSize: 20,
@@ -132,7 +135,8 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                               height: 15,
                             ),
                             Text(
-                              snapshot.data.borrowDetails[1].bookName,
+                              this.widget.customer.name,
+                              overflow: TextOverflow.fade,
                               style: TextStyle(fontSize: 12),
                             )
                           ],
@@ -145,7 +149,9 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                   ),
                   Container(
                       child: BorrowDetailCard(
-                          borrowDetail: snapshot.data.borrowDetails))
+                          customer: this.widget.customer,
+                          borrowDetail: snapshot.data.borrowDetails,
+                          returnDetail: snapshot.data.returnDetails))
                 ],
               ),
             );

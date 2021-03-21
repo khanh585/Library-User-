@@ -2,15 +2,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:user_library/config.dart';
 import 'package:user_library/models/borrow_detail.dart';
+import 'package:user_library/models/return_detail.dart';
 
-class BorrowDetailDAO {
-  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'BorrowDetail';
+class ReturnDetailDAO {
+  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'ReturnDetail';
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<List<BorrowDetail>> fetchBorrowDetail(int borrowId) async {
+  Future<List<ReturnDetail>> fetchReturnDetail(int borrowId) async {
     print("Noasasst 200");
-    List<BorrowDetail> list;
+    List<ReturnDetail> list;
     if (list == null) {
       list = new List();
     }
@@ -25,7 +26,7 @@ class BorrowDetailDAO {
       print(json.toString());
       List cats = json['data'];
       cats.forEach((element) {
-        BorrowDetail dto = BorrowDetail.fromJson(element);
+        ReturnDetail dto = ReturnDetail.fromJson(element);
         list.add(dto);
       });
       return list;
@@ -34,8 +35,8 @@ class BorrowDetailDAO {
     }
   }
 
-  Future<List<BorrowDetail>> fetchBorrowDetailOfCustomer(int customerId) async {
-    List<BorrowDetail> list;
+  Future<List<ReturnDetail>> fetchReturnDetailOfCustomer(int customerId) async {
+    List<ReturnDetail> list;
     if (list == null) {
       list = new List();
     }
@@ -47,9 +48,11 @@ class BorrowDetailDAO {
       Map json = jsonDecode(response.body);
       List cats = json['data'];
       cats.forEach((element) {
-        BorrowDetail dto = BorrowDetail.fromJson(element);
+        ReturnDetail dto = ReturnDetail.fromJson(element);
+        print(" return yo " + dto.bookName);
         list.add(dto);
       });
+      print("return ne " + list.toString());
       return list;
     } else {
       print("Not 200");

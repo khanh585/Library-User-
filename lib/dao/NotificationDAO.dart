@@ -3,52 +3,34 @@ import 'package:stack/stack.dart';
 import 'dart:convert';
 import 'package:user_library/config.dart';
 import 'package:user_library/models/borrow_detail.dart';
+import 'package:user_library/models/notification.dart';
 import 'package:user_library/models/schedule.dart';
 
 class NotificationDAO {
-  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Notification';
+  List<UserNotification> list;
+  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'UserNotification';
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<List<BorrowDetail>> fetchBorrowDetail(int borrowId) async {
-    print("Noasasst 200");
-    List<BorrowDetail> list;
+  Future<List<UserNotification>> fetchNotification(int userId) async {
     if (list == null) {
       list = new List();
     }
-    String url =
-        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&UserId=${1}';
-        print(url.toString());
+    String url = prefixUrl + '?UserId=$userId';
+    print(url.toString());
     var response = await http.get(url);
 
     print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json.toString());
-      List cats = json['data'];
-      cats.forEach((element) {
-        BorrowDetail dto = BorrowDetail.fromJson(element);
+      List notifications = json['data'];
+      notifications.forEach((element) {
+        UserNotification dto = UserNotification.fromJson(element);
         list.add(dto);
       });
       return list;
     } else {
       print("Not 200");
-    }
-  }
-
-  Future<BorrowDetail> sentFeedback(BorrowDetail dto) async {
-    Map<String, String> headers = {"Content-type": "application/json"};
-
-    String body = json.encode(dto.toJson());
-
-    var response = await http.post(prefixUrl, headers: headers, body: body);
-
-    if (response.statusCode == 200) {
-      Map json = jsonDecode(response.body);
-      BorrowDetail dto = BorrowDetail.fromJson(json['data']);
-      return dto;
-    } else {
-      throw Exception('Failed');
     }
   }
 }

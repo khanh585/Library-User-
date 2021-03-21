@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
-import 'package:user_library/screen/wishlish_screen/wishlist_screen.dart';
+import 'package:user_library/screen/wishlist_screen_2/wishlist_screen_2.dart';
 import 'package:user_library/widgets/bottombar.dart';
 import 'package:user_library/context.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
