@@ -29,7 +29,7 @@ class CircleProfile extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
               image:
-                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+                  DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(80),
               border: Border.all(
                 color: Colors.grey,
@@ -43,7 +43,7 @@ class CircleProfile extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(80),
-                    color: Color(0xff01d468),
+                    color: Colors.orange
                   ),
                   child: Icon(
                     Icons.check,

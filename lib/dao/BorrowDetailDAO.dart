@@ -40,7 +40,7 @@ class BorrowDetailDAO {
       list = new List();
     }
     String url =
-        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&CustomerId=2';
+        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&CustomerId=$customerId';
         print(url.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {

@@ -32,6 +32,9 @@ class FeedbackScreenBloc implements Bloc {
         state.rating = rating;
         print(state);
         stateController.sink.add(state);
+      }else if(event is SentFeedbackEvent){
+        UserFeedback dto = event.userFeedback;
+        dto = await FeedbackDAO().sentFeedback(dto);
       }
     });
   }

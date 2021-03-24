@@ -3,14 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:user_library/models/customer.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
 import 'package:user_library/widgets/animation/fade_side_in.dart';
 
 class BodyProfile extends StatelessWidget {
-  final Customer customer;
+  final TmpUser tmpUser;
   BodyProfile({
     Key key,
-    this.customer,
+    this.tmpUser,
   });
   @override
   Widget build(BuildContext context) {
@@ -50,21 +51,21 @@ class BodyProfile extends StatelessWidget {
               2,
               ProfileItem(
                 title: "Email",
-                infor: this.customer.email,
+                infor: this.tmpUser.email,
                 color: Colors.black,
               )),
           FadeSideIn(
               2,
               ProfileItem(
                 title: "Name",
-                infor: this.customer.address,
+                infor: this.tmpUser.address,
                 color: Colors.black,
               )),
           FadeSideIn(
             2,
             ProfileItem(
               title: "Address",
-              infor: this.customer.name,
+              infor: this.tmpUser.name,
               color: Colors.black,
             ),
           ),
@@ -72,7 +73,7 @@ class BodyProfile extends StatelessWidget {
             2,
             ProfileItem(
               title: "Birthdate",
-              infor: formatter.format(this.customer.doB).toString(),
+              infor: this.tmpUser.doB,
               color: Colors.black,
             ),
           ),
@@ -80,7 +81,7 @@ class BodyProfile extends StatelessWidget {
             2,
             ProfileItem(
               title: "Created Time",
-              infor: formatter.format(this.customer.createdTime).toString(),
+              infor: this.tmpUser.createdTime,
               color: Colors.black,
             ),
           ),

@@ -1,18 +1,18 @@
-class Feedback {
+class UserFeedback {
   int id;
   String content;
   int rating;
   int customerId;
 
-  Feedback({
+  UserFeedback({
     this.id,
     this.content,
     this.rating,
     this.customerId,
   });
 
-  factory Feedback.fromJson(Map<String, dynamic> json) {
-    return Feedback(
+  factory UserFeedback.fromJson(Map<String, dynamic> json) {
+    return UserFeedback(
       id: json['id'],
       content: json['reviewContent'],
       rating: json['rating'],
@@ -27,6 +27,6 @@ class Feedback {
         "customerId": customerId,
       };
 
-  static Feedback feedbackID(
-      {int bookGroupID, String content, int rating, customerID}) {}
+  static UserFeedback feedbackID(
+      {int bookGroupID, String content, int rating, int customerID}) {}
 }

@@ -73,7 +73,7 @@ class NavigationBarState extends State<NavigationBar> {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NotificationScreen()))),
+                                builder: (context) => NotificationScreen(userId: int.parse(this.widget.user.id))))),
                   ),
                 ],
               ),

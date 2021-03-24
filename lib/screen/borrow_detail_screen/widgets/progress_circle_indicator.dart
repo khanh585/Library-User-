@@ -52,7 +52,7 @@ class _ProgressCircleIndicatorState extends State<ProgressCircleIndicator>
     return CustomPaint(
       foregroundPainter: ProgressCirclePainter(
         defaultCircleColor: Colors.grey[300],
-        percentageCompletedCircleColor: Colors.green,
+        percentageCompletedCircleColor: Colors.orange,
         completedPercentage: (widget.completedPercentage * _animation.value),
         circleWidth: 6,
         radius: widget.radius,
@@ -62,7 +62,7 @@ class _ProgressCircleIndicatorState extends State<ProgressCircleIndicator>
         height: widget.radius * 2,
         child: Center(
           child: Text(
-            '${(widget.completedPercentage * _animation.value).round()}',
+            '90' + '\$',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: widget.fontSize),
           ),
@@ -111,9 +111,9 @@ class ProgressCirclePainter extends CustomPainter {
         endAngle: pi * 3.5,
         tileMode: TileMode.repeated,
         colors: [
-          Color(0xff01d468),
-          Color(0xff00a294),
-          Color(0xff01d468),
+          Color(0xFFF4511E),
+          Color(0xFF64A19),
+          Color(0xFFD84315),
         ]);
 
     Offset center = Offset(size.width / 2, size.height / 2);

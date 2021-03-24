@@ -1,8 +1,10 @@
+import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:signalr_core/signalr_core.dart';
 import 'package:user_library/models/message.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class Util {
   static final connection =
@@ -16,10 +18,35 @@ class Util {
           .then((value) {
         barcodeScanRes = value;
         if (connection != null) {
-          var message =
-              Message(staffId: 9, wishlist: [1, 2, 3, 55, 99], customerId: 5);
+          Map tmpMsg = jsonDecode("${value}");
+          print(tmpMsg);
+          var msg = Message.fromJson(jsonDecode(value));
           connection.start().then((value) async {
-            connection.invoke('SendMessage', args: <Object>[message]);
+            connection.invoke('SendMessage', args: <Object>[msg]);
+          }).whenComplete(() => connection.stop());
+        }
+      });
+    } on PlatformException {
+      barcodeScanRes = 'Không thể nhận diện.';
+    }
+    return barcodeScanRes;
+  }
+
+  static Future<String> returnBook() async {
+    String barcodeScanRes;
+    try {
+      await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Huỷ", true, ScanMode.QR)
+          .then((value) {
+        barcodeScanRes = value;
+        if (connection != null) {
+          var msg = Message.fromJson(jsonDecode(value));
+          connection.start().then((value) async {
+            print("====================" + msg.toString());
+            print(msg.staffId);
+            print(msg.customerId);
+            print(msg.wishlist);
+            connection.invoke('SendMessageToReturn', args: <Object>[msg]);
           }).whenComplete(() => connection.stop());
         }
       });

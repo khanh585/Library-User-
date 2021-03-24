@@ -1,1 +1,3 @@
-var contextData = {'hasTable': false};
+var contextData = { 'hasTable': false,
+                    'customerID': 0
+                  };

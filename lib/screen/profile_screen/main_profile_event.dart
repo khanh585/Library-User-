@@ -4,7 +4,8 @@ abstract class MainProfileEvent {}
 
 class FetchMainProfileEvent extends MainProfileEvent {
   final int customerId;
-  FetchMainProfileEvent(this.customerId);
+  final int roleId;
+  FetchMainProfileEvent(this.customerId, this.roleId);
 }
 
 

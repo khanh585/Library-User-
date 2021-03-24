@@ -80,7 +80,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `WishList` (`id` INTEGER, `name` TEXT, `author` TEXT, `thumnail` TEXT, `isChecked` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `WishList` (`id` INTEGER, `name` TEXT, `author` TEXT, `fee` REAL, `image` TEXT, `isChecked` INTEGER, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -104,7 +104,8 @@ class _$WishListDAO extends WishListDAO {
                   'id': item.id,
                   'name': item.name,
                   'author': item.author,
-                  'thumnail': item.thumnail,
+                  'fee': item.fee,
+                  'image': item.image,
                   'isChecked':
                       item.isChecked == null ? null : (item.isChecked ? 1 : 0)
                 }),
@@ -116,7 +117,8 @@ class _$WishListDAO extends WishListDAO {
                   'id': item.id,
                   'name': item.name,
                   'author': item.author,
-                  'thumnail': item.thumnail,
+                  'fee': item.fee,
+                  'image': item.image,
                   'isChecked':
                       item.isChecked == null ? null : (item.isChecked ? 1 : 0)
                 }),
@@ -128,7 +130,8 @@ class _$WishListDAO extends WishListDAO {
                   'id': item.id,
                   'name': item.name,
                   'author': item.author,
-                  'thumnail': item.thumnail,
+                  'fee': item.fee,
+                  'image': item.image,
                   'isChecked':
                       item.isChecked == null ? null : (item.isChecked ? 1 : 0)
                 });
@@ -153,7 +156,8 @@ class _$WishListDAO extends WishListDAO {
             row['id'] as int,
             row['name'] as String,
             row['author'] as String,
-            row['thumnail'] as String,
+            row['fee'] as double,
+            row['image'] as String,
             row['isChecked'] == null ? null : (row['isChecked'] as int) != 0));
   }
 
@@ -164,7 +168,8 @@ class _$WishListDAO extends WishListDAO {
             row['id'] as int,
             row['name'] as String,
             row['author'] as String,
-            row['thumnail'] as String,
+            row['fee'] as double,
+            row['image'] as String,
             row['isChecked'] == null ? null : (row['isChecked'] as int) != 0));
   }
 

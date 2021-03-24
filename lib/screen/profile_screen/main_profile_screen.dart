@@ -11,7 +11,8 @@ import 'widgets/header_profile.dart';
 
 class MainProfileScreen extends StatefulWidget {
   final int customerId;
-  const MainProfileScreen({Key key, this.customerId}) : super(key: key);
+  final int roleId;
+  const MainProfileScreen({Key key, this.customerId, this.roleId}) : super(key: key);
 
   @override
   _MainProfileScreenState createState() => _MainProfileScreenState();
@@ -24,8 +25,9 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
   @override
   void initState() {
     super.initState();
+    print("hghghghg" + this.widget.customerId.toString());
     main_profile_bloc.eventController.sink
-        .add(FetchMainProfileEvent(this.widget.customerId));
+        .add(FetchMainProfileEvent(this.widget.customerId, this.widget.roleId));
   }
 
   @override
@@ -45,8 +47,8 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                     return FadeSideUp(
                         1,
                         Wrap(children: [
-                          HeaderProfile(customer: snapshot.data.mainProfile),
-                          BodyProfile(customer: snapshot.data.mainProfile),
+                          HeaderProfile(tmpUser: snapshot.data.mainProfile),
+                          BodyProfile(tmpUser: snapshot.data.mainProfile),
                         ]));
                   } else
                     return Container(

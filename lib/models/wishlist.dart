@@ -6,8 +6,9 @@ class WishList {
   final int id;
   final String name;
   final String author;
-  final String thumnail;
+  final double fee;
+  final String image;
   bool isChecked;
 
-  WishList(this.id, this.name, this.author, this.thumnail, this.isChecked);
+  WishList(this.id, this.name, this.author, this.fee, this.image, this.isChecked);
 }

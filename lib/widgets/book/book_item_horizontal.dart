@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/models/book.dart';
+import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
 
-class BookItemHorizontal extends StatelessWidget {
+class BookItemHorizontal extends StatefulWidget {
+  final Book book;
+
+  const BookItemHorizontal({Key key, this.book}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => BookItemHorizontalState();
+}
+
+class BookItemHorizontalState extends State<BookItemHorizontal> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDetailScreen(book: this.widget.book)),
+        );
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
         child: Row(
@@ -25,10 +47,21 @@ class BookItemHorizontal extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'images/book2.jpg',
-                    fit: BoxFit.cover,
-                    alignment: Alignment.centerLeft,
+                  child: Image.network(
+                    this.widget.book.image[0],
+                    fit: BoxFit.fill,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 )),
             Container(
@@ -40,13 +73,13 @@ class BookItemHorizontal extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Book name',
+                    this.widget.book.name,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 2, bottom: 5),
                       child: Text(
-                        'Author',
+                        this.widget.book.author,
                         style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w400,
@@ -56,7 +89,7 @@ class BookItemHorizontal extends StatelessWidget {
                       height: 45,
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        "Authority is a 2014 novel by Jeff VanderMeer. It is the second in a series of three books called the Southern Reach Trilogy",
+                        this.widget.book.description,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 12,

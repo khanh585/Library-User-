@@ -5,36 +5,35 @@ import 'package:user_library/config.dart';
 import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/schedule.dart';
+import 'package:user_library/models/tmpUser.dart';
 
 class CustomerDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Customer';
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<Customer> fetchCustomer(int customerId) async {
-    print("Noasasst 200");
-    Customer customer;
-    if (customer == null) {
-      customer = new Customer();
+  Future<TmpUser> fetchCustomer(int customerId) async {
+    TmpUser tmpUser;
+    print("Dfdfdf" + '$customerId');
+    if (tmpUser == null) {
+      tmpUser = new TmpUser();
     }
     String url =
-        prefixUrl + '/1';
+        prefixUrl + '/$customerId';
         print(url.toString());
     var response = await http.get(url);
 
     print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json.toString());
-      customer = Customer.fromJson(json['data']);
-      return customer;
+      tmpUser = TmpUser.fromJson(json['data']);
+      return tmpUser;
     } else {
       print("Not 200");
     }
   }
 
   Future<List<Customer>> fetchAllCustomer() async {
-    print("Noasasst 200");
     List<Customer> list = new List<Customer>();
     String url =
         prefixUrl;
@@ -54,6 +53,23 @@ class CustomerDAO {
       return list;
     } else {
       print("Not 200");
+    }
+  }
+
+  Future<TmpUser> addCustomer(TmpUser dto) async {
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String body = json.encode(dto.toJson());
+    String url =
+        prefixUrl;
+        print(url.toString());
+    var response = await http.post(prefixUrl, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      TmpUser dto = TmpUser.fromJson(json['data']);
+      return dto;
+    } else {
+      throw Exception('Failed');
     }
   }
 }

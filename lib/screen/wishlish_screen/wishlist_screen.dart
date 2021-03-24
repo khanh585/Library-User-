@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:user_library/database/database.dart';
+import 'package:user_library/models/message.dart';
 import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/wishlish_screen/widget/wishlist_item.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_bloc.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_event.dart';
 import 'package:user_library/screen/wishlish_screen/wishlist_screen_state.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class WishListScreen extends StatefulWidget {
   WishListScreen({Key key}) : super(key: key);
@@ -33,6 +37,21 @@ class _WishListScreenState extends State<WishListScreen> {
     wishlist.forEach((element) {
       if (element.isChecked) listID.add(element.id);
     });
+    var msg = new Message(wishlist: listID, customerId: 1, staffId: 1);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Container(
+                padding: EdgeInsets.all(40),
+                color: Colors.white,
+                child: QrImage(
+                  data: json.encode(msg),
+                  version: QrVersions.auto,
+                  size: 50.0,
+                ),
+              )),
+    );
+
     print(listID);
   }
 

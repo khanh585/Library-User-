@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
-import 'package:user_library/screen/scanner_screen/scanner_screen.dart';
-import 'package:user_library/screen/wishlish_screen/wishlist_screen.dart';
+import 'package:user_library/screen/wishlist_screen_2/wishlist_screen_2.dart';
 import 'package:user_library/widgets/bottombar.dart';
-
+import 'package:user_library/context.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class MainLayout extends StatefulWidget {
+  final TmpUser user;
+  MainLayout({this.user});
   @override
   MainLayoutState createState() => MainLayoutState();
 }
@@ -15,6 +17,8 @@ class MainLayout extends StatefulWidget {
 class MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
+    contextData['customerID'] = this.widget.user.id;
+    print('-------------------userID ' +contextData['customerID'].toString());
     super.initState();
   }
 
@@ -29,30 +33,16 @@ class MainLayoutState extends State<MainLayout> {
         physics: new NeverScrollableScrollPhysics(),
         allowImplicitScrolling: false,
         children: [
-          HomeScreen(),
+          HomeScreen(user: this.widget.user),
           WishListScreen(),
-          ScannerScreen(),
-          MainProfileScreen(),
+          SearchScreen(),
+          MainProfileScreen(customerId: int.parse(this.widget.user.id), roleId: this.widget.user.roleId),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        width: 60,
-        height: 60,
-        child: FloatingActionButton(
-          onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchScreen())),
-          backgroundColor: Colors.blueGrey,
-          child: Icon(
-            Icons.search,
-            size: 28,
-          ),
-        ),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 5,
-        color: Colors.blueGrey,
+        //notchMargin: 4,
+        color: Color(0xFF9966).withOpacity(1),
         child: BottomBar(handelPageView: handelPageView),
       ),
     );
