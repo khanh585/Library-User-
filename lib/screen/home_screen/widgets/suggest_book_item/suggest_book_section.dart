@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/models/book.dart';
 import 'package:user_library/widgets/book/book_item_suggestion.dart';
 
 class SuggestBookSection extends StatefulWidget {
-
-  final List<Book> listSuggestBook;
-
-  const SuggestBookSection({Key key, this.listSuggestBook}) : super(key: key);
+  SuggestBookSection();
   @override
   State<StatefulWidget> createState() => SuggestBookSectionState();
 }
@@ -14,6 +10,7 @@ class SuggestBookSection extends StatefulWidget {
 class SuggestBookSectionState extends State<SuggestBookSection> {
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
   }
 
@@ -64,10 +61,10 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                 padding: EdgeInsets.only(left: 25, right: 25),
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for(Book book in this.widget.listSuggestBook)
-                  BookItemSuggestion(
-                    book: book
-                  )
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
+                  BookItemSuggestion(),
                 ],
               )),
         ],

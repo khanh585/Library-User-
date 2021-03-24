@@ -16,13 +16,13 @@ class TokenDAO {
     // check the status code for the result
     int statusCode = response.statusCode;
     // this API passes back the id of the new item added to the body
-
+    if(response.body=="Wrong username or passsword!!!"){
+      return null;
+    }
     Map tmp = jsonDecode(response.body);
     var token = tmp['token'];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     TmpUser tmpUser = TmpUser.fromJson(payload);
-    String role = tmpUser.roleId.toString();
-    print("sdfsdfsd" + role);
     return tmpUser;
   }
 }
