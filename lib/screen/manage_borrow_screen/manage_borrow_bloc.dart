@@ -4,7 +4,7 @@ import 'package:user_library/bloc/bloc.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/customer.dart';
-import 'package:user_library/models/user_feedback.dart';
+import 'package:user_library/models/feedback.dart';
 import 'package:user_library/models/user.dart';
 import 'package:user_library/screen/feed_back_screen/feedback_screen_event.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_event.dart';
