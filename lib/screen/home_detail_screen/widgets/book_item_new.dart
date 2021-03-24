@@ -21,69 +21,70 @@ class BookItemNewState extends State<BookItemNew> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+        onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BookDetailScreen(book: this.widget.book)),
+            MaterialPageRoute(
+                builder: (context) => BookDetailScreen(book: this.widget.book)),
           );
         },
         child: Container(
-      margin: EdgeInsets.only(bottom: 19),
-      height: 81,
-      width: MediaQuery.of(context).size.width - 50,
-      color: kBackgroundColor,
-      child: Row(
-        children: [
-          Container(
-            height: 80,
-            width: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                  image: NetworkImage(this.widget.book.image[0]),
-                  fit: BoxFit.fill
+          margin: EdgeInsets.only(bottom: 19),
+          height: 81,
+          width: MediaQuery.of(context).size.width - 50,
+          color: kBackgroundColor,
+          child: Row(
+            children: [
+              Container(
+                height: 80,
+                width: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                      image: NetworkImage(this.widget.book.image[0]),
+                      fit: BoxFit.fill),
+                  //color: Color(0xff9966).withOpacity(0.5)
                 ),
-                //color: Color(0xff9966).withOpacity(0.5)
-                ),
-          ),
-          SizedBox(
-            width: 21,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                this.widget.book.name,
-                style: GoogleFonts.openSans(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: kBlackColor),
               ),
               SizedBox(
-                height: 5,
+                width: 21,
               ),
-              Text(
-                this.widget.book.author,
-                style: GoogleFonts.openSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: kGreyColor),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                '\$' + this.widget.book.fee.toString(),
-                style: GoogleFonts.openSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: kBlackColor),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    this.widget.book.name,
+                    style: GoogleFonts.openSans(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: kBlackColor),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    this.widget.book.author,
+                    style: GoogleFonts.openSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: kGreyColor),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '\$' + this.widget.book.fee.toString(),
+                    style: GoogleFonts.openSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: kBlackColor),
+                  )
+                ],
               )
             ],
-          )
-        ],
-      ),
-    ));
+          ),
+        ));
   }
 }
+// khanh dep trai

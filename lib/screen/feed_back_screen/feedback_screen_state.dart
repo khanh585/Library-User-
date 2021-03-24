@@ -1,7 +1,7 @@
-import 'package:user_library/models/user_feedback.dart';
+import 'package:user_library/models/feedback.dart';
 
 class FeedbackScreenState {
-  List<UserFeedback> listFeedback;
+  List<Feedback> listFeedback;
   int totalFeedback;
   List rating;
 
