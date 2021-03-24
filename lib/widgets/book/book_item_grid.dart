@@ -5,7 +5,7 @@ import 'package:user_library/screen/book_detail_screen/book_detail_screen.dart';
 class BookItemGrid extends StatelessWidget {
   final Book book;
   BookItemGrid({this.book});
-  
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
