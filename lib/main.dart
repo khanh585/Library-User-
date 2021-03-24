@@ -17,7 +17,6 @@ import 'widgets/security_layout/authenticate_state.dart';
 
 void main() async {
   runApp(MyApp());
-  // khanh dep trai
 }
 
 class MyApp extends StatefulWidget {
