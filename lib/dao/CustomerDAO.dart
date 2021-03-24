@@ -55,4 +55,21 @@ class CustomerDAO {
       print("Not 200");
     }
   }
+
+  Future<TmpUser> addCustomer(TmpUser dto) async {
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String body = json.encode(dto.toJson());
+    String url =
+        prefixUrl;
+        print(url.toString());
+    var response = await http.post(prefixUrl, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      TmpUser dto = TmpUser.fromJson(json['data']);
+      return dto;
+    } else {
+      throw Exception('Failed');
+    }
+  }
 }

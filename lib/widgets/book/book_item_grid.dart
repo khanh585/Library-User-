@@ -40,6 +40,9 @@ class BookItemGrid extends StatelessWidget {
                   )
                 : Image.asset("images/notebook.png", fit: BoxFit.fill),
           ),
+          Container(
+            child: Text(this.book.name)
+          )
         ],
       ),
     );

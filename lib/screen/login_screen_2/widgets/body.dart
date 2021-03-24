@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_library/dao/TokenDAO.dart';
@@ -5,14 +6,21 @@ import 'package:user_library/screen/librarian_home_screen/librarian_home_screen.
 import 'package:user_library/screen/login_screen_2/widgets/background.dart';
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/signup_screen/signup_screen.dart';
+import 'package:user_library/widgets/loading_circle.dart';
 import 'package:user_library/widgets/login/already_have_an_account_acheck.dart';
 import 'package:user_library/widgets/login/rounded_button.dart';
 import 'package:user_library/widgets/login/rounded_input_field.dart';
 import 'package:user_library/widgets/login/rounded_password_field.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   String username;
   String password;
+  bool isLoading = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -41,31 +49,54 @@ class Body extends StatelessWidget {
             RoundedPasswordField(
               controller: passwordController,
             ),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {
-                username = usernameController.text;
-                password = passwordController.text;
-                TokenDAO dao = new TokenDAO();
-                String role;
-                dao.loginWithJWT(username, password).then((value) {
-                  print("role ne" + value.roleId.toString());
-                  if (value.roleId.toString() == "2") {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainLayout(user: value)),
-                    );
-                  }else if (value.roleId.toString() == "3") {
-                    print("profile id ne " + value.id.toString());
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LibrarianHomeScreen(user: value)),
-                    );
-                  }
-                });
-                print(role);
-              },
-            ),
+            !isLoading
+                ? RoundedButton(
+                    text: "LOGIN",
+                    press: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      username = usernameController.text;
+                      password = passwordController.text;
+                      TokenDAO dao = new TokenDAO();
+                      String role;
+                      var value = await dao.loginWithJWT(username, password);
+                      print("value ne" + value.toString());
+                      if (value != null) {
+                        if (value.roleId.toString() == "2") {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainLayout(user: value)),
+                          );
+                        } else if (value.roleId.toString() == "3") {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LibrarianHomeScreen(user: value)),
+                          );
+                        }
+                      } else if (value == null) {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.ERROR,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Error',
+                          desc: 'Wrong username or password!!!',
+                          btnOkOnPress: () {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                          btnOkColor: Colors.red
+                        )..show();
+                      }
+                      isLoading = false;
+                      print(role);
+                    },
+                  )
+                : LoadingCircle(30, Colors.black),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
               press: () {
