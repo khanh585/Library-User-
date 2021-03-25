@@ -1,9 +1,5 @@
-import 'package:user_library/models/user.dart';
-
 class AuthenticateState {
-  User currentUser;
+  String token;
 
-  AuthenticateState({
-    this.currentUser,
-  });
+  AuthenticateState({this.token});
 }

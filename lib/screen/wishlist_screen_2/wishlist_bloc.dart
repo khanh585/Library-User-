@@ -5,7 +5,6 @@ import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_state.dart';
 
 import 'wishlist_event.dart';
-import 'wishlist_event.dart';
 
 class WishListBloc implements Bloc {
   var state = WishListState(

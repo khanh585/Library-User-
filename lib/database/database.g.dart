@@ -174,8 +174,13 @@ class _$WishListDAO extends WishListDAO {
   }
 
   @override
-  Future<void> clearTable() async {
+  Future<void> removeTable() async {
     await _queryAdapter.queryNoReturn('DROP TABLE WishList');
+  }
+
+  @override
+  Future<void> clearTable() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM WishList');
   }
 
   @override

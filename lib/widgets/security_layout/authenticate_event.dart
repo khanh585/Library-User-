@@ -9,3 +9,7 @@ class Connect extends AuthenticateEvent {
 class Disconnect extends AuthenticateEvent {
   Disconnect();
 }
+
+class CheckToken extends AuthenticateEvent {
+  CheckToken();
+}

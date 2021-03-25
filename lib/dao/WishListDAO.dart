@@ -10,6 +10,9 @@ abstract class WishListDAO {
   Future<List<WishList>> findAllWishLists();
 
   @Query('DROP TABLE WishList')
+  Future<void> removeTable();
+
+  @Query('DELETE FROM WishList')
   Future<void> clearTable();
 
   @insert

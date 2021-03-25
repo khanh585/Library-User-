@@ -61,7 +61,6 @@ class _BodyState extends State<Body> {
                       TokenDAO dao = new TokenDAO();
                       String role;
                       var value = await dao.loginWithJWT(username, password);
-                      print("value ne" + value.toString());
                       if (value != null) {
                         if (value.roleId.toString() == "2") {
                           Navigator.pushReplacement(
@@ -79,21 +78,20 @@ class _BodyState extends State<Body> {
                         }
                       } else if (value == null) {
                         AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.ERROR,
-                          animType: AnimType.BOTTOMSLIDE,
-                          title: 'Error',
-                          desc: 'Wrong username or password!!!',
-                          btnOkOnPress: () {
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                          btnOkColor: Colors.red
-                        )..show();
+                            context: context,
+                            dialogType: DialogType.ERROR,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: 'Error',
+                            desc: 'Wrong username or password!!!',
+                            btnOkOnPress: () {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
+                            btnOkColor: Colors.red)
+                          ..show();
                       }
                       isLoading = false;
-                      print(role);
                     },
                   )
                 : LoadingCircle(30, Colors.black),

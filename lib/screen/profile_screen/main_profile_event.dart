@@ -8,4 +8,10 @@ class FetchMainProfileEvent extends MainProfileEvent {
   FetchMainProfileEvent(this.customerId, this.roleId);
 }
 
+class GetProfileFromToken extends MainProfileEvent {
+  GetProfileFromToken();
+}
 
+class Logout extends MainProfileEvent {
+  Logout();
+}

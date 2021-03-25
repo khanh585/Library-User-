@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/dao/StaffDAO.dart';
+import 'package:user_library/database/database.dart';
 import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/staff.dart';
 import 'package:user_library/models/tmpUser.dart';
@@ -22,22 +25,38 @@ class MainProfileBloc {
   MainProfileBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchMainProfileEvent) {
-        TmpUser result;
-        int customerId = event.customerId;
-        int roleId = event.roleId;
-        print("zo cai nay ne" + roleId.toString());
-        if (roleId.toString() == "2") {
-          
-          result = await CustomerDAO().fetchCustomer(customerId);
-          state = MainProfileState(
-            mainProfile: result,
-          );
-        }else{
-          result = await StaffDAO().fetchStaff(customerId);
-          state = MainProfileState(
-            mainProfile: result,
-          );
+        // TmpUser result;
+        // int customerId = event.customerId;
+        // int roleId = event.roleId;
+        // if (roleId == 2) {
+        //   result = await CustomerDAO().fetchCustomer(customerId);
+        //   state = MainProfileState(
+        //     mainProfile: result,
+        //   );
+        // } else if (roleId == 3) {
+        //   result = await StaffDAO().fetchStaff(customerId);
+        //   state = MainProfileState(
+        //     mainProfile: result,
+        //   );
+        // }
+      } else if (event is GetProfileFromToken) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String token = (prefs.getString('PAPV_Token') ?? '');
+        if (token != '') {
+          Map<String, dynamic> payload = Jwt.parseJwt(token);
+          TmpUser tmpUser = TmpUser.fromJson(payload);
+          state.mainProfile = tmpUser;
         }
+      } else if (event is Logout) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setInt("PAPV_RoleID", -1);
+        prefs.setString("PAPV_UserID", '');
+        prefs.setString("PAPV_Token", '');
+
+        final database =
+            await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+        final wishlistDao = database.wishListDao;
+        wishlistDao.clearTable();
       }
       stateController.sink.add(state);
     });

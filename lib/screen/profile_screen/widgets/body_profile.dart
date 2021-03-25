@@ -2,16 +2,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
 import 'package:user_library/widgets/animation/fade_side_in.dart';
 
 class BodyProfile extends StatelessWidget {
   final TmpUser tmpUser;
+  final Function logout;
   BodyProfile({
     Key key,
     this.tmpUser,
+    this.logout,
   });
   @override
   Widget build(BuildContext context) {
@@ -87,30 +88,36 @@ class BodyProfile extends StatelessWidget {
           ),
           FadeSideIn(
             2,
-            Container(
-              height: 40,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      flex: 8,
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Expanded(
-                    flex: 2,
-                    child: Icon(
-                      Icons.logout,
-                      color: Colors.red,
-                      size: 22,
+            GestureDetector(
+              onTap: () {
+                this.logout();
+                print('out');
+              },
+              child: Container(
+                height: 40,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        flex: 8,
+                        child: Text(
+                          "Log out",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                        )),
+                    Expanded(
+                      flex: 2,
+                      child: Icon(
+                        Icons.logout,
+                        color: Colors.red,
+                        size: 22,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/screen/welcome_screen/welcome_screen.dart';
 
 import 'package:user_library/widgets/animation/fade_side_up.dart';
 import 'package:user_library/widgets/loading_circle.dart';
@@ -12,7 +13,8 @@ import 'widgets/header_profile.dart';
 class MainProfileScreen extends StatefulWidget {
   final int customerId;
   final int roleId;
-  const MainProfileScreen({Key key, this.customerId, this.roleId}) : super(key: key);
+  const MainProfileScreen({Key key, this.customerId, this.roleId})
+      : super(key: key);
 
   @override
   _MainProfileScreenState createState() => _MainProfileScreenState();
@@ -25,9 +27,15 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
   @override
   void initState() {
     super.initState();
-    print("hghghghg" + this.widget.customerId.toString());
-    main_profile_bloc.eventController.sink
-        .add(FetchMainProfileEvent(this.widget.customerId, this.widget.roleId));
+    main_profile_bloc.eventController.sink.add(GetProfileFromToken());
+  }
+
+  Future<void> _logout() async {
+    await main_profile_bloc.eventController.sink.add(Logout());
+    Navigator.pushReplacement(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) => new WelcomeScreen()));
   }
 
   @override
@@ -48,7 +56,10 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                         1,
                         Wrap(children: [
                           HeaderProfile(tmpUser: snapshot.data.mainProfile),
-                          BodyProfile(tmpUser: snapshot.data.mainProfile),
+                          BodyProfile(
+                            tmpUser: snapshot.data.mainProfile,
+                            logout: _logout,
+                          ),
                         ]));
                   } else
                     return Container(
