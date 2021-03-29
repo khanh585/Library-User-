@@ -9,6 +9,7 @@ import 'package:user_library/models/messagebarcode.dart';
 import 'package:user_library/models/messagereturn.dart';
 import 'package:vibration/vibration.dart';
 import 'package:soundpool/soundpool.dart';
+import 'dart:io';
 
 class Util {
   static final connection =
@@ -24,6 +25,9 @@ class Util {
         await rootBundle.load("sounds/beep.mp3").then((ByteData soundData) {
       return pool.load(soundData);
     });
+
+
+
     try {
       final substream = await FlutterBarcodeScanner.getBarcodeStreamReceiver(
               "#ff6666", "Cancel", false, ScanMode.DEFAULT)
@@ -39,36 +43,42 @@ class Util {
               var msg = Message.fromJson(jsonDecode(code));
               msg.staffId = int.parse(userid);
               connection.start().whenComplete(() {
-                hasConnected = true;
-                connection.invoke('SendMessage', args: <Object>[
-                  msg
-                ]).whenComplete(() => connection.stop().whenComplete(() async {
-                      if (await Vibration.hasVibrator()) {
-                        Vibration.vibrate(duration: 400);
-                      }
-                      await pool.play(soundId);
-                      print('kk' + msg.toJson().toString());
-                      hasConnected = false;
-                      inStream = false;
-                    }));
+                if (code != -1) {
+                  hasConnected = true;
+                  connection
+                      .invoke('SendMessage', args: <Object>[msg]).whenComplete(
+                          () => connection.stop().whenComplete(() async {
+                                if (await Vibration.hasVibrator()) {
+                                  Vibration.vibrate(duration: 400);
+                                }
+                                await pool.play(soundId);
+                                print('kk' + msg.toJson().toString());
+                                sleep(const Duration(seconds: 3));
+                                hasConnected = false;
+                                inStream = false;
+                              }));
+                }
               });
             } else {
               var msg = new MessageBarcode(
                   barcode: code, customerId: -1, staffId: int.parse(userid));
               connection.start().whenComplete(() {
-                hasConnected = true;
-                connection.invoke('SendMessageToBorrow', args: <Object>[
-                  msg
-                ]).whenComplete(() => connection.stop().whenComplete(() async {
-                      if (await Vibration.hasVibrator()) {
-                        Vibration.vibrate(duration: 400);
-                      }
-                      await pool.play(soundId);
-                      print('lll' + msg.toJson().toString());
-
-                      hasConnected = false;
-                      inStream = false;
-                    }));
+                if (code != -1) {
+                  hasConnected = true;
+                  connection.invoke('SendMessageToBorrow', args: <Object>[
+                    msg
+                  ]).whenComplete(
+                      () => connection.stop().whenComplete(() async {
+                            if (await Vibration.hasVibrator()) {
+                              Vibration.vibrate(duration: 400);
+                            }
+                            await pool.play(soundId);
+                            print('lll' + msg.toJson().toString());
+                            sleep(const Duration(seconds: 3));
+                            hasConnected = false;
+                            inStream = false;
+                          }));
+                }
               });
             }
           } else {
@@ -107,33 +117,41 @@ class Util {
               var msg = MessageReturn.fromJson(jsonDecode(code));
               msg.staffId = int.parse(userid);
               connection.start().whenComplete(() {
-                hasConnected = true;
-                connection.invoke('SendMessageToReturn', args: <Object>[
-                  msg
-                ]).whenComplete(() => connection.stop().whenComplete(() async {
-                      if (await Vibration.hasVibrator()) {
-                        Vibration.vibrate(duration: 400);
-                      }
-                      pool.play(soundId);
-                      hasConnected = false;
-                      inStream = false;
-                    }));
+                if (code != -1) {
+                  hasConnected = true;
+                  connection.invoke('SendMessageToReturn', args: <Object>[
+                    msg
+                  ]).whenComplete(
+                      () => connection.stop().whenComplete(() async {
+                            if (await Vibration.hasVibrator()) {
+                              Vibration.vibrate(duration: 400);
+                            }
+                            await pool.play(soundId);
+                            sleep(const Duration(seconds: 3));
+                            hasConnected = false;
+                            inStream = false;
+                          }));
+                }
               });
             } else {
               var msg = new MessageBarcode(
                   barcode: code, customerId: -1, staffId: int.parse(userid));
               connection.start().whenComplete(() {
-                hasConnected = true;
-                connection.invoke('SendMessageToReturnBook', args: <Object>[
-                  msg
-                ]).whenComplete(() => connection.stop().whenComplete(() async {
-                      if (await Vibration.hasVibrator()) {
-                        Vibration.vibrate(duration: 400);
-                      }
-                      pool.play(soundId);
-                      hasConnected = false;
-                      inStream = false;
-                    }));
+                if (code != -1) {
+                  hasConnected = true;
+                  connection.invoke('SendMessageToReturnBook', args: <Object>[
+                    msg
+                  ]).whenComplete(
+                      () => connection.stop().whenComplete(() async {
+                            if (await Vibration.hasVibrator()) {
+                              Vibration.vibrate(duration: 400);
+                            }
+                            await pool.play(soundId);
+                            sleep(const Duration(seconds: 3));
+                            hasConnected = false;
+                            inStream = false;
+                          }));
+                }
               });
             }
           } else {

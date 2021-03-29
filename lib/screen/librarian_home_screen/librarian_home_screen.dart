@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:signalr_core/signalr_core.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/librarian_home_screen/widgets/grid_dashboard.dart';
 
@@ -13,6 +14,14 @@ class LibrarianHomeScreen extends StatefulWidget {
 }
 
 class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    final connection =
+      HubConnectionBuilder().withUrl('http://171.244.5.88:90/message').build();
+      connection.stop();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

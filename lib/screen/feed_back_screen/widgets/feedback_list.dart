@@ -24,10 +24,13 @@ class FeebackListState extends State<FeebackList> {
 
   @override
   Widget build(BuildContext context) {
+    if(this.widget.listData == null){
+      return Text("sdfsdfsdf");
+    }
     return Container(
       alignment: Alignment.topLeft,
       child: Column(
-        children: [
+        children: [        
           for (UserFeedback feedback in this.widget.listData)
             FeedbackItem(
               feedback: feedback,
