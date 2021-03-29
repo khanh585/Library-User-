@@ -12,13 +12,13 @@ import 'package:soundpool/soundpool.dart';
 import 'dart:io';
 
 class Util {
-  static final connection =
+  final connection =
       HubConnectionBuilder().withUrl('http://171.244.5.88:90/message').build();
-  static bool hasConnected = false;
-  static bool inStream = false;
-  static Soundpool pool = Soundpool(streamType: StreamType.notification);
+  bool hasConnected = false;
+  bool inStream = false;
+  Soundpool pool = Soundpool(streamType: StreamType.notification);
 
-  static Future<String> scanQR() async {
+  Future<String> scanQR() async {
     String barcodeScanRes;
     hasConnected = !connection.state.toString().contains('disconnected');
     int soundId =
@@ -26,24 +26,28 @@ class Util {
       return pool.load(soundData);
     });
 
-
-
     try {
-      final substream = await FlutterBarcodeScanner.getBarcodeStreamReceiver(
-              "#ff6666", "Cancel", false, ScanMode.DEFAULT)
-          .listen(null);
-      substream.onData((code) async {
-        if (connection != null && code != -1) {
-          if (hasConnected) {
-            inStream = true;
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            String userid = (prefs.getString('PAPV_UserID') ?? '');
-            String str = code.toString();
-            if (str.toLowerCase().contains('wishlist')) {
-              var msg = Message.fromJson(jsonDecode(code));
-              msg.staffId = int.parse(userid);
-              connection.start().whenComplete(() {
-                if (code != -1) {
+      final scanner = await FlutterBarcodeScanner.getBarcodeStreamReceiver(
+          "#ff6666", "Cancel", false, ScanMode.DEFAULT);
+
+      final substream = await scanner.listen(null);
+      substream.onData((value) async {
+        print('BORROW NEK');
+        String code = value.toString();
+        if (code == '-1') {
+          await substream.cancel();
+          print('Cancel br');
+        } else {
+          if (connection != null) {
+            if (hasConnected) {
+              inStream = true;
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              String userid = (prefs.getString('PAPV_UserID') ?? '');
+              String str = code.toString();
+              if (str.toLowerCase().contains('wishlist')) {
+                var msg = Message.fromJson(jsonDecode(code));
+                msg.staffId = int.parse(userid);
+                connection.start().whenComplete(() {
                   hasConnected = true;
                   connection
                       .invoke('SendMessage', args: <Object>[msg]).whenComplete(
@@ -53,17 +57,16 @@ class Util {
                                 }
                                 await pool.play(soundId);
                                 print('kk' + msg.toJson().toString());
-                                sleep(const Duration(seconds: 3));
+                                await sleep(const Duration(seconds: 3));
+                                await scanner.drain();
                                 hasConnected = false;
                                 inStream = false;
                               }));
-                }
-              });
-            } else {
-              var msg = new MessageBarcode(
-                  barcode: code, customerId: -1, staffId: int.parse(userid));
-              connection.start().whenComplete(() {
-                if (code != -1) {
+                });
+              } else {
+                var msg = new MessageBarcode(
+                    barcode: code, customerId: -1, staffId: int.parse(userid));
+                connection.start().whenComplete(() {
                   hasConnected = true;
                   connection.invoke('SendMessageToBorrow', args: <Object>[
                     msg
@@ -73,17 +76,18 @@ class Util {
                               Vibration.vibrate(duration: 400);
                             }
                             await pool.play(soundId);
-                            print('lll' + msg.toJson().toString());
-                            sleep(const Duration(seconds: 3));
+                            print('borrow' + msg.toJson().toString());
+                            await sleep(const Duration(seconds: 3));
+                            await scanner.drain();
                             hasConnected = false;
                             inStream = false;
                           }));
-                }
-              });
-            }
-          } else {
-            if (!inStream) {
-              hasConnected = true;
+                });
+              }
+            } else {
+              if (!inStream) {
+                hasConnected = true;
+              }
             }
           }
         }
@@ -95,7 +99,7 @@ class Util {
     }
   }
 
-  static Future<String> returnBook() async {
+  Future<String> returnBook() async {
     String barcodeScanRes;
     hasConnected = !connection.state.toString().contains('disconnected');
     int soundId =
@@ -103,21 +107,27 @@ class Util {
       return pool.load(soundData);
     });
     try {
-      final substream = await FlutterBarcodeScanner.getBarcodeStreamReceiver(
-              "#ff6666", "Cancel", false, ScanMode.DEFAULT)
-          .listen(null);
-      substream.onData((code) async {
-        if (connection != null && code != -1) {
-          if (hasConnected) {
-            inStream = true;
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            String userid = (prefs.getString('PAPV_UserID') ?? '');
-            String str = code.toString();
-            if (str.contains('WishList')) {
-              var msg = MessageReturn.fromJson(jsonDecode(code));
-              msg.staffId = int.parse(userid);
-              connection.start().whenComplete(() {
-                if (code != -1) {
+      final scanner = await FlutterBarcodeScanner.getBarcodeStreamReceiver(
+          "#ff6666", "Cancel", false, ScanMode.DEFAULT);
+
+      final substream = await scanner.listen(null);
+      substream.onData((value) async {
+        print('RETURN NEK');
+        String code = value.toString();
+        if (code == '-1') {
+          await substream.cancel();
+          print('Cancel rt');
+        } else {
+          if (connection != null) {
+            if (hasConnected) {
+              inStream = true;
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              String userid = (prefs.getString('PAPV_UserID') ?? '');
+              String str = code.toString();
+              if (str.contains('WishList')) {
+                var msg = MessageReturn.fromJson(jsonDecode(code));
+                msg.staffId = int.parse(userid);
+                connection.start().whenComplete(() {
                   hasConnected = true;
                   connection.invoke('SendMessageToReturn', args: <Object>[
                     msg
@@ -127,17 +137,17 @@ class Util {
                               Vibration.vibrate(duration: 400);
                             }
                             await pool.play(soundId);
-                            sleep(const Duration(seconds: 3));
+                            await sleep(const Duration(seconds: 3));
+                            await scanner.drain();
+                            print('CODE===' + code);
                             hasConnected = false;
                             inStream = false;
                           }));
-                }
-              });
-            } else {
-              var msg = new MessageBarcode(
-                  barcode: code, customerId: -1, staffId: int.parse(userid));
-              connection.start().whenComplete(() {
-                if (code != -1) {
+                });
+              } else {
+                var msg = new MessageBarcode(
+                    barcode: code, customerId: -1, staffId: int.parse(userid));
+                connection.start().whenComplete(() {
                   hasConnected = true;
                   connection.invoke('SendMessageToReturnBook', args: <Object>[
                     msg
@@ -147,16 +157,18 @@ class Util {
                               Vibration.vibrate(duration: 400);
                             }
                             await pool.play(soundId);
-                            sleep(const Duration(seconds: 3));
+                            await sleep(const Duration(seconds: 3));
+                            print('return CODE===' + code);
+                            await scanner.drain();
                             hasConnected = false;
                             inStream = false;
                           }));
-                }
-              });
-            }
-          } else {
-            if (!inStream) {
-              hasConnected = true;
+                });
+              }
+            } else {
+              if (!inStream) {
+                hasConnected = true;
+              }
             }
           }
         }

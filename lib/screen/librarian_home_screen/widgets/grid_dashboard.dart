@@ -4,7 +4,6 @@ import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/checklist_screen/checklist_screen.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 
-import 'package:user_library/screen/home_screen/home_screen.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
 import 'package:user_library/service/utils.dart';
@@ -78,9 +77,9 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => ManageBorrowScreen()),
                     );
                   } else if (data.title == "Borrow Book") {
-                    Util.scanQR();
+                    Util().scanQR();
                   } else if (data.title == "Return Book") {
-                    Util.returnBook();
+                    Util().returnBook();
                   } else if (data.title == "Error Checklist") {
                     Navigator.push(
                       context,

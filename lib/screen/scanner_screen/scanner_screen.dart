@@ -40,7 +40,7 @@ class ScannerScreenState extends State<ScannerScreen> {
                 height: 250,
                 child: Image.asset('images/QR.png')),
             FlatButton(
-                onPressed: () => Util.scanQR(),
+                onPressed: () => Util().scanQR(),
                 child: Container(
                   height: 48,
                   width: 200,
