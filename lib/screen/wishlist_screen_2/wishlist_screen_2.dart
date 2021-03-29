@@ -11,7 +11,7 @@ import 'package:user_library/screen/wishlist_screen_2/wishlist_event.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_state.dart';
 import 'package:user_library/widgets/loading_circle.dart';
 import '../../models/wishlist.dart';
-import 'constants_wish.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WishListScreen extends StatefulWidget {
   WishListScreen({Key key}) : super(key: key);
@@ -23,7 +23,7 @@ class _WishListScreenState extends State<WishListScreen> {
   final _wishlistScreenBloc = WishListBloc();
   @override
   void initState() {
-    _refreshWishList();
+    // _refreshWishList();
     controller.addListener(() {
       double value = controller.offset / 119;
       setState(() {
@@ -42,12 +42,15 @@ class _WishListScreenState extends State<WishListScreen> {
     _wishlistScreenBloc.eventController.sink.add(DeleteToListBorrow(wish));
   }
 
-  void _genQRCode(List<WishList> wishlist) {
+  Future<void> _genQRCode(List<WishList> wishlist) async {
     List<int> listID = [];
     wishlist.forEach((element) {
       if (element.isChecked) listID.add(element.id);
     });
-    var msg = new Message(wishlist: listID, customerId: 1, staffId: 1);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userid = (prefs.getString('PAPV_UserID') ?? '');
+    var msg = new Message(
+        wishlist: listID, customerId: int.parse(userid), staffId: 0);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -63,66 +66,11 @@ class _WishListScreenState extends State<WishListScreen> {
     );
   }
 
-  //final CategoriesScroller categoriesScroller = CategoriesScroller();
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
 
   List<Widget> itemsData = [];
-
-  // void getPostsData(List<WishList> responseList) {
-  //   List<Widget> listItems = [];
-  //   responseList.forEach((post) {
-  //     listItems.add(Container(
-  //         height: 150,
-  //         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //         decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-  //             color: Colors.white,
-  //             boxShadow: [
-  //               BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
-  //             ]),
-  //         child: Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: <Widget>[
-  //               Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   Text(
-  //                     "KHanh",
-  //                     style: const TextStyle(
-  //                         fontSize: 28, fontWeight: FontWeight.bold),
-  //                   ),
-  //                   Text(
-  //                     post.author,
-  //                     style: const TextStyle(fontSize: 17, color: Colors.grey),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 10,
-  //                   ),
-  //                   Text(
-  //                     post.fee.toString(),
-  //                     style: const TextStyle(
-  //                         fontSize: 25,
-  //                         color: Colors.black,
-  //                         fontWeight: FontWeight.bold),
-  //                   )
-  //                 ],
-  //               ),
-  //               Image.network(
-  //                 post.image,
-  //                 height: double.infinity,
-  //               )
-  //             ],
-  //           ),
-  //         )));
-  //   });
-  //   // setState(() {
-  //   //   itemsData = listItems;
-  //   // });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +84,9 @@ class _WishListScreenState extends State<WishListScreen> {
             initialData: _wishlistScreenBloc.state,
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error");
-              if (snapshot.data.wishlist.length != 0) {
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    _refreshWishList();
-                    return;
-                  },
-                  child: Column(
+              if (snapshot.data.wishlist != null) {
+                if (snapshot.data.wishlist.length != 0) {
+                  return Column(
                     children: <Widget>[
                       const SizedBox(
                         height: 10,
@@ -177,16 +121,6 @@ class _WishListScreenState extends State<WishListScreen> {
                           )
                         ],
                       ),
-                      // AnimatedOpacity(
-                      //   duration: const Duration(milliseconds: 200),
-                      //   opacity: closeTopContainer ? 0 : 1,
-                      //   child: AnimatedContainer(
-                      //       duration: const Duration(milliseconds: 200),
-                      //       width: size.width,
-                      //       alignment: Alignment.topCenter,
-                      //       height: closeTopContainer ? 0 : categoryHeight,
-                      //       child: categoriesScroller),
-                      // ),
                       Expanded(
                         child: ListView.builder(
                             controller: controller,
@@ -194,14 +128,7 @@ class _WishListScreenState extends State<WishListScreen> {
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
                               double scale = 1.0;
-                              if (topContainer > 0.5) {
-                                scale = index + 0.5;
-                                if (scale < 0) {
-                                  scale = 0;
-                                } else if (scale > 1) {
-                                  scale = 1;
-                                }
-                              }
+
                               return Opacity(
                                 opacity: scale,
                                 child: Transform(
@@ -220,7 +147,12 @@ class _WishListScreenState extends State<WishListScreen> {
                                           _delete_ToListBorrow(wish);
                                         },
                                         background: Container(
-                                          color: Colors.red,
+                                          padding: EdgeInsets.only(right: 20),
+                                          alignment: Alignment.centerRight,
+                                          child: Icon(
+                                            Icons.cancel_outlined,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                         key: Key(snapshot
                                             .data.wishlist[index].id
@@ -328,12 +260,14 @@ class _WishListScreenState extends State<WishListScreen> {
                         ),
                       ),
                     ],
-                  ),
-                );
+                  );
+                } else {
+                  return Center(child: Text("Empty wish list"));
+                }
               } else {
-                return Center(child: Text("Empty wish list"));
+                _refreshWishList();
+                return LoadingCircle(50, Colors.grey);
               }
-              // return LoadingCircle(50, Colors.grey);
             }),
       ),
     );

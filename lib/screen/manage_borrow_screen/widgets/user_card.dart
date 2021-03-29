@@ -32,7 +32,7 @@ class UserCard extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Color(0xffff8a65),
-                    Color(0xffff5722),                   
+                    Color(0xffff5722),
                   ],
                 ),
               ),

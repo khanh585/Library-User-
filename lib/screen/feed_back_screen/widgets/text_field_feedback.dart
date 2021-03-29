@@ -121,7 +121,7 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
               maxLines: null,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 20),
+                  contentPadding: EdgeInsets.only(top: 20, left: 20),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
                       borderRadius: BorderRadius.all(Radius.circular(20))),

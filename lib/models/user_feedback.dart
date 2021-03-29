@@ -15,7 +15,7 @@ class UserFeedback {
     return UserFeedback(
       id: json['id'],
       content: json['reviewContent'],
-      rating: json['rating'],
+      rating: json['rating'] != null ? json['rating'] : 1,
       customerId: json['customerId'],
     );
   }

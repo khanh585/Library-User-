@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/models/tmpUser.dart';
+import 'package:user_library/screen/checklist_screen/checklist_screen.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 
 import 'package:user_library/screen/home_screen/home_screen.dart';
@@ -14,7 +15,7 @@ class GridDashboard extends StatelessWidget {
   Items item1 = new Items(
       title: "Manage Book",
       subtitle: "March, Wednesday",
-      event: "3 Events",
+      event: "",
       img: "images/book.png");
   Items item4 = new Items(
     title: "Return Book",
@@ -25,31 +26,37 @@ class GridDashboard extends StatelessWidget {
   Items item5 = new Items(
     title: "Borrow Book",
     subtitle: "Homework, Design",
-    event: "4 Items",
+    event: "",
     img: "images/borrow-book.png",
   );
   Items item6 = new Items(
     title: "Manage Borrow",
     subtitle: "",
-    event: "2 Items",
+    event: "",
     img: "images/profile.png",
   );
 
   Items item2 = new Items(
     title: "Profile",
     subtitle: "",
-    event: "2 Items",
+    event: "",
     img: "images/profile.png",
   );
 
+  Items item3 = new Items(
+    title: "Error Checklist",
+    subtitle: "",
+    event: "",
+    img: "images/checklist.png",
+  );
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item4, item5, item6, item2];
+    List<Items> myList = [item1, item4, item5, item6, item2, item3];
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
-          padding: EdgeInsets.only(left: 16, right: 16),
+          padding: EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
           crossAxisCount: 2,
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
@@ -74,7 +81,13 @@ class GridDashboard extends StatelessWidget {
                     Util.scanQR();
                   } else if (data.title == "Return Book") {
                     Util.returnBook();
-                  }else if (data.title == "Profile") {
+                  } else if (data.title == "Error Checklist") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CheckListScreen()),
+                    );
+                  } else if (data.title == "Profile") {
                     print("profile id " + this.user.id);
                     Navigator.push(
                       context,

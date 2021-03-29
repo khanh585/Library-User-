@@ -15,12 +15,13 @@ class LibrarianHomeScreen extends StatefulWidget {
 class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xff392850),
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 110,
+            height: size.height / 12,
           ),
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16),
@@ -63,9 +64,11 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 5,
           ),
-          GridDashboard(user: this.widget.user,)
+          GridDashboard(
+            user: this.widget.user,
+          )
         ],
       ),
     );

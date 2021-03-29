@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/screen/book_detail_screen_2/widgets/custom_tab_indicator.dart';
+import 'package:user_library/screen/book_detail_screen_2/widgets/animatedButton.dart';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class BookDetailScreen extends StatefulWidget {
 class _BookDetailState extends State<BookDetailScreen>
     with SingleTickerProviderStateMixin {
   bool _inWishList = false;
+  bool _needConfirm = false;
   TabController _tabController;
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _BookDetailState extends State<BookDetailScreen>
         .findWishListById(this.widget.book.id)
         .then((value) => setState(() {
               _inWishList = value != null;
+              _needConfirm = false;
             }));
   }
 
@@ -57,16 +60,27 @@ class _BookDetailState extends State<BookDetailScreen>
         this.widget.book.image.length != 0 ? this.widget.book.image[0] : '';
 
     final wish = WishList(id, name, author, fee, image, true);
-    
-    wishListDAO.insertWishList(wish);
-    wishListDAO.findWishListById(id).then((value) => {
-       print('===='+value.image.toString())
-    });
 
-   
-   
+    wishListDAO.insertWishList(wish);
+    wishListDAO
+        .findWishListById(id)
+        .then((value) => {print('====' + value.image.toString())});
+
     setState(() {
       _inWishList = true;
+    });
+  }
+
+  Future<void> _removeFromWishList(int bookID) async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final wishListDAO = database.wishListDao;
+
+    wishListDAO.findWishListById(bookID).then((value) {
+      wishListDAO.deleteWishLists(value);
+      setState(() {
+        _inWishList = value == null;
+      });
     });
   }
 
@@ -77,21 +91,33 @@ class _BookDetailState extends State<BookDetailScreen>
         margin: EdgeInsets.only(left: 25, right: 25, bottom: 25),
         height: 49,
         color: Colors.transparent,
-        child: FlatButton(
-          color: Color(0xFF9966).withOpacity(0.95),
-          onPressed: () => _inWishList ? null : _addToWishList(),
-          child: _inWishList?Text(
-            'Added',
-            style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w600, color: kWhiteColor),
-          ): Text(
-            'Add to wishlist',
-            style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w600, color: kWhiteColor),
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+        child: _inWishList
+            ? OutlineButton(
+                color: Color(0xFF9966).withOpacity(0.95),
+                onPressed: () => _removeFromWishList(this.widget.book.id),
+                child: Text(
+                  'Remove from wishlist',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF9966).withOpacity(0.95)),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+              )
+            : FlatButton(
+                color: Color(0xFF9966).withOpacity(0.95),
+                onPressed: () => _addToWishList(),
+                child: Text(
+                  'Add to wishlist',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: kWhiteColor),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+              ),
       ),
       body: SafeArea(
         child: Container(
@@ -105,25 +131,6 @@ class _BookDetailState extends State<BookDetailScreen>
                   height: MediaQuery.of(context).size.height,
                   child: Stack(
                     children: <Widget>[
-                      // Positioned(
-                      //   left: 25,
-                      //   top: 35,
-                      //   child: GestureDetector(
-                      //     onTap: () {
-                      //       Navigator.pushReplacementNamed(
-                      //           context, "/HomeDetailScreen");
-                      //     },
-                      //     child: Container(
-                      //       width: 32,
-                      //       height: 32,
-                      //       decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(5),
-                      //           color: kWhiteColor),
-                      //       child: SvgPicture.asset(
-                      //           'icons/icon_back_arrow.svg'),
-                      //     ),
-                      //   ),
-                      // ),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
@@ -206,7 +213,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                   fontSize: 14, fontWeight: FontWeight.w700),
                               unselectedLabelStyle: GoogleFonts.openSans(
                                   fontSize: 14, fontWeight: FontWeight.w600),
-                                  
+
                               indicator: UnderlineTabIndicator(
                                 borderSide: BorderSide(
                                   //width: 100,
@@ -215,7 +222,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                 insets: EdgeInsets.only(
                                     left: 17, right: 8, bottom: 4),
                               ),
-                              
+
                               tabs: [
                                 Tab(
                                   text: 'Description',
@@ -223,7 +230,6 @@ class _BookDetailState extends State<BookDetailScreen>
                                 Tab(text: 'Feedbacks'),
                               ],
                               controller: _tabController,
-                              //indicatorSize: TabBarIndicatorSize.tab,
                             )),
                         Expanded(
                           child: TabBarView(
@@ -246,7 +252,6 @@ class _BookDetailState extends State<BookDetailScreen>
                               SingleChildScrollView(
                                 child: Container(
                                     width: 600,
-                                    //height: 600,
                                     margin: EdgeInsets.only(left: 9, top: 15),
                                     child: Column(
                                       children: [
@@ -278,14 +283,3 @@ class _BookDetailState extends State<BookDetailScreen>
     );
   }
 }
-// class BookDetailScreen extends StatelessWidget {
-//   final PopularBookModel popularBookModel;
-
-//   BookDetailScreen({Key key, @required this.popularBookModel})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-
-//   }
-// }

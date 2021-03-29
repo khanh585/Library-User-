@@ -10,10 +10,8 @@ import 'package:user_library/screen/feed_back_screen/feedback_screen_event.dart'
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_event.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_state.dart';
 
-
 class ManageBorrowBloc implements Bloc {
-  var state = ManageBorrowState(
-      listUser: new List<Customer>());
+  var state = ManageBorrowState(listUser: new List<Customer>());
   final eventController = StreamController<ManageBorrowEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
@@ -22,8 +20,7 @@ class ManageBorrowBloc implements Bloc {
   ManageBorrowBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchUser) {
-        List response = await CustomerDAO()
-            .fetchAllCustomer();
+        List response = await CustomerDAO().fetchAllCustomer();
         List<Customer> listUser = response;
         state = ManageBorrowState(
           listUser: listUser,

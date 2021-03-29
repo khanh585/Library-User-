@@ -1,5 +1,5 @@
 class Message {
-  final int staffId;
+  int staffId;
   final int customerId;
   final List wishlist;
   Message({this.staffId, this.customerId, this.wishlist});

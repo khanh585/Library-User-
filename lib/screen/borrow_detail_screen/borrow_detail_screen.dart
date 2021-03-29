@@ -8,6 +8,7 @@ import 'package:user_library/screen/borrow_detail_screen/widgets/circle_indicato
 import 'package:user_library/screen/manage_borrow_screen/widgets/circle_profile.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/progress_circle_indicator.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/progress_line_indicator.dart';
+import 'package:user_library/widgets/loading_circle.dart';
 
 class BorrowDetailScreen extends StatefulWidget {
   final int customerId;
@@ -48,8 +49,8 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
           children: <Widget>[
             Text(
               widget.customer.name,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.black),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
               //style: Theme.of(context).appBarTheme.textTheme.title,
             ),
             SizedBox(
@@ -57,8 +58,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
             ),
             Text(
               widget.customer.email,
-              style: TextStyle(
-                  color: Colors.grey[500]),
+              style: TextStyle(color: Colors.grey[500]),
             )
           ],
         ),
@@ -156,7 +156,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
               ),
             );
           } else {
-            return Text("asdasd");
+            return LoadingCircle(40, Colors.orange.withOpacity(.95));
           }
         },
       ),

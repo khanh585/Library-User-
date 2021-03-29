@@ -19,8 +19,6 @@ class FeebackList extends StatefulWidget {
 class FeebackListState extends State<FeebackList> {
   @override
   void initState() {
-    // list = this.widget.listData;
-
     super.initState();
   }
 
@@ -30,7 +28,7 @@ class FeebackListState extends State<FeebackList> {
       alignment: Alignment.topLeft,
       child: Column(
         children: [
-          for (UserFeedback feedback in this.widget.listData.reversed)
+          for (UserFeedback feedback in this.widget.listData)
             FeedbackItem(
               feedback: feedback,
             ),

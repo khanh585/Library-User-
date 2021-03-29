@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/tmpUser.dart';
+import 'package:user_library/screen/borrow_detail_screen/borrow_detail_screen.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
 import 'package:user_library/widgets/animation/fade_side_in.dart';
 
@@ -36,7 +38,7 @@ class BodyProfile extends StatelessWidget {
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(35),
           )),
-      child: Column(
+      child: ListView(
         children: [
           Container(
             width: 40,
@@ -86,12 +88,60 @@ class BodyProfile extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          this.tmpUser.roleId == 2
+              ? FadeSideIn(
+                  2,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BorrowDetailScreen(
+                              customer: this.tmpUser.toCustomer(),
+                              customerId: int.parse(this.tmpUser.id)),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 40,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              flex: 8,
+                              child: Text(
+                                "History borrow",
+                                style: TextStyle(
+                                    color: Colors.cyanAccent,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              )),
+                          Expanded(
+                            flex: 2,
+                            child: Icon(
+                              Icons.history_edu_outlined,
+                              color: Colors.cyanAccent,
+                              size: 22,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
+          this.tmpUser.roleId == 2
+              ? Divider(
+                  color: Colors.black,
+                  thickness: 0.2,
+                )
+              : Container(),
           FadeSideIn(
             2,
             GestureDetector(
               onTap: () {
                 this.logout();
-                print('out');
               },
               child: Container(
                 height: 40,
