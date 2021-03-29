@@ -19,7 +19,6 @@ class FeedbackDAO {
 
     List data = json['data'];
     int total = json['meta']['totalCount'];
-    print('---- ${data}  ---  ${total} ----');
     data.forEach((element) {
       UserFeedback tmp = UserFeedback.fromJson(element);
       feedbacks.add(tmp);
@@ -50,6 +49,9 @@ class FeedbackDAO {
       UserFeedback dto = UserFeedback.fromJson(json['data']);
       return dto;
     } else {
+      print(response.statusCode);
+      Map json = jsonDecode(response.body);
+      print(json.toString());
       throw Exception('Failed');
     }
   }

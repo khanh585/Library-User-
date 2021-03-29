@@ -22,11 +22,12 @@ class BookDAO {
         '&PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}';
     var response = await http.get(url);
-    print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List books = json['data'];
-
+      print('\n---------------\n');
+      print(books.toString() + '\n');
+      print('\n---------------\n');
       books.forEach((book) {
         if (book != null) {
           Book dto = Book.fromJson(book);
@@ -42,11 +43,8 @@ class BookDAO {
 
   Future<List<Book>> fetchSuggestBook(int customerId) async {
     List<Book> list = new List<Book>();
-    String url = prefixUrl +
-        '?CustomerId=$customerId' +
-        '&PageSize=10';
+    String url = prefixUrl + '?CustomerId=$customerId' + '&PageSize=10';
     var response = await http.get(url);
-    print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List books = json['data'];
@@ -56,7 +54,6 @@ class BookDAO {
           list.add(dto);
         }
       });
-      print(list);
       return list;
     } else {
       throw Exception('Failed');
@@ -65,11 +62,8 @@ class BookDAO {
 
   Future<List<Book>> fetchNewestBook() async {
     List<Book> list = new List<Book>();
-    String url = prefixUrl +
-        '?IsNewest=true' +
-        '&PageSize=10';
+    String url = prefixUrl + '?IsNewest=true' + '&PageSize=10';
     var response = await http.get(url);
-    print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List books = json['data'];
@@ -80,7 +74,6 @@ class BookDAO {
           list.add(dto);
         }
       });
-      print(list);
       return list;
     } else {
       throw Exception('Failed');
@@ -89,12 +82,8 @@ class BookDAO {
 
   Future<List<Book>> fetchPopularBook() async {
     List<Book> list = new List<Book>();
-    String url = prefixUrl +
-        '?IsPopular=true' +
-        '&PageSize=10';
+    String url = prefixUrl + '?IsPopular=true' + '&PageSize=10';
     var response = await http.get(url);
-    print("co url day");
-    print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List books = json['data'];
@@ -105,7 +94,6 @@ class BookDAO {
           list.add(dto);
         }
       });
-      print(list);
       return list;
     } else {
       throw Exception('Failed');

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user_library/context.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/user_feedback.dart';
+import 'package:user_library/widgets/loading_circle.dart';
 
 class TextFieldFeedback extends StatefulWidget {
   final int bookGroupID;
-  final Function(UserFeedback) onSendMessage;
+  final Function(UserFeedback) afterSendFeedback;
   const TextFieldFeedback({
     Key key,
-    this.onSendMessage,
+    this.afterSendFeedback,
     this.bookGroupID,
   }) : super(key: key);
   @override
@@ -21,10 +23,13 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
   TextEditingController txtSearch;
   double sizeRating = 200;
   int rate = 5;
+  bool hasContent = false;
+  bool isWait = false;
 
   @override
   void initState() {
     txtSearch = TextEditingController();
+    print(this.widget.bookGroupID);
     sizeRating = 200;
     super.initState();
   }
@@ -48,11 +53,30 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
     );
   }
 
-  void _onSendPressed() {
-    UserFeedback dto =
-        new UserFeedback(content: "Asdasd", customerId: 1, rating: 4);
-    widget.onSendMessage(dto);
-    print("sended");
+  Future<void> _onSendPressed() async {
+    setState(() {
+      isWait = true;
+    });
+    if (validMessage()) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userid = (prefs.getString('PAPV_UserID') ?? '-1');
+      if (userid != '-1') {
+        UserFeedback dto = new UserFeedback(
+            content: txtSearch.text.trim(),
+            customerId: int.parse(userid),
+            bookGroupId: this.widget.bookGroupID,
+            rating: rate);
+        print(dto.toJson().toString());
+        FeedbackDAO().sentFeedback(dto).then((value) {
+          this.widget.afterSendFeedback(value);
+          txtSearch.text = '';
+          hasContent = false;
+        });
+        setState(() {
+          isWait = false;
+        });
+      }
+    }
   }
 
   @override
@@ -112,6 +136,11 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
             padding: EdgeInsets.all(5),
             color: Colors.white,
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  hasContent = value.trim() != '';
+                });
+              },
               controller: txtSearch,
               onTap: () {
                 setState(() {
@@ -143,10 +172,12 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                child: Icon(
-                  Icons.send,
-                  color: Colors.grey,
-                )),
+                child: isWait
+                    ? LoadingCircle(15, Colors.blue[400])
+                    : Icon(
+                        Icons.send,
+                        color: hasContent ? Colors.blue[400] : Colors.grey,
+                      )),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/screen/book_detail_screen_2/widgets/custom_tab_indicator.dart';
@@ -17,7 +18,7 @@ import '../../constants.dart';
 
 class BookDetailScreen extends StatefulWidget {
   final Book book;
-  final List<UserFeedback> feedbacks;
+  List<UserFeedback> feedbacks;
   BookDetailScreen({this.book, this.feedbacks});
 
   @override
@@ -82,6 +83,14 @@ class _BookDetailState extends State<BookDetailScreen>
         _inWishList = value == null;
       });
     });
+  }
+
+  Future<void> _afterSendFeedBack(UserFeedback dto) async {
+    if (dto != null) {
+      setState(() {
+        this.widget.feedbacks.insert(0, dto);
+      });
+    }
   }
 
   @override
@@ -255,7 +264,10 @@ class _BookDetailState extends State<BookDetailScreen>
                                     margin: EdgeInsets.only(left: 9, top: 15),
                                     child: Column(
                                       children: [
-                                        TextFieldFeedback(),
+                                        TextFieldFeedback(
+                                            bookGroupID: this.widget.book.id,
+                                            afterSendFeedback:
+                                                _afterSendFeedBack),
                                         Divider(
                                           color: Colors.black,
                                           height: 30,
