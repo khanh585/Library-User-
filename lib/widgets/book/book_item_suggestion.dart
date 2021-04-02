@@ -70,12 +70,10 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
                               ImageChunkEvent loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes
-                                    : null,
+                              child: Image.asset(
+                                "images/loading1.gif",
+                                height: 550.0,
+                                width: 750.0,
                               ),
                             );
                           },
@@ -83,13 +81,13 @@ class BookItemSuggestionState extends State<BookItemSuggestion> {
                       )),
                   SizedBox(
                     width: 130,
-                    child:Text(
-                    this.widget.book.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    child: Text(
+                      this.widget.book.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
-                  ),                  
                   Container(
                       margin: EdgeInsets.only(top: 5),
                       child: Text(

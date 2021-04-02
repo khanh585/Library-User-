@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/models/book.dart';
+import 'package:user_library/dao/FeedbackDAO.dart';
+import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
 
 class BookItemHorizontal extends StatefulWidget {
@@ -11,9 +13,18 @@ class BookItemHorizontal extends StatefulWidget {
 }
 
 class BookItemHorizontalState extends State<BookItemHorizontal> {
+  List<UserFeedback> _listFeedback = [];
   @override
   void initState() {
     super.initState();
+    fetchFeedback().then((value) => _listFeedback = value);
+  }
+
+  Future<List<UserFeedback>> fetchFeedback() async {
+    List response =
+        await FeedbackDAO().fetchFeedback(this.widget.book.id, 1, 10);
+    List<UserFeedback> listFeedbacks = response[0];
+    return listFeedbacks;
   }
 
   @override
@@ -23,7 +34,7 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => BookDetailScreen(book: this.widget.book)),
+              builder: (context) => BookDetailScreen(book: this.widget.book, feedbacks: _listFeedback)),
         );
       },
       child: Container(
@@ -54,12 +65,11 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                         ImageChunkEvent loadingProgress) {
                       if (loadingProgress == null) return child;
                       return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes
-                              : null,
-                        ),
+                        child: Image.asset(
+                    "images/loading1.gif",
+                    height: 550.0,
+                    width: 750.0,
+                  ),
                       );
                     },
                   ),

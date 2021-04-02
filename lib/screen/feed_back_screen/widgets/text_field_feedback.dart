@@ -29,7 +29,6 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
   @override
   void initState() {
     txtSearch = TextEditingController();
-    print(this.widget.bookGroupID);
     sizeRating = 200;
     super.initState();
   }
@@ -66,7 +65,6 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
             customerId: int.parse(userid),
             bookGroupId: this.widget.bookGroupID,
             rating: rate);
-        print(dto.toJson().toString());
         FeedbackDAO().sentFeedback(dto).then((value) {
           this.widget.afterSendFeedback(value);
           txtSearch.text = '';

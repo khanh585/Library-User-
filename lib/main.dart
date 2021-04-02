@@ -1,4 +1,7 @@
 import 'package:user_library/models/tmpUser.dart';
+import 'package:user_library/screen/detection_screen/detection_screen.dart';
+import 'package:user_library/screen/detection_error_screen/detection_error_screen.dart';
+import 'package:user_library/screen/drawer_detection_screen/drawer_detection_screen.dart';
 import 'package:user_library/screen/librarian_home_screen/librarian_home_screen.dart';
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/welcome_screen/welcome_screen.dart';

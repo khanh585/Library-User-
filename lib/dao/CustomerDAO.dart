@@ -14,16 +14,12 @@ class CustomerDAO {
 
   Future<TmpUser> fetchCustomer(int customerId) async {
     TmpUser tmpUser;
-    print("Dfdfdf" + '$customerId');
     if (tmpUser == null) {
       tmpUser = new TmpUser();
     }
     String url =
         prefixUrl + '/$customerId';
-        print(url.toString());
     var response = await http.get(url);
-
-    print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       tmpUser = TmpUser.fromJson(json['data']);
@@ -37,10 +33,8 @@ class CustomerDAO {
     List<Customer> list = new List<Customer>();
     String url =
         prefixUrl;
-        print(url.toString());
     var response = await http.get(url);
 
-    print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List customers = json['data'];
@@ -61,7 +55,6 @@ class CustomerDAO {
     String body = json.encode(dto.toJson());
     String url =
         prefixUrl;
-        print(url.toString());
     var response = await http.post(prefixUrl, headers: headers, body: body);
 
     if (response.statusCode == 200) {

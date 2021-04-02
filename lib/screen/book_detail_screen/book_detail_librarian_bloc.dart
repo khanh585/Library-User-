@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:user_library/bloc/bloc.dart';
-import 'package:user_library/screen/book_detail_screen/book_detail_screen_event.dart';
-import 'package:user_library/screen/book_detail_screen/book_detail_screen_state.dart';
+import 'package:user_library/screen/book_detail_screen/book_detail_librarian_event.dart';
+import 'package:user_library/screen/book_detail_screen/book_detail_librarian_state.dart';
 
 class BookDetailScreenBloc implements Bloc {
   var state = BookDetailScreenState(); // khoi tao gia tri

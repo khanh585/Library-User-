@@ -25,7 +25,6 @@ class BorrowDetailBloc {
         int customerId = event.customerId;
         result = await BorrowDetailDAO().fetchBorrowDetailOfCustomer(customerId);
         returnDetails = await ReturnDetailDAO().fetchReturnDetailOfCustomer(customerId);
-        print(result);
         state = BorrowDetailState(
           borrowDetails: result,
           returnDetails: returnDetails

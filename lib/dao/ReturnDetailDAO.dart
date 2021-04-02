@@ -17,13 +17,10 @@ class ReturnDetailDAO {
     }
     String url =
         prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&BorrowId=${borrowId}';
-        print(url.toString());
     var response = await http.get(url);
 
-    print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json.toString());
       List cats = json['data'];
       cats.forEach((element) {
         ReturnDetail dto = ReturnDetail.fromJson(element);
@@ -42,17 +39,14 @@ class ReturnDetailDAO {
     }
     String url =
         prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&CustomerId=$customerId';
-        print(url.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List cats = json['data'];
       cats.forEach((element) {
         ReturnDetail dto = ReturnDetail.fromJson(element);
-        print(" return yo " + dto.bookName);
         list.add(dto);
       });
-      print("return ne " + list.toString());
       return list;
     } else {
       print("Not 200");

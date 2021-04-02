@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/constants.dart';
 import 'package:user_library/models/book.dart';
+import 'package:user_library/screen/book_detail_screen/book_detail_librarian_screen.dart';
 import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
 
 class BookItemNew extends StatefulWidget {
@@ -25,7 +26,7 @@ class BookItemNewState extends State<BookItemNew> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => BookDetailScreen(book: this.widget.book)),
+                builder: (context) => BookDetailLibrarianScreen(book: this.widget.book)),
           );
         },
         child: Container(

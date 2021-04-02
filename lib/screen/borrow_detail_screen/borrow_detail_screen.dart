@@ -70,7 +70,6 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
           if (snapshot.hasError) return Text("Error");
           if (snapshot.data.borrowDetails.length != 0) {
             //return BorrowDetailCard(borrowDetail: snapshot.data.borrowDetails);
-            print("return " + snapshot.data.returnDetails.toString());
             return Container(
               child: ListView(
                 children: <Widget>[
@@ -156,7 +155,28 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
               ),
             );
           } else {
-            return LoadingCircle(40, Colors.orange.withOpacity(.95));
+            return Center(
+              child: Stack(
+                children: [
+                  Image.asset(
+                    "images/drone2.gif",
+                    height: 250.0,
+                    width: 250.0,
+                  ),
+                  Positioned(
+                    child: Text(
+                      "Loading",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.orangeAccent[400]),
+                    ),
+                    top: 200,
+                    left: 92,
+                  )
+                ],
+              ),
+            );
           }
         },
       ),

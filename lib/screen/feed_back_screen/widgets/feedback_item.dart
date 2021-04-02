@@ -11,7 +11,6 @@ class FeedbackItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.feedback.toJson());
     return Container(
       padding: EdgeInsets.only(left: 10, right: 10),
       margin: EdgeInsets.only(bottom: 5, top: 5),

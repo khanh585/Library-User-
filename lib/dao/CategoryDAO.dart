@@ -21,11 +21,12 @@ class CategoryDAO {
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List cats = json['data'];
+      Category tmp = new Category(id: -1, name: "All*");
+      list.add(tmp);
       cats.forEach((element) {
-        Category dto = Category.fromJson(element);
-        print(dto.name);
+        Category dto = Category.fromJson(element);        
         list.add(dto);
-      });
+      });      
       return list;
     } else {
       throw Exception('Failed');

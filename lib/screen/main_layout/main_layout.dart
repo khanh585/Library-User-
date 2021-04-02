@@ -18,7 +18,6 @@ class MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
     contextData['customerID'] = this.widget.user.id;
-    print('-------------------userID ' +contextData['customerID'].toString());
     super.initState();
   }
 

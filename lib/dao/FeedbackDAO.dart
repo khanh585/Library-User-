@@ -12,8 +12,6 @@ class FeedbackDAO {
     String url = prefixUrl +
         '?&BookGroupId=${bookId}&PageNumber=${page}&PageSize=${pageSize}';
     var response = await http.get(url);
-    print(url);
-
     Map json = jsonDecode(response.body);
     List<UserFeedback> feedbacks = new List<UserFeedback>();
 
@@ -49,9 +47,7 @@ class FeedbackDAO {
       UserFeedback dto = UserFeedback.fromJson(json['data']);
       return dto;
     } else {
-      print(response.statusCode);
       Map json = jsonDecode(response.body);
-      print(json.toString());
       throw Exception('Failed');
     }
   }

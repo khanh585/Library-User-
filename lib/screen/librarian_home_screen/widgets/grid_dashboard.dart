@@ -87,7 +87,6 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => CheckListScreen()),
                     );
                   } else if (data.title == "Profile") {
-                    print("profile id " + this.user.id);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

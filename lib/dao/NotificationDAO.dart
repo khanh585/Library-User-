@@ -17,10 +17,8 @@ class NotificationDAO {
       list = new List();
     }
     String url = prefixUrl + '?UserId=$userId';
-    print(url.toString());
     var response = await http.get(url);
 
-    print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List notifications = json['data'];

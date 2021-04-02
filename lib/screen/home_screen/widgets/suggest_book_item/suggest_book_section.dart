@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/models/book.dart';
+import 'package:user_library/screen/search_screen/search_screen.dart';
 import 'package:user_library/widgets/book/book_item_suggestion.dart';
 
 class SuggestBookSection extends StatefulWidget {
-
   final List<Book> listSuggestBook;
 
   const SuggestBookSection({Key key, this.listSuggestBook}) : super(key: key);
@@ -49,9 +49,18 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                     flex: 2,
                     child: Container(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "See All",
-                        style: TextStyle(fontSize: 13, color: Colors.black45),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchScreen()),
+                          );
+                        },
+                        child: Text(
+                          "See All",
+                          style: TextStyle(fontSize: 13, color: Colors.black45),
+                        ),
                       ),
                     ),
                   )
@@ -64,10 +73,8 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                 padding: EdgeInsets.only(left: 25, right: 25),
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for(Book book in this.widget.listSuggestBook)
-                  BookItemSuggestion(
-                    book: book
-                  )
+                  for (Book book in this.widget.listSuggestBook)
+                    BookItemSuggestion(book: book)
                 ],
               )),
         ],

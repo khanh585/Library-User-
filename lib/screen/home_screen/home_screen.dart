@@ -47,13 +47,10 @@ class HomeScreenState extends State<HomeScreen> {
   void getMessage() {
     _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
-      print('received message');
       setState(() => _message = message["notification"]["body"]);
     }, onResume: (Map<String, dynamic> message) async {
-      print('on resume $message');
       setState(() => _message = message["notification"]["body"]);
     }, onLaunch: (Map<String, dynamic> message) async {
-      print('on launch $message');
       setState(() => _message = message["notification"]["body"]);
     });
   }
@@ -64,8 +61,6 @@ class HomeScreenState extends State<HomeScreen> {
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response = await put(url, headers: headers, body: user);
     int statusCode = response.statusCode;
-    print(statusCode);
-    print(" co chay cai upate token ne");
     String body = response.body;
     return "OK";
   }
@@ -90,7 +85,6 @@ class HomeScreenState extends State<HomeScreen> {
             stream: home_bloc.stateController.stream,
             initialData: home_bloc.state,
             builder: (context, snapshot) {
-              print("Sfsfs" + snapshot.data.listNewestBook.toString());
               if (snapshot.hasError)
                 return Text("Error");
               else {
@@ -106,15 +100,37 @@ class HomeScreenState extends State<HomeScreen> {
                               listSuggestBook: snapshot.data.listSuggestBook)),
                       FadeSideUp(
                           3.0,
-                          TabViewBooks(                           
+                          TabViewBooks(
                             listNewestBook: snapshot.data.listNewestBook,
                           )),
                     ],
                   );
                 } else {
                   return Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: LoadingCircle(60, Colors.black));
+                    height: MediaQuery.of(context).size.height,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "images/drone2.gif",
+                            height: 250.0,
+                            width: 250.0,
+                          ),
+                        ),
+                        Positioned(
+                          child: Text(
+                            "Loading",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                color: Colors.orangeAccent[400]),
+                          ),
+                          top: 510,
+                          left: 172,
+                        )
+                      ],
+                    ),
+                  );
                 }
               }
             }),

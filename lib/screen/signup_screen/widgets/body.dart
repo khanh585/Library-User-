@@ -112,7 +112,6 @@ class BodyState extends State<Body> {
                   roleId: 2,
                   username: usernameController.text
                 );
-                print("signup user ne" + user.toString());
                 CustomerDAO dao = new CustomerDAO();
                 dao.addCustomer(user);
               },

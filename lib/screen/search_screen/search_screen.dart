@@ -38,15 +38,6 @@ class _SearchScreenState extends State<SearchScreen> {
         toolbarHeight: 40,
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Color(0xFF545D68),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
       ),
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: StreamBuilder<SearchScreenState>(
@@ -91,7 +82,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                 onSearch: searchBooks,
                               ),
                             ),
-
                             // list book, grid book
                             Container(
                               height: MediaQuery.of(context).size.height - 212,

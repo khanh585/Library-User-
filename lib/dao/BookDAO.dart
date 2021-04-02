@@ -25,9 +25,6 @@ class BookDAO {
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List books = json['data'];
-      print('\n---------------\n');
-      print(books.toString() + '\n');
-      print('\n---------------\n');
       books.forEach((book) {
         if (book != null) {
           Book dto = Book.fromJson(book);

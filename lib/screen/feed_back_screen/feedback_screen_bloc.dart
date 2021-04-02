@@ -30,7 +30,6 @@ class FeedbackScreenBloc implements Bloc {
         state.listFeedback = concatList;
         state.totalFeedback = total;
         state.rating = rating;
-        print(state);
         stateController.sink.add(state);
       }else if(event is SentFeedbackEvent){
         UserFeedback dto = event.userFeedback;

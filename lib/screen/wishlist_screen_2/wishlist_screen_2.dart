@@ -262,7 +262,22 @@ class _WishListScreenState extends State<WishListScreen> {
                     ],
                   );
                 } else {
-                  return Center(child: Text("Empty wish list"));
+                  return Center(
+                    child: Wrap(
+                      direction: Axis.vertical,
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Image.asset("images/nodata.png",
+                            width: 100, height: 100),
+                        Text("No data",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.orangeAccent[400]))
+                      ],
+                    ),
+                  );
                 }
               } else {
                 _refreshWishList();

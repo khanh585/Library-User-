@@ -29,7 +29,7 @@ class _CategoryTabButtonState extends State<CategoryTabButton> {
             child: Text(
               widget.text,
               style: TextStyle(
-                  color: widget.isFocus ? Colors.black87 : Colors.black45,
+                  color: widget.isFocus ? Colors.black54 : Colors.black38,
                   fontSize: widget.isFocus ? 16 : 14,
                   fontWeight: FontWeight.bold),
             ),
@@ -38,7 +38,7 @@ class _CategoryTabButtonState extends State<CategoryTabButton> {
             width: 45,
             height: widget.isFocus ? 5 : 0,
             decoration: BoxDecoration(
-              color: Colors.greenAccent,
+              color: Colors.deepOrange[300],
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(10), bottom: Radius.circular(10)),
             ),

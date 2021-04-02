@@ -20,7 +20,6 @@ class TabViewBooksState extends State<TabViewBooks> {
 
   @override
   Widget build(BuildContext context) {
-    print("Ádasdasdas" + this.widget.listNewestBook.toString());
     return Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 65),
@@ -58,7 +57,7 @@ class TabViewBooksState extends State<TabViewBooks> {
                 Expanded(
                   flex: 8,
                   child: Text(
-                    "Reading now",
+                    "New Arrivals",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,

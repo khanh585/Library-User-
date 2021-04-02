@@ -24,13 +24,20 @@ class FeebackListState extends State<FeebackList> {
 
   @override
   Widget build(BuildContext context) {
-    if(this.widget.listData == null){
-      return Text("sdfsdfsdf");
+    if (this.widget.listData == null || this.widget.listData.length ==0) {
+      return Center(
+        child: Column(
+          children: [
+            Image.asset("images/nodata.png",width: 100,height:100),
+            Text("No data",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20, color: Colors.orangeAccent[400]))
+          ],
+        ),
+        );
     }
     return Container(
       alignment: Alignment.topLeft,
       child: Column(
-        children: [        
+        children: [
           for (UserFeedback feedback in this.widget.listData)
             FeedbackItem(
               feedback: feedback,

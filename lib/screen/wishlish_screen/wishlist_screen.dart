@@ -51,8 +51,6 @@ class _WishListScreenState extends State<WishListScreen> {
                 ),
               )),
     );
-
-    print(listID);
   }
 
   @override

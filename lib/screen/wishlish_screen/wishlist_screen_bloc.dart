@@ -33,7 +33,6 @@ class WishListScreenBloc implements Bloc {
     final wishlistDao = database.wishListDao;
     await wishlistDao.findAllWishLists().then((value) {
       this.state.wishlist = value;
-      print('-------- ${value.length}');
     });
   }
 

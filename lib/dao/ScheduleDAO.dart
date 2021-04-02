@@ -17,13 +17,10 @@ class ScheduleDAO {
     }
     String url =
         prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}';
-        print(url.toString());
     var response = await http.get(url);
 
-    print(response);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json.toString());
       List cats = json['data'];
       cats.forEach((element) {
         Schedule dto = Schedule.fromJson(element);

@@ -41,15 +41,15 @@ class BookGridState extends State<BookGrid> {
               children: [
                 Container(
                   padding:
-                      EdgeInsets.only(right: 10, left: 10, bottom: 10, top: 6),
+                      EdgeInsets.only( left:15, right:15,bottom: 10, top: 6),
                   width: MediaQuery.of(context).size.width - 30,
                   height: MediaQuery.of(context).size.height - 202,
                   child: GridView.count(
-                    crossAxisCount: 3,
+                    crossAxisCount: 3,                   
                     primary: false,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 0.7,
+                    crossAxisSpacing: 20,                
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 0.48555,                 
                     children: renderBookItemm(),
                   ),
                 ),

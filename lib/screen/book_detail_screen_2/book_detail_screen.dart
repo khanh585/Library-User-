@@ -85,6 +85,7 @@ class _BookDetailState extends State<BookDetailScreen>
     });
   }
 
+
   Future<void> _afterSendFeedBack(UserFeedback dto) async {
     if (dto != null) {
       setState(() {
@@ -261,7 +262,7 @@ class _BookDetailState extends State<BookDetailScreen>
                               SingleChildScrollView(
                                 child: Container(
                                     width: 600,
-                                    margin: EdgeInsets.only(left: 9, top: 15),
+                                    margin: EdgeInsets.only(left: 9),
                                     child: Column(
                                       children: [
                                         TextFieldFeedback(

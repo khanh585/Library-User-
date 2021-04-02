@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:user_library/dao/TokenDAO.dart';
 import 'package:user_library/screen/librarian_home_screen/librarian_home_screen.dart';
 import 'package:user_library/screen/login_screen_2/widgets/background.dart';
@@ -65,15 +66,12 @@ class _BodyState extends State<Body> {
                         if (value.roleId.toString() == "2") {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => MainLayout(user: value)),
+                            PageTransition(type: PageTransitionType.fade, child: MainLayout(user: value)),
                           );
                         } else if (value.roleId.toString() == "3") {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LibrarianHomeScreen(user: value)),
+                            PageTransition(type: PageTransitionType.fade, child: LibrarianHomeScreen(user: value))
                           );
                         }
                       } else if (value == null) {
@@ -94,7 +92,11 @@ class _BodyState extends State<Body> {
                       isLoading = false;
                     },
                   )
-                : LoadingCircle(30, Colors.black),
+                : Image.asset(
+                    "images/loading1.gif",
+                    height: 80.0,
+                    width: 250.0,
+                  ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
               press: () {

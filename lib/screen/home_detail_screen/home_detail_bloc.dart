@@ -9,7 +9,8 @@ import 'package:user_library/screen/home_detail_screen/home_detail_state.dart';
 
 class HomeDetailBloc implements Bloc {
   var state = HomeDetailState(
-      listPopularBook: new List<Book>(),listNewestBook: new List<Book>());
+      listPopularBook: new List<Book>(),
+      listNewestBook: new List<Book>());
   final eventController = StreamController<HomeDetailEvent>();
 
   final stateController = StreamController<HomeDetailState>.broadcast();
@@ -17,7 +18,6 @@ class HomeDetailBloc implements Bloc {
   HomeDetailBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchPopularBook) {
-        print("co vao bloc day");
         List responseSuggest = await BookDAO()
             .fetchPopularBook();
         List responseNewest = await BookDAO()
