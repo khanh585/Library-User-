@@ -281,7 +281,31 @@ class _WishListScreenState extends State<WishListScreen> {
                 }
               } else {
                 _refreshWishList();
-                return LoadingCircle(50, Colors.grey);
+                return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "images/drone2.gif",
+                            height: 250.0,
+                            width: 250.0,
+                          ),
+                        ),
+                        Positioned(
+                          child: Text(
+                            "Loading",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                color: Colors.orangeAccent[400]),
+                          ),
+                          top: 510,
+                          left: 172,
+                        )
+                      ],
+                    ),
+                  );
               }
             }),
       ),

@@ -3,5 +3,7 @@ import 'package:user_library/models/user.dart';
 
 class ManageBorrowState {
   List<Customer> listUser;
-  ManageBorrowState({this.listUser});
+  List<Customer> listUserSearch;
+  String name;
+  ManageBorrowState({this.listUser, this.listUserSearch, this.name});
 }

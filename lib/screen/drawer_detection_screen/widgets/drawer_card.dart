@@ -27,17 +27,17 @@ class DrawerCard extends StatelessWidget {
         children: [
           Column(
             children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
+              // SizedBox(
+              //   height: 10,
+              // ),
               Container(
-                height: 180,
+                height: 148,
                 child: PageView.builder(
                   //controller: _goalPageController,
                   itemBuilder: (_, index) {
                     return Container(
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
+                             vertical: 10),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -49,82 +49,17 @@ class DrawerCard extends StatelessWidget {
                                 offset: Offset(0, 5),
                               )
                             ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Row(                    
                           children: [
                             // content
                             Container(
                               height: 160,
-                              width: 270,
+                              //width: 370,
                               child: Column(
-                                children: [                                 
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [      
                                   Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.card_membership,
-                                        color: Color(0xff4db6ac),
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 200,
-                                        child: Text(
-                                          'Drawer name: ' +
-                                              drawerDetection.drawerName
-                                                  .toString(),
-                                          // overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 7,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(80),
-                                        ),
-                                        child: Icon(
-                                          Icons.confirmation_number_outlined,
-                                          color: Color(0xff33691e),
-                                          size: 20,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                    3 /
-                                                    5 -
-                                                10,
-                                        child: Text(
-                                          "Quantity: " + 
-                                          drawerDetection.bookCount
-                                                  .toString() ,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 7,
-                                  ),  
-                                  Row(
+                                    //mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
                                         Icons.bar_chart_outlined,
@@ -135,7 +70,7 @@ class DrawerCard extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Container(
-                                        width: 200,
+                                        width: 180,
                                         child: Text(
                                           "Barcode: " +
                                           drawerDetection.drawerBarcode,
@@ -152,8 +87,57 @@ class DrawerCard extends StatelessWidget {
                                   ),                               
                                   SizedBox(
                                     height: 7,
-                                  ),
+                                  ),                           
                                   Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.card_membership,
+                                        color: Color(0xff4db6ac),
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 140,
+                                        child: Text(
+                                          'Drawer name: ' +
+                                              drawerDetection.drawerName
+                                                  .toString(),
+                                          // overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.confirmation_number_outlined,
+                                        color: Color(0xff33691e),
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          "Quantity: " + 
+                                          drawerDetection.bookCount
+                                                  .toString() ,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),                                  
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
                                         Icons.error_outline,
@@ -193,7 +177,7 @@ class DrawerCard extends StatelessWidget {
                           ],
                         ));
                   },
-                  itemCount: 5,
+                  itemCount: 3,
                   // onPageChanged: (page) {
                   //   setState(() {
                   //     _goalPageCurrent = page;

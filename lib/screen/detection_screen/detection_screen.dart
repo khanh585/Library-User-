@@ -101,6 +101,48 @@ class _DetectionScreenState extends State<DetectionScreen> {
                 initialData: detection_bloc.state,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) return Text("Error");
+                  if (snapshot.data.detections == null) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              "images/drone2.gif",
+                              height: 250.0,
+                              width: 250.0,
+                            ),
+                          ),
+                          Positioned(
+                            child: Text(
+                              "Loading",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                  color: Colors.orangeAccent[400]),
+                            ),
+                            top: 510,
+                            left: 172,
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                  if (snapshot.data.detections.length == 0) {
+                    return Center(                    
+                      child: Column(
+                        children: [
+                          Image.asset("images/nodata.png",
+                              width: 100, height: 100),
+                          Text("No data",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.orangeAccent[400]))
+                        ],
+                      ),
+                    );
+                  }
                   if (snapshot.data.detections != null) {
                     return Container(
                       child: Column(
@@ -146,21 +188,26 @@ class _DetectionScreenState extends State<DetectionScreen> {
                                               width: 15,
                                             ),
                                             Expanded(
-                                                                                          child: Text(
-                                                "Book shelf:" + 
-                                                snapshot.data.detections[index]
-                                                    .bookShelfName,
+                                              child: Text(
+                                                "Book shelf:" +
+                                                    snapshot
+                                                        .data
+                                                        .detections[index]
+                                                        .bookShelfName,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color(0xFFFF5722)
                                                         .withOpacity(1),
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ],
                                         )),
-                                        SizedBox(height: 10,),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
                                         Container(
                                           child: Row(
                                             children: [

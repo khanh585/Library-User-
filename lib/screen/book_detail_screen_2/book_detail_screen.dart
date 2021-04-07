@@ -33,7 +33,7 @@ class _BookDetailState extends State<BookDetailScreen>
   @override
   void initState() {
     _checkInWishList();
-    _tabController = new TabController(length: 2, vsync: this);
+    _tabController = new TabController(length: 2, vsync: this);    
     super.initState();
   }
 
@@ -84,7 +84,6 @@ class _BookDetailState extends State<BookDetailScreen>
       });
     });
   }
-
 
   Future<void> _afterSendFeedBack(UserFeedback dto) async {
     if (dto != null) {
@@ -144,16 +143,36 @@ class _BookDetailState extends State<BookDetailScreen>
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 40),
-                          width: 250,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: NetworkImage(this.widget.book.image[0]),
+                            margin: EdgeInsets.only(bottom: 40),
+                            width: 180,
+                            height: 250,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                this.widget.book.image[0],
+                                fit: BoxFit.fill,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: Image.asset(
+                                      "images/loading1.gif",
+                                      height: 550.0,
+                                      width: 750.0,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                            // decoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   color: kLightGreyColor,
+                            //   image: DecorationImage(
+                            //     image: NetworkImage(this.widget.book.image[0]),
+                            //   ),
+                            // ),
                             ),
-                          ),
-                        ),
                       )
                     ],
                   ),

@@ -50,6 +50,30 @@ class CustomerDAO {
     }
   }
 
+  Future<List<Customer>> fetchCustomerByName(
+      String name) async {
+    List<Customer> list = new List<Customer>();
+    String url = prefixUrl +
+        '?Name=${name}' +
+        '&PageSize=${pageSize}' +
+        '&PageNumber=${pageNumber}';
+    print(url);
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List customers = json['data'];
+      customers.forEach((customer) {
+        if (customer != null) {
+          Customer dto = Customer.fromJson(customer);
+          list.add(dto);
+        }
+      });
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
   Future<TmpUser> addCustomer(TmpUser dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
     String body = json.encode(dto.toJson());

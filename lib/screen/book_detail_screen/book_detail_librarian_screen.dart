@@ -112,14 +112,33 @@ class _BookDetailLibrarianState extends State<BookDetailLibrarianScreen>
                         alignment: Alignment.bottomCenter,
                         child: Container(
                           margin: EdgeInsets.only(bottom: 40),
-                          width: 250,
+                          width: 180,
                           height: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: NetworkImage(this.widget.book.image[0]),
-                            ),
-                          ),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.network(
+                                this.widget.book.image[0],
+                                fit: BoxFit.fill,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: Image.asset(
+                                      "images/loading1.gif",
+                                      height: 550.0,
+                                      width: 750.0,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   image: DecorationImage(
+                          //     image: NetworkImage(this.widget.book.image[0]),
+                          //   ),
+                          // ),
                         ),
                       )
                     ],

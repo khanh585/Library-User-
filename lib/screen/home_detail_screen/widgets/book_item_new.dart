@@ -26,7 +26,8 @@ class BookItemNewState extends State<BookItemNew> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => BookDetailLibrarianScreen(book: this.widget.book)),
+                builder: (context) =>
+                    BookDetailLibrarianScreen(book: this.widget.book)),
           );
         },
         child: Container(
@@ -37,16 +38,26 @@ class BookItemNewState extends State<BookItemNew> {
           child: Row(
             children: [
               Container(
-                height: 80,
-                width: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  image: DecorationImage(
-                      image: NetworkImage(this.widget.book.image[0]),
-                      fit: BoxFit.fill),
-                  //color: Color(0xff9966).withOpacity(0.5)
-                ),
-              ),
+                  height: 80,
+                  width: 60,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      this.widget.book.image[0],
+                      fit: BoxFit.fill,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: Image.asset(
+                            "images/loading1.gif",
+                            height: 550.0,
+                            width: 750.0,
+                          ),
+                        );
+                      },
+                    ),
+                  )),
               SizedBox(
                 width: 21,
               ),

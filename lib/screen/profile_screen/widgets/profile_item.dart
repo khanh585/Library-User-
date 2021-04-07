@@ -17,7 +17,7 @@ class ProfileItem extends StatelessWidget {
           Text(
             this.title,
             style: TextStyle(
-                color: this.color, fontSize: 14, fontWeight: FontWeight.w600),
+                color: this.color, fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.5,),
           ),
           SizedBox(
             height: 10,
@@ -26,7 +26,10 @@ class ProfileItem extends StatelessWidget {
             this.infor,
             style: TextStyle(
               color: this.color,
-              fontSize: 13,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0.5,
+              height: 1.2
             ),
           ),
           SizedBox(

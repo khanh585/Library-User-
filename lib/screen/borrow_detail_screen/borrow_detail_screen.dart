@@ -107,20 +107,6 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                             SizedBox(
                               height: 8,
                             ),
-                            true
-                                ? Text(
-                                    'Accepted!',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        foreground: Paint()
-                                          ..shader = linearGradient),
-                                  )
-                                : Text(
-                                    'Not Accepted',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500]),
-                                  ),
                           ],
                         ),
                         Column(

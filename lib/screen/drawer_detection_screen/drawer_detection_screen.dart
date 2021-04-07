@@ -35,12 +35,51 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
             initialData: drawer_detection_bloc.state,
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error");
-              if(snapshot.data.drawerDetections.length==0){
-                return Text("asdasdas", style: TextStyle(color: Colors.red));
+              if (snapshot.data.drawerDetections.length == 0) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Image.asset("images/nodata.png", width: 100, height: 100),
+                      Text("No data",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.orangeAccent[400]))
+                    ],
+                  ),
+                );
               }
-              if (snapshot.data.drawerDetections.length != 0) {
+              if (snapshot.data.drawerDetections == null) {
                 return Container(
-                    padding: EdgeInsets.only(top: 25, right: 25, left: 25),
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          "images/drone2.gif",
+                          height: 250.0,
+                          width: 250.0,
+                        ),
+                      ),
+                      Positioned(
+                        child: Text(
+                          "Loading",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.orangeAccent[400]),
+                        ),
+                        top: 510,
+                        left: 172,
+                      )
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.data.drawerDetections != null) {
+                return Container(
+                    height: double.infinity,
+                    padding: EdgeInsets.only(right: 25, left: 25),
                     child: ListView(
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -64,9 +103,9 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: kToolbarHeight,
-                                    ),
+                                    // SizedBox(
+                                    //   height: kToolbarHeight,
+                                    // ),
                                     Container(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 16.0,
@@ -123,12 +162,10 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                                           )
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 50.0,
-                                    ),
+                                    ),  
                                     Container(
-                                      width: double.infinity,
+                                      //width: double.infinity,
+                                      //height: double.infinity,
                                       constraints: BoxConstraints(
                                         minHeight:
                                             MediaQuery.of(context).size.height -
@@ -139,26 +176,13 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                                           topLeft: Radius.circular(30.0),
                                           topRight: Radius.circular(30.0),
                                         ),
-                                        color: Color(0xfffbe9e7),
+                                        color: Color(0xffff7043),
                                       ),
                                       padding: EdgeInsets.symmetric(
                                         vertical: 24.0,
                                       ),
                                       child: Column(
                                         children: [
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 24.0,
-                                            ),
-                                            child: Text(
-                                              "All Detections",
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    19, 22, 33, 1),
-                                                fontSize: 18.0,
-                                              ),
-                                            ),
-                                          ),
                                           SizedBox(height: 7.0),
                                           Container(
                                             child: ListView(

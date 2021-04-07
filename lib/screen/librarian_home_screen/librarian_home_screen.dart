@@ -26,7 +26,7 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff392850),
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           SizedBox(
@@ -41,10 +41,10 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Johny s Family",
+                      "Welcome back, " + this.widget.user.name,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black87,
                               fontSize: 18,
                               fontWeight: FontWeight.bold)),
                     ),
@@ -55,20 +55,12 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
                       "Home",
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
-                              color: Color(0xffa29aac),
+                              color: Colors.black87,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600)),
+                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
-                IconButton(
-                  alignment: Alignment.topCenter,
-                  icon: Image.asset(
-                    "images/notification.png",
-                    width: 24,
-                  ),
-                  onPressed: () {},
-                )
               ],
             ),
           ),

@@ -21,6 +21,7 @@ class BookDAO {
         '&Author=${author}' +
         '&PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}';
+    print(url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
@@ -91,6 +92,31 @@ class BookDAO {
           list.add(dto);
         }
       });
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
+  Future<List<Book>> fetchBookByName(
+      String name) async {
+    List<Book> list = new List<Book>();
+    String url = prefixUrl +
+        '?Name=${name}' +
+        '&PageSize=${pageSize}' +
+        '&PageNumber=${pageNumber}';
+    print(url);
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List books = json['data'];
+      books.forEach((book) {
+        if (book != null) {
+          Book dto = Book.fromJson(book);
+          list.add(dto);
+        }
+      });
+
       return list;
     } else {
       throw Exception('Failed');

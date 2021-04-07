@@ -4,6 +4,7 @@ class Customer {
   String email;
   String name;
   String phone;
+  String username;
   String image;
   String address;
   DateTime doB;
@@ -16,11 +17,12 @@ class Customer {
       this.phone,
       this.image,
       this.address,
+      this.username,
       this.doB,
       this.createdTime});
 
   Customer.customerID(
-      {this.id,this.email, this.name,this.phone, this.image, this.address, this.doB,this.createdTime});
+      {this.id,this.email, this.name,this.phone, this.image, this.address, this.username, this.doB,this.createdTime});
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
@@ -29,6 +31,7 @@ class Customer {
       name:json['name'],
       phone: json['phone'],
       image: json['image'],
+      username: json['username'],
       address: json['address'],
       doB:  DateTime.parse(json['doB']),
       createdTime: DateTime.parse(json['createdTime'])

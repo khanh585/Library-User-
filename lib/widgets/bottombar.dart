@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class BottomBar extends StatefulWidget {
@@ -23,7 +24,7 @@ class BottomBarState extends State<BottomBar> {
               widget.handelPageView(0);
             },
             child: Icon(
-              Icons.menu_book_outlined,
+              LineIcons.bookReader,
               color: buttonColor,
               size: 24,
             ),
@@ -33,7 +34,7 @@ class BottomBarState extends State<BottomBar> {
               widget.handelPageView(1);
             },
             child: Icon(
-              Icons.shopping_basket_outlined,
+              LineIcons.list,
               color: buttonColor,
               size: 24,
             ),
@@ -45,7 +46,7 @@ class BottomBarState extends State<BottomBar> {
               widget.handelPageView(2);
             },
             child: Icon(
-              Icons.search,
+              LineIcons.searchPlus,
               color: buttonColor,
               size: 24,
             ),

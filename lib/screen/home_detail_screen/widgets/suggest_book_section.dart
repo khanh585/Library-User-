@@ -19,7 +19,7 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 21),
+        margin: EdgeInsets.only(top: 35),
         height: 210,
         child: ListView(
           padding: EdgeInsets.only(left: 25, right: 6),

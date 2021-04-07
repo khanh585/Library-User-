@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/constants.dart';
 import 'package:user_library/models/customer.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_library/screen/manage_borrow_screen/widgets/circle_profile.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/progress_circle_indicator.dart';
 import '../../borrow_detail_screen/borrow_detail_screen.dart';
@@ -14,10 +17,13 @@ class UserCard extends StatelessWidget {
     return Stack(
       children: <Widget>[
         ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
           itemCount: customer.length,
           itemBuilder: (context, index) {
             return Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
@@ -63,8 +69,8 @@ class UserCard extends StatelessWidget {
                   return false;
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25, vertical: 30),
                   decoration: BoxDecoration(
                     color: Color(0xfffbfafd),
                     borderRadius: BorderRadius.circular(25),
@@ -74,7 +80,9 @@ class UserCard extends StatelessWidget {
                       Hero(
                         tag: customer[index].name,
                         child: CircleProfile(
-                          image: customer[index].image,
+                          image: customer[index].image != null
+                              ? customer[index].image
+                              : "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif",
                           width: 50,
                           height: 50,
                           acceptSize: 15,
@@ -123,7 +131,62 @@ class UserCard extends StatelessWidget {
             );
           },
         ),
+        // Positioned(
+        //   bottom: 637,
+        //   left: 0,
+        //   right: 0,
+        //   top: 0,
+        //   child: Container(
+        //     height: 140,
+        //     margin: EdgeInsets.only(left: 25, right: 25, top: 18),
+        //     decoration: BoxDecoration(
+        //         borderRadius: BorderRadius.circular(10),
+        //         color: kLightGreyColor),
+        //     child: Stack(
+        //       children: <Widget>[
+        //         TextFormField(
+        //             maxLengthEnforced: true,
+        //             style: GoogleFonts.openSans(
+        //                 fontSize: 16,
+        //                 color: kBlackColor,
+        //                 fontWeight: FontWeight.w600),
+        //             decoration: InputDecoration(
+        //                 contentPadding:
+        //                     EdgeInsets.only(left: 19, right: 50, bottom: 8),
+        //                 border: InputBorder.none,
+        //                 hintText: 'Search customer..',
+        //                 hintStyle: GoogleFonts.openSans(
+        //                     fontSize: 16,
+        //                     color: kGreyColor,
+        //                     fontWeight: FontWeight.w600)),
+        //             onChanged: (value) {
+        //               // _search = value;
+        //               // if (_search != "") {
+        //               //   searchBooks(_search);
+        //               // } else {
+        //               //   setState(() {
+        //               //     snapshot.data.listBooks = null;
+        //               //   });
+        //               // }
+        //             }),
+        //         Positioned(
+        //           right: 0,
+        //           child: SvgPicture.asset('icons/background_search.svg'),
+        //         ),
+        //         Positioned(
+        //           top: 8,
+        //           right: 9,
+        //           child: SvgPicture.asset('icons/icon_search_white.svg'),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
+  // Future<void> searchBooks(String name) {
+  //   home_detail_bloc.eventController.sink.add(CleanBooks());
+  //   home_detail_bloc.eventController.sink.add(FetchBooks(name: name));
+  // }
 }

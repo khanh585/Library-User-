@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/checklist_screen/checklist_screen.dart';
+import 'package:user_library/screen/detection_screen/detection_screen.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_screen.dart';
@@ -51,7 +52,6 @@ class GridDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item4, item5, item6, item2, item3];
-    var color = 0xff453658;
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
@@ -84,7 +84,7 @@ class GridDashboard extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CheckListScreen()),
+                          builder: (context) => DetectionScreen()),
                     );
                   } else if (data.title == "Profile") {
                     Navigator.push(
@@ -99,8 +99,17 @@ class GridDashboard extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Color(color),
-                      borderRadius: BorderRadius.circular(10)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange[600].withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -115,9 +124,9 @@ class GridDashboard extends StatelessWidget {
                         data.title,
                         style: GoogleFonts.openSans(
                             textStyle: TextStyle(
-                                color: Colors.white,
+                                color: Colors.orange[900],
                                 fontSize: 16,
-                                fontWeight: FontWeight.w600)),
+                                fontWeight: FontWeight.w500)),
                       ),
                       SizedBox(
                         height: 8,
@@ -126,9 +135,9 @@ class GridDashboard extends StatelessWidget {
                         data.subtitle,
                         style: GoogleFonts.openSans(
                             textStyle: TextStyle(
-                                color: Colors.white38,
+                                color: Colors.orange[900],
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600)),
+                                fontWeight: FontWeight.w500)),
                       ),
                       SizedBox(
                         height: 14,
@@ -137,9 +146,9 @@ class GridDashboard extends StatelessWidget {
                         data.event,
                         style: GoogleFonts.openSans(
                             textStyle: TextStyle(
-                                color: Colors.white70,
+                                color: Colors.orange[900],
                                 fontSize: 11,
-                                fontWeight: FontWeight.w600)),
+                                fontWeight: FontWeight.w500)),
                       ),
                     ],
                   ),

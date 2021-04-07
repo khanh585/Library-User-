@@ -123,7 +123,7 @@ class BorrowDetailCard extends StatelessWidget {
                                                     3 /
                                                     5 -
                                                 10,
-                                        child: Text(
+                                        child: Text("Fee: " +
                                           borrowDetail[index].fee.toString() +
                                               '\$',
                                           overflow: TextOverflow.ellipsis,
@@ -150,15 +150,15 @@ class BorrowDetailCard extends StatelessWidget {
                                       ),
                                       Container(
                                         width: 200,
-                                        child: Text(
+                                        child: Text("Book name: " +
                                           borrowDetail[index].bookName,
                                           overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black87
                                                   .withOpacity(.95),
-                                              fontSize: 20),
+                                              fontSize: 16),
                                         ),
                                       ),
                                     ],
@@ -178,7 +178,7 @@ class BorrowDetailCard extends StatelessWidget {
                                       ),
                                       Container(
                                         width: 200,
-                                        child: Text(
+                                        child: Text("Author: " +  
                                           borrowDetail[index].author,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 2,
@@ -249,68 +249,166 @@ class BorrowDetailCard extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                height: 125,
+                height: 180,
                 child: PageView.builder(
                   //controller: _goalPageController,
                   itemBuilder: (_, index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 5,
-                              offset: Offset(0, 5),
-                            )
-                          ]),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  returnDetail[index].bookName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[400],
+                                blurRadius: 5,
+                                offset: Offset(0, 5),
                               )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          ProgressLineIndicator(
-                            completedPercentage: (5 / 5 * 100).toInt(),
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            strokeWidth: 5,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  returnDetail[index].author,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // content
+                            Container(
+                              height: 160,
+                              width: 270,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.watch_later_outlined,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 200,
+                                        child: Text(
+                                          'Return date: ' +
+                                              returnDetail[index]
+                                                  .returnTime
+                                                  .toString()
+                                                  .substring(0, 10),
+                                          // overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.black54),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(80),
+                                        ),
+                                        child: Icon(
+                                          Icons.money_rounded,
+                                          color: Color(0xffaeea00),
+                                          size: 20,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                    3 /
+                                                    5 -
+                                                10,
+                                        child: Text("Fee: " +
+                                          (returnDetail[index].fee + returnDetail[index].punishFee).toString() +
+                                              '\$',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black54,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.menu_book_rounded,
+                                        color: Colors.black87,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 200,
+                                        child: Text("Book name: " +
+                                          returnDetail[index].bookName,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87
+                                                  .withOpacity(.95),
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.black54,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 200,
+                                        child: Text("Author: " +  
+                                          returnDetail[index].author,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black45,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // image
+                            Container(
+                                width:
+                                    MediaQuery.of(context).size.width * 1 / 5,
+                                child: Image.network(
+                                  returnDetail[index].image,
+                                  fit: BoxFit.contain,
+                                )),
+                          ],
+                        ));
                   },
                   itemCount: returnDetail.length,
                   // onPageChanged: (page) {

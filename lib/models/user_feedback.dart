@@ -1,8 +1,12 @@
+import 'package:intl/intl.dart';
 class UserFeedback {
   int id;
   String content;
   int rating;
   int customerId;
+  String customerImage;
+  String customerName;
+  DateTime createdDate;
   int bookGroupId;
 
   UserFeedback({
@@ -10,6 +14,9 @@ class UserFeedback {
     this.content,
     this.rating,
     this.customerId,
+    this.customerImage,
+    this.customerName,
+    this.createdDate,
     this.bookGroupId,
   });
 
@@ -19,6 +26,9 @@ class UserFeedback {
       content: json['reviewContent'],
       rating: json['rate'] != null ? json['rate'] : 1,
       customerId: json['customerId'],
+      createdDate: DateFormat('yyyy-MM-dd').parse(json['createdDate']),
+      customerImage: json['image'],
+      customerName: json['customerName'],
       bookGroupId: json['bookGroupId'],
     );
   }
@@ -27,6 +37,8 @@ class UserFeedback {
         'bookGroupId': bookGroupId,
         "reviewContent": content,
         "rate": rating,
+        "createdDate": createdDate,
+        "customerName" : customerName,
         "customerId": customerId,
       };
 

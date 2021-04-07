@@ -26,6 +26,18 @@ class ManageBorrowBloc implements Bloc {
           listUser: listUser,
         );
         stateController.sink.add(state);
+      }else if (event is FetchCustomers) {
+        String name = event.name;
+
+        List<Customer> result = await CustomerDAO().fetchCustomerByName(name);
+
+        state.listUserSearch = result;
+        state.name = name;
+
+        stateController.sink.add(state);
+      } else if (event is CleanCustomers) {
+        state.listUserSearch = null;
+        stateController.sink.add(state);
       }
     });
   }

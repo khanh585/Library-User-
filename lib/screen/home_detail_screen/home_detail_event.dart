@@ -7,3 +7,13 @@ class FetchPopularBook extends HomeDetailEvent {
 class FetchNewestBook extends HomeDetailEvent {
   FetchNewestBook();
 }
+
+class FetchBooks extends HomeDetailEvent {
+  final String name;
+
+  FetchBooks({this.name});
+}
+
+class CleanBooks extends HomeDetailEvent {
+  CleanBooks();
+}

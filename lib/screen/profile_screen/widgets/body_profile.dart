@@ -39,37 +39,27 @@ class BodyProfile extends StatelessWidget {
             top: Radius.circular(35),
           )),
       child: ListView(
-        children: [
-          Container(
-            width: 40,
-            height: 4,
-            margin: EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: const Text('', textAlign: TextAlign.center),
-          ),
+        children: [ 
           FadeSideIn(
               2,
               ProfileItem(
                 title: "Email",
                 infor: this.tmpUser.email,
-                color: Colors.black,
+                color: Colors.black87,
               )),
           FadeSideIn(
               2,
               ProfileItem(
                 title: "Name",
                 infor: this.tmpUser.address,
-                color: Colors.black,
+                color: Colors.black87,
               )),
           FadeSideIn(
             2,
             ProfileItem(
               title: "Address",
               infor: this.tmpUser.name,
-              color: Colors.black,
+              color: Colors.black87,
             ),
           ),
           FadeSideIn(
@@ -77,7 +67,7 @@ class BodyProfile extends StatelessWidget {
             ProfileItem(
               title: "Birthdate",
               infor: this.tmpUser.doB,
-              color: Colors.black,
+              color: Colors.black87,
             ),
           ),
           FadeSideIn(
@@ -85,7 +75,7 @@ class BodyProfile extends StatelessWidget {
             ProfileItem(
               title: "Created Time",
               infor: this.tmpUser.createdTime,
-              color: Colors.black,
+              color: Colors.black87,
             ),
           ),
           this.tmpUser.roleId == 2
@@ -113,7 +103,7 @@ class BodyProfile extends StatelessWidget {
                               child: Text(
                                 "History borrow",
                                 style: TextStyle(
-                                    color: Colors.cyanAccent,
+                                    color: Colors.teal[800],
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               )),
@@ -121,7 +111,7 @@ class BodyProfile extends StatelessWidget {
                             flex: 2,
                             child: Icon(
                               Icons.history_edu_outlined,
-                              color: Colors.cyanAccent,
+                              color: Colors.teal[800],
                               size: 22,
                             ),
                           ),

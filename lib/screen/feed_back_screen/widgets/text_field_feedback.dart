@@ -64,6 +64,7 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
             content: txtSearch.text.trim(),
             customerId: int.parse(userid),
             bookGroupId: this.widget.bookGroupID,
+            createdDate: DateTime.now(),
             rating: rate);
         FeedbackDAO().sentFeedback(dto).then((value) {
           this.widget.afterSendFeedback(value);

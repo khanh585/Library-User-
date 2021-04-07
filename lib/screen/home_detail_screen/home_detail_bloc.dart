@@ -29,6 +29,18 @@ class HomeDetailBloc implements Bloc {
           listNewestBook: listNewestBook
         );
         stateController.sink.add(state);
+      }else if (event is FetchBooks) {
+        String name = event.name;
+
+        List<Book> result = await BookDAO().fetchBookByName(name);
+
+        state.listBooks = result;
+        state.name = name;
+
+        stateController.sink.add(state);
+      } else if (event is CleanBooks) {
+        state.listBooks = null;
+        stateController.sink.add(state);
       }
     });
   }

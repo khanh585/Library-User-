@@ -5,6 +5,7 @@ class ReturnDetail {
   String author;
   String returnTime;
   double fee;
+  double punishFee;
 
   ReturnDetail(
       {this.id,
@@ -12,10 +13,11 @@ class ReturnDetail {
       this.image,
       this.author,
       this.returnTime,
+      this.punishFee,
       this.fee});
 
   ReturnDetail.customerID(
-      {this.id,this.bookName, this.image,this.author, this.returnTime, this.fee});
+      {this.id,this.bookName, this.image,this.author, this.returnTime,this.punishFee, this.fee});
 
   factory ReturnDetail.fromJson(Map<String, dynamic> json) {
     return ReturnDetail(
@@ -24,7 +26,8 @@ class ReturnDetail {
       image: json['image'],
       author: json['author'],
       returnTime: json['returnTime'],
-      fee: json['total'],
+      fee: json['fee'],
+      punishFee: json['punishFee']
     );
   }
 

@@ -27,14 +27,14 @@ class FeedbackItem extends StatelessWidget {
                       margin: EdgeInsets.only(right: 10),
                       child: CircleAvatar(
                         radius: 20.0,
-                        backgroundImage: AssetImage('images/2.png'),
+                        backgroundImage: NetworkImage(this.feedback.customerImage),
                         backgroundColor: Colors.transparent,
                       )),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kita Chihoko',
+                        this.feedback.customerName,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -42,7 +42,7 @@ class FeedbackItem extends StatelessWidget {
                             fontFamily: 'RobotoMono'),
                       ),
                       Text(
-                        'October 14, 2018',
+                        this.feedback.createdDate.toString(),
                         style: TextStyle(
                             color: Colors.grey,
                             fontSize: 13,
