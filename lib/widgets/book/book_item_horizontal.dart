@@ -98,8 +98,18 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                   Container(
                       height: 45,
                       margin: EdgeInsets.only(bottom: 10),
-                      child: Text(
+                      child: 
+                      this.widget.book.description!=null ? 
+                      Text(
                         this.widget.book.description,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.2),
+                        maxLines: 3,
+                      ) : Text(
+                        "No description",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 12,
