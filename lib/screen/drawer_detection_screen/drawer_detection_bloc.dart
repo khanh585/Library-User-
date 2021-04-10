@@ -7,7 +7,7 @@ import 'package:user_library/screen/drawer_detection_screen/drawer_detection_sta
 import 'package:user_library/models/drawer_detection.dart';
 
 class DrawerDetectionBloc implements Bloc {
-  var state = DrawerDetectionState(drawerDetections: new List<DrawerDetection>());
+  var state = DrawerDetectionState(drawerDetections: null);
   final eventController = StreamController<DrawerDetectionEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
@@ -16,7 +16,11 @@ class DrawerDetectionBloc implements Bloc {
   DrawerDetectionBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchDrawerDetection) {
-        List response = await DrawerDetectionDAO().fetchDrawerDetection(event.detectionId);
+        if (state.drawerDetections == null) {
+          state.drawerDetections = new List<DrawerDetection>();
+        }
+        List response =
+            await DrawerDetectionDAO().fetchDrawerDetection(event.detectionId);
         List<DrawerDetection> listDrawerDetection = response;
         state = DrawerDetectionState(
           drawerDetections: listDrawerDetection,

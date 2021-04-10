@@ -18,9 +18,8 @@ class DrawerCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DetectionErrorScreen(
-                  drawerDetectionId: drawerDetection.id
-                  )),
+              builder: (context) =>
+                  DetectionErrorScreen(drawerDetectionId: drawerDetection.id)),
         );
       },
       child: Wrap(
@@ -36,145 +35,126 @@ class DrawerCard extends StatelessWidget {
                   //controller: _goalPageController,
                   itemBuilder: (_, index) {
                     return Container(
-                        margin: const EdgeInsets.symmetric(
-                             vertical: 10),
-                        padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.only(
+                            top: 15, bottom: 10, left: 25, right: 25),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Color(0xfffff9c4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[400],
-                                blurRadius: 5,
-                                offset: Offset(0, 5),
-                              )
-                            ]),
-                        child: Row(                    
-                          children: [
-                            // content
-                            Container(
-                              height: 160,
-                              //width: 370,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [      
-                                  Row(
-                                    //mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.bar_chart_outlined,
-                                        color: Colors.lightGreen[700],
-                                        size: 20,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              width: 2, color: Colors.black.withOpacity(0.7)),
+                        ),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      drawerDetection.drawerBarcode.trim(),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                thickness: 1,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Drawer',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 18,
+                                                color: Colors.brown),
+                                          ),
+                                        ],
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        height: 5,
                                       ),
-                                      Container(
-                                        width: 180,
-                                        child: Text(
-                                          "Barcode: " +
-                                          drawerDetection.drawerBarcode,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                                  .withOpacity(.95),
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ],
-                                  ),                               
-                                  SizedBox(
-                                    height: 7,
-                                  ),                           
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.card_membership,
-                                        color: Color(0xff4db6ac),
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 140,
-                                        child: Text(
-                                          'Drawer name: ' +
-                                              drawerDetection.drawerName
-                                                  .toString(),
-                                          // overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.confirmation_number_outlined,
-                                        color: Color(0xff33691e),
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Quantity: " + 
-                                          drawerDetection.bookCount
-                                                  .toString() ,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16),
-                                        ),
+                                      Text(
+                                        drawerDetection.drawerName.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 25,
+                                            color: Colors.brown),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 7,
-                                  ),                                  
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.error_outline,
-                                        color: Colors.red[900],
-                                        size: 20,
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Books',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 18,
+                                                color: Colors.green),
+                                          ),
+                                        ],
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        height: 5,
                                       ),
-                                      Container(
-                                        width: 200,
-                                        child: Text(
-                                          "Number of error: " +
-                                          drawerDetection.count.toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16),
-                                        ),
+                                      Text(
+                                        drawerDetection.bookCount.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 25,
+                                            color: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Error',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 18,
+                                                color: Colors.red),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        drawerDetection.count.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 25,
+                                            color: Colors.red),
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
-                            ),
-
-                            // image
-                            // Container(
-                            //     width:
-                            //         MediaQuery.of(context).size.width * 1 / 5,
-                            //     child: Image.network(
-                            //       drawerDetection.drawerBarcode,
-                            //       fit: BoxFit.contain,
-                            //     )),
-                          ],
+                            ],
+                          ),
                         ));
                   },
                   itemCount: 3,

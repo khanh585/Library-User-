@@ -98,8 +98,7 @@ class BookDAO {
     }
   }
 
-  Future<List<Book>> fetchBookByName(
-      String name) async {
+  Future<List<Book>> fetchBookByName(String name) async {
     List<Book> list = new List<Book>();
     String url = prefixUrl +
         '?Name=${name}' +
@@ -120,6 +119,18 @@ class BookDAO {
       return list;
     } else {
       throw Exception('Failed');
+    }
+  }
+
+  Future<Book> fetchBookById(int id) async {
+    String url = prefixUrl + '/${id}';
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      Book dto = Book.fromJson(json['data']);
+      return dto;
+    } else {
+      print('Failed');
     }
   }
 }

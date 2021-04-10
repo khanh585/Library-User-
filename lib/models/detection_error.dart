@@ -1,3 +1,4 @@
+import 'package:user_library/models/image.dart';
 
 class DetectionError {
   int id;
@@ -7,7 +8,9 @@ class DetectionError {
   bool isConfirm;
   String bookBarcode;
   int bookId;
+  int bookGroupId;
   int typeError;
+  List<String> image;
 
   DetectionError(
       {this.id,
@@ -16,29 +19,38 @@ class DetectionError {
       this.bookName,
       this.isConfirm,
       this.bookBarcode,
+      this.bookGroupId,
       this.bookId,
+      this.image,
       this.typeError});
 
   DetectionError.customerID(
-      {this.id,this.drawerDetectionId, this.errorMessage,this.bookName, this.isConfirm,
-       this.bookBarcode, this.bookId, this.typeError});
+      {this.id,
+      this.drawerDetectionId,
+      this.errorMessage,
+      this.bookName,
+      this.isConfirm,
+      this.bookBarcode,
+      this.bookId,
+      this.typeError,
+      this.bookGroupId});
 
   factory DetectionError.fromJson(Map<String, dynamic> json) {
     return DetectionError(
-      id: json['id'],
-      drawerDetectionId: json['drawerDetectionId'],
-      errorMessage:json['errorMessage'],
-      bookName: json['bookName'],
-      isConfirm: json['isConfirm'],
-      bookBarcode: json['bookBarcode'],
-      bookId: json['bookId'],
-      typeError: json['typeError']
-    );
+        id: json['id'],
+        drawerDetectionId: json['drawerDetectionId'],
+        errorMessage: json['errorMessage'],
+        bookName: json['bookName'],
+        isConfirm: json['isConfirm'],
+        bookBarcode: json['bookBarcode'],
+        bookId: json['bookId'],
+        typeError: json['typeError'],
+        image: Image().formatImage(json['image']),
+        bookGroupId: json['bookGroupId']);
   }
 
   Map<String, dynamic> toJson() => {
-        // 'id': feedbackID,
-        'id' : id,
+        'id': id,
         'drawerDetectionId': drawerDetectionId,
         'errorMessage': errorMessage,
         'bookName': bookName,
