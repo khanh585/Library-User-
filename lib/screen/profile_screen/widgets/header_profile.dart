@@ -14,77 +14,47 @@ class HeaderProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 5),
+      margin: EdgeInsets.only(top: 25),
       padding: EdgeInsets.only(left: 25, right: 25),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 9,
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Profile",
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 90,
+              height: 90,
+              margin: EdgeInsets.only(bottom: 15),
+              child: CircleAvatar(
+                radius: 90.0,
+                backgroundImage: NetworkImage("${tmpUser.image}"),
+                backgroundColor: Colors.transparent,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Column(
+                children: [
+                  Text(
+                    tmpUser.name,
                     style: TextStyle(
-                        fontSize: 18,
                         color: Colors.black,
-                        fontWeight: FontWeight.w500),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.edit_outlined,
-                    size: 20,
-                    color: Colors.black,
+                  SizedBox(
+                    height: 5,
                   ),
-                ),
-              )
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: 90,
-                height: 90,
-                margin: EdgeInsets.only(bottom: 15),
-                child: CircleAvatar(
-                  radius: 90.0,
-                  backgroundImage: NetworkImage("${tmpUser.image}"),
-                  backgroundColor: Colors.transparent,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(bottom: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      tmpUser.name,
+                  Text(tmpUser.phone,
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(tmpUser.phone,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400))
-                  ],
-                ),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400))
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

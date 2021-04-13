@@ -37,10 +37,9 @@ class TransactionItem extends StatelessWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.orange.withOpacity(0.2),
+                        color: Colors.grey.withOpacity(0.8),
                         spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 1), // changes position of shadow
+                        blurRadius: 3,
                       ),
                     ],
                   ),

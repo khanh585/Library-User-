@@ -6,6 +6,8 @@ class DetectionError {
   String errorMessage;
   String bookName;
   bool isConfirm;
+  bool isRejected;
+  bool isDeleted;
   String bookBarcode;
   int bookId;
   int bookGroupId;
@@ -18,6 +20,8 @@ class DetectionError {
       this.errorMessage,
       this.bookName,
       this.isConfirm,
+      this.isRejected,
+      this.isDeleted,
       this.bookBarcode,
       this.bookGroupId,
       this.bookId,
@@ -30,6 +34,7 @@ class DetectionError {
       this.errorMessage,
       this.bookName,
       this.isConfirm,
+      this.isRejected,
       this.bookBarcode,
       this.bookId,
       this.typeError,
@@ -42,6 +47,8 @@ class DetectionError {
         errorMessage: json['errorMessage'],
         bookName: json['bookName'],
         isConfirm: json['isConfirm'],
+        isRejected: json['isRejected'],
+        isDeleted: true,
         bookBarcode: json['bookBarcode'],
         bookId: json['bookId'],
         typeError: json['typeError'],
@@ -55,6 +62,8 @@ class DetectionError {
         'errorMessage': errorMessage,
         'bookName': bookName,
         'isConfirm': isConfirm,
+        'isRejected': isRejected,
+        'isDeleted': isDeleted,
         'bookBarcode': bookBarcode,
         'bookId': bookId,
         'typeError': typeError

@@ -7,7 +7,7 @@ import 'package:user_library/screen/detection_screen/detection_state.dart';
 import 'package:user_library/models/detection.dart';
 
 class DetectionBloc implements Bloc {
-  var state = DetectionState(detections: new List<Detection>());
+  var state = DetectionState(detections: null);
   final eventController = StreamController<DetectionEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
@@ -16,6 +16,9 @@ class DetectionBloc implements Bloc {
   DetectionBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchDetection) {
+        if (this.state.detections == null) {
+          this.state.detections = new List<Detection>();
+        }
         List response = await DetectionDAO().fetchDetection(event.time);
         List<Detection> listDetection = response;
         state = DetectionState(

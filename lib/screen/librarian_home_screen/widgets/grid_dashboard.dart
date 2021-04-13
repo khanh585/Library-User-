@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/models/tmpUser.dart';
-import 'package:user_library/screen/checklist_screen/checklist_screen.dart';
 import 'package:user_library/screen/detection_screen/detection_screen.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_screen.dart';
 
@@ -77,9 +76,9 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => ManageBorrowScreen()),
                     );
                   } else if (data.title == "Borrow Book") {
-                    Util().scanQR();
+                    Util().sendRequest("Borrow");
                   } else if (data.title == "Return Book") {
-                    Util().returnBook();
+                    Util().sendRequest("Return");
                   } else if (data.title == "Error Checklist") {
                     Navigator.push(
                       context,

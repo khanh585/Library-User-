@@ -1,14 +1,14 @@
 import 'package:http/http.dart' as http;
-import 'package:stack/stack.dart';
+
 import 'dart:convert';
 import 'package:user_library/config.dart';
-import 'package:user_library/models/borrow_detail.dart';
+
 import 'package:user_library/models/customer.dart';
-import 'package:user_library/models/schedule.dart';
+
 import 'package:user_library/models/tmpUser.dart';
 
 class CustomerDAO {
-  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Customer';
+  final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'Patron';
   int pageSize = 20;
   int pageNumber = 1;
 
@@ -17,8 +17,7 @@ class CustomerDAO {
     if (tmpUser == null) {
       tmpUser = new TmpUser();
     }
-    String url =
-        prefixUrl + '/$customerId';
+    String url = prefixUrl + '/$customerId';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
@@ -31,14 +30,13 @@ class CustomerDAO {
 
   Future<List<Customer>> fetchAllCustomer() async {
     List<Customer> list = new List<Customer>();
-    String url =
-        prefixUrl;
+    String url = prefixUrl;
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List customers = json['data'];
-      customers.forEach((customer){
+      customers.forEach((customer) {
         if (customer != null) {
           Customer dto = Customer.fromJson(customer);
           list.add(dto);
@@ -50,14 +48,12 @@ class CustomerDAO {
     }
   }
 
-  Future<List<Customer>> fetchCustomerByName(
-      String name) async {
+  Future<List<Customer>> fetchCustomerByName(String name) async {
     List<Customer> list = new List<Customer>();
     String url = prefixUrl +
         '?Name=${name}' +
         '&PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}';
-    print(url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
@@ -77,8 +73,7 @@ class CustomerDAO {
   Future<TmpUser> addCustomer(TmpUser dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
     String body = json.encode(dto.toJson());
-    String url =
-        prefixUrl;
+    String url = prefixUrl;
     var response = await http.post(prefixUrl, headers: headers, body: body);
 
     if (response.statusCode == 200) {

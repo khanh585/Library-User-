@@ -49,8 +49,8 @@ class _WishListScreenState extends State<WishListScreen> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userid = (prefs.getString('PAPV_UserID') ?? '');
-    var msg = new Message(
-        wishlist: listID, customerId: int.parse(userid), staffId: 0);
+    var msg =
+        new Message(wishlist: listID, patronId: int.parse(userid), staffId: 0);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -79,6 +79,15 @@ class _WishListScreenState extends State<WishListScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
+        appBar: new AppBar(
+          backgroundColor: Color(0xfffbfafd),
+          automaticallyImplyLeading: false,
+          title: Text(
+            "Wishlist",
+            style: TextStyle(
+                fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
         body: StreamBuilder<WishListState>(
             stream: _wishlistScreenBloc.stateController.stream,
             initialData: _wishlistScreenBloc.state,
@@ -86,180 +95,158 @@ class _WishListScreenState extends State<WishListScreen> {
               if (snapshot.hasError) return Text("Error");
               if (snapshot.data.wishlist != null) {
                 if (snapshot.data.wishlist.length != 0) {
-                  return Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 9,
-                            child: Container(
-                              padding: EdgeInsets.only(left: 25, right: 25),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Wishlist screen",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.edit_outlined,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            controller: controller,
-                            itemCount: snapshot.data.wishlist.length,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              double scale = 1.0;
-
-                              return Opacity(
-                                opacity: scale,
-                                child: Transform(
-                                  transform: Matrix4.identity()
-                                    ..scale(scale, scale),
-                                  alignment: Alignment.bottomCenter,
-                                  child: Align(
-                                      heightFactor: 0.9,
-                                      alignment: Alignment.topCenter,
-                                      child: Dismissible(
-                                        onDismissed: (direction) {
-                                          WishList wish =
-                                              snapshot.data.wishlist[index];
-                                          snapshot.data.wishlist
-                                              .removeAt(index);
-                                          _delete_ToListBorrow(wish);
-                                        },
-                                        background: Container(
-                                          padding: EdgeInsets.only(right: 20),
-                                          alignment: Alignment.centerRight,
-                                          child: Icon(
-                                            Icons.cancel_outlined,
-                                            color: Colors.red,
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                              controller: controller,
+                              itemCount: snapshot.data.wishlist.length,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                double scale = 1.0;
+                                return Opacity(
+                                  opacity: scale,
+                                  child: Transform(
+                                    transform: Matrix4.identity()
+                                      ..scale(scale, scale),
+                                    alignment: Alignment.bottomCenter,
+                                    child: Align(
+                                        heightFactor: 0.9,
+                                        alignment: Alignment.topCenter,
+                                        child: Dismissible(
+                                          onDismissed: (direction) {
+                                            WishList wish =
+                                                snapshot.data.wishlist[index];
+                                            snapshot.data.wishlist
+                                                .removeAt(index);
+                                            _delete_ToListBorrow(wish);
+                                          },
+                                          background: Container(
+                                            padding: EdgeInsets.only(right: 10),
+                                            alignment: Alignment.centerRight,
+                                            child: Icon(
+                                              Icons.cancel_outlined,
+                                              color: Colors.red,
+                                            ),
                                           ),
-                                        ),
-                                        key: Key(snapshot
-                                            .data.wishlist[index].id
-                                            .toString()),
-                                        child: Container(
-                                            height: 150,
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20.0)),
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.black
-                                                          .withAlpha(100),
-                                                      blurRadius: 10.0),
-                                                ]),
-                                            child: Padding(
-                                              padding:
+                                          key: Key(snapshot
+                                              .data.wishlist[index].id
+                                              .toString()),
+                                          child: Container(
+                                              height: 150,
+                                              margin:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
+                                                      horizontal: 10,
                                                       vertical: 10),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        width: 200,
-                                                        child: Text(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              15.0)),
+                                                  color: Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.black
+                                                            .withAlpha(100),
+                                                        blurRadius: 5.0),
+                                                  ]),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 10),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          width: 200,
+                                                          child: Text(
+                                                            snapshot
+                                                                .data
+                                                                .wishlist[index]
+                                                                .name,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: const TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                        Text(
                                                           snapshot
                                                               .data
                                                               .wishlist[index]
-                                                              .name,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
+                                                              .author,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 17,
+                                                                  color: Colors
+                                                                      .grey),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          "\$ ${snapshot.data.wishlist[index].fee}",
                                                           style: const TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 25,
+                                                              color:
+                                                                  Colors.black,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        snapshot
-                                                            .data
-                                                            .wishlist[index]
-                                                            .author,
-                                                        style: const TextStyle(
-                                                            fontSize: 17,
-                                                            color: Colors.grey),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        "\$ ${snapshot.data.wishlist[index].fee}",
-                                                        style: const TextStyle(
-                                                            fontSize: 25,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Image.network(
-                                                    "${snapshot.data.wishlist[index].image}",
-                                                    // height: double.infinity,
-                                                    width:
-                                                        (size.width - 25 * 2) /
-                                                                3 -
-                                                            18 * 2,
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                      )),
-                                ),
-                              );
-                            }),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            left: 25, right: 25, bottom: 25, top: 25),
-                        height: 49,
-                        width: 300,
-                        color: Colors.transparent,
-                        child: FlatButton(
-                          color: Color(0xFF9966).withOpacity(0.95),
-                          child: Text('Gen QRcode',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: kWhiteColor)),
-                          onPressed: () => {_genQRCode(snapshot.data.wishlist)},
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Image.network(
+                                                      "${snapshot.data.wishlist[index].image}",
+                                                      // height: double.infinity,
+                                                      width: (size.width -
+                                                                  25 * 2) /
+                                                              3 -
+                                                          18 * 2,
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
+                                        )),
+                                  ),
+                                );
+                              }),
                         ),
-                      ),
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 25, right: 25, bottom: 25, top: 25),
+                          height: 49,
+                          width: 300,
+                          color: Colors.transparent,
+                          child: FlatButton(
+                            color: Color(0xFF9966).withOpacity(0.95),
+                            child: Text('Gen QRcode',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: kWhiteColor)),
+                            onPressed: () =>
+                                {_genQRCode(snapshot.data.wishlist)},
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 } else {
                   return Center(
@@ -282,30 +269,30 @@ class _WishListScreenState extends State<WishListScreen> {
               } else {
                 _refreshWishList();
                 return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "images/drone2.gif",
-                            height: 250.0,
-                            width: 250.0,
-                          ),
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          "images/drone2.gif",
+                          height: 250.0,
+                          width: 250.0,
                         ),
-                        Positioned(
-                          child: Text(
-                            "Loading",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orangeAccent[400]),
-                          ),
-                          top: 510,
-                          left: 172,
-                        )
-                      ],
-                    ),
-                  );
+                      ),
+                      Positioned(
+                        child: Text(
+                          "Loading",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.orangeAccent[400]),
+                        ),
+                        top: 510,
+                        left: 172,
+                      )
+                    ],
+                  ),
+                );
               }
             }),
       ),

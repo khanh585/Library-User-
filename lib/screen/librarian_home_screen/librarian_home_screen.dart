@@ -17,11 +17,13 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    final connection =
-      HubConnectionBuilder().withUrl('http://171.244.5.88:90/message').build();
-      connection.stop();
+    final connection = HubConnectionBuilder()
+        .withUrl('http://171.244.5.88:90/message')
+        .build();
+    connection.stop();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,7 +43,7 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Welcome back, " + this.widget.user.name,
+                      "Welcome, " + this.widget.user.name,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Colors.black87,
@@ -50,14 +52,6 @@ class LibrarianHomeScreenState extends State<LibrarianHomeScreen> {
                     ),
                     SizedBox(
                       height: 4,
-                    ),
-                    Text(
-                      "Home",
-                      style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),

@@ -33,13 +33,6 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            this.widget.bookshelf,
-            overflow: TextOverflow.ellipsis,
-          ),
-          centerTitle: true,
-        ),
         body: StreamBuilder<DrawerDetectionState>(
             stream: drawer_detection_bloc.stateController.stream,
             initialData: drawer_detection_bloc.state,
@@ -77,28 +70,21 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                   children: [
                     Pilot_info(
                       name: this.widget.pilot,
+                      bookshelf: this.widget.bookshelf,
                       avatar: '',
                     ),
                     Divider(
                       thickness: 2,
                     ),
                     Container(
-                      // color: Colors.grey.withOpacity(0.2),
-                      child: Column(
+                      height: size.height - 150,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
                         children: [
-                          Container(
-                            padding: EdgeInsets.only(right: 10, left: 10),
-                            height: size.height / 15 * 10,
-                            child: ListView(
-                              physics: BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              children: [
-                                for (DrawerDetection drawerDetection
-                                    in snapshot.data.drawerDetections)
-                                  DrawerCard(drawerDetection: drawerDetection)
-                              ],
-                            ),
-                          )
+                          for (DrawerDetection drawerDetection
+                              in snapshot.data.drawerDetections)
+                            DrawerCard(drawerDetection: drawerDetection)
                         ],
                       ),
                     ),

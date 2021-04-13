@@ -31,18 +31,27 @@ class DrawerCard extends StatelessWidget {
               // ),
               Container(
                 height: 148,
+                width: MediaQuery.of(context).size.width - 20,
+                margin: EdgeInsets.only(left: 10, right: 10, top: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54.withOpacity(0.2),
+                      blurRadius: 2,
+                      offset: Offset(2, 2), // changes position of shadow
+                    ),
+                  ],
+                  border: Border.all(
+                      width: 1, color: Colors.black.withOpacity(0.1)),
+                ),
                 child: PageView.builder(
                   //controller: _goalPageController,
                   itemBuilder: (_, index) {
                     return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 4),
                         padding: const EdgeInsets.only(
-                            top: 15, bottom: 10, left: 25, right: 25),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              width: 2, color: Colors.black.withOpacity(0.7)),
-                        ),
+                            top: 15, bottom: 10, left: 20, right: 20),
                         child: Container(
                           child: Column(
                             children: [
@@ -157,7 +166,7 @@ class DrawerCard extends StatelessWidget {
                           ),
                         ));
                   },
-                  itemCount: 3,
+                  itemCount: 1,
                   // onPageChanged: (page) {
                   //   setState(() {
                   //     _goalPageCurrent = page;

@@ -29,7 +29,7 @@ class Book {
       id: json['id'],
       name: json['name'],
       author: json['author'],
-      description: json['description'],
+      description: json['description'] != null ? json['description'] : '',
       pageNumber: json['pageNumber'],
       fee: json['fee'],
       image: Image().formatImage(json['image']),

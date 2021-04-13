@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             // list book, grid book
                             Container(
-                              height: MediaQuery.of(context).size.height - 212,
+                              height: MediaQuery.of(context).size.height - 230,
                               width: MediaQuery.of(context).size.width,
                               child: StreamBuilder<SearchScreenState>(
                                   stream:
@@ -113,30 +113,30 @@ class _SearchScreenState extends State<SearchScreen> {
                 ]);
               } else {
                 return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "images/drone2.gif",
-                            height: 250.0,
-                            width: 250.0,
-                          ),
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          "images/drone2.gif",
+                          height: 250.0,
+                          width: 250.0,
                         ),
-                        Positioned(
-                          child: Text(
-                            "Loading",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orangeAccent[400]),
-                          ),
-                          top: 510,
-                          left: 172,
-                        )
-                      ],
-                    ),
-                  );
+                      ),
+                      Positioned(
+                        child: Text(
+                          "Loading",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.orangeAccent[400]),
+                        ),
+                        top: 510,
+                        left: 172,
+                      )
+                    ],
+                  ),
+                );
               }
             }
           }),

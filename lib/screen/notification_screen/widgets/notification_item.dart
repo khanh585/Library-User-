@@ -9,13 +9,12 @@ class NotificationItem extends StatefulWidget {
   final createdDate;
   final bookGroupName;
 
-  const NotificationItem({
-    this.message,
-    this.image,
-    this.time,
-    this.createdDate,
-    this.bookGroupName
-  });
+  const NotificationItem(
+      {this.message,
+      this.image,
+      this.time,
+      this.createdDate,
+      this.bookGroupName});
 
   @override
   NotificationItemState createState() => NotificationItemState();
@@ -54,7 +53,7 @@ class NotificationItemState extends State<NotificationItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(top: 15, left: 5),
+        padding: EdgeInsets.only(top: 15, left: 20, right: 20),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Column(
@@ -68,34 +67,28 @@ class NotificationItemState extends State<NotificationItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Wrap(
-                        children: [
-                          Container(
-                            child: Text(
-                              this.widget.message,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            child: Text("-"),
-                          ),
-                          Container(
-                            child: Text(
-                              this.widget.time,
-                              style: TextStyle(
-                                  color: Colors.black45, fontSize: 16),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        this.widget.time,
+                        style: TextStyle(color: Colors.black45, fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Remind to return the book",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 5),
                         child: Text(
                           this.widget.message,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(color: Colors.black87, fontSize: 14),
                         ),
                       )

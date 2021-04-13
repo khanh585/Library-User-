@@ -34,7 +34,8 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => BookDetailScreen(book: this.widget.book, feedbacks: _listFeedback)),
+              builder: (context) => BookDetailScreen(
+                  book: this.widget.book, feedbacks: _listFeedback)),
         );
       },
       child: Container(
@@ -66,17 +67,17 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                       if (loadingProgress == null) return child;
                       return Center(
                         child: Image.asset(
-                    "images/loading1.gif",
-                    height: 550.0,
-                    width: 750.0,
-                  ),
+                          "images/loading1.gif",
+                          height: 550.0,
+                          width: 750.0,
+                        ),
                       );
                     },
                   ),
                 )),
             Container(
               width: MediaQuery.of(context).size.width - 140,
-              height: 120,
+              height: 140,
               margin: EdgeInsets.only(left: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,6 +86,8 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                   Text(
                     this.widget.book.name,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 2, bottom: 5),

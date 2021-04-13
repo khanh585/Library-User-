@@ -132,6 +132,7 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                 ),
           Container(
             width: MediaQuery.of(context).size.width - sizeRating,
+            height: 54,
             padding: EdgeInsets.all(5),
             color: Colors.white,
             child: TextField(
@@ -152,10 +153,10 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
                   contentPadding: EdgeInsets.only(top: 20, left: 20),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   hintText: "Share your feel",
                   filled: true,
                   fillColor: Colors.grey[200]),

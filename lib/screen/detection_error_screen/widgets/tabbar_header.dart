@@ -13,31 +13,36 @@ class Tabbar_Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      //labelPadding: EdgeInsets.all(0),
-      //indicatorPadding: EdgeInsets.all(0),
-      isScrollable: false,
-      labelColor: kBlackColor,
-      //unselectedLabelColor: kGreyColor,
-      indicatorColor: Colors.orange[900],
-      indicatorWeight: 8,
-      labelStyle: GoogleFonts.openSans(
-          fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
-      unselectedLabelStyle: GoogleFonts.openSans(
-          fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
-      tabs: [
-        Tab(
-            icon: Icon(Icons.error_sharp, color: Colors.red[400]),
-            text: 'Error'),
-        Tab(
-            icon: Icon(
-              Icons.cancel,
-              color: Colors.amber,
-            ),
-            text: 'Rejected'),
-        Tab(icon: Icon(Icons.check_box, color: Colors.green), text: 'Confirm'),
-      ],
-      controller: _tabController,
+    return Container(
+      margin: EdgeInsets.only(top: 35),
+      child: TabBar(
+        //labelPadding: EdgeInsets.all(0),
+        //indicatorPadding: EdgeInsets.all(0),
+        isScrollable: false,
+        labelColor: kBlackColor,
+        //unselectedLabelColor: kGreyColor,
+        indicatorColor: Colors.orange[900],
+        indicatorWeight: 3,
+        labelStyle: GoogleFonts.openSans(
+            fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+        unselectedLabelStyle: GoogleFonts.openSans(
+            fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
+        tabs: [
+          Tab(
+              icon: Icon(Icons.error_sharp, color: Colors.red[400]),
+              text: 'Error'),
+          Tab(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.amber,
+              ),
+              text: 'Rejected'),
+          Tab(
+              icon: Icon(Icons.check_box, color: Colors.green),
+              text: 'Confirm'),
+        ],
+        controller: _tabController,
+      ),
     );
   }
 }

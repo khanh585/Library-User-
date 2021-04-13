@@ -1,17 +1,16 @@
 class MessageBarcode {
   int staffId;
-  final int customerId;
   final String barcode;
-  MessageBarcode({this.staffId, this.customerId, this.barcode});
+  final String type;
+  MessageBarcode({this.type, this.staffId, this.barcode});
 
   factory MessageBarcode.fromJson(Map<String, dynamic> json) {
     return MessageBarcode(
       staffId: json['StaffId'],
-      customerId: json['CustomerId'],
+      type: json['Type'],
       barcode: json['Barcode'],
     );
   }
 
-  toJson() =>
-      {"StaffId": staffId, "CustomerId": customerId, "Barcode": barcode};
+  toJson() => {"StaffId": staffId, "Type": type, "Barcode": barcode};
 }

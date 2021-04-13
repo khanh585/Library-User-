@@ -21,25 +21,26 @@ class BodyProfile extends StatelessWidget {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
 
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 320,
-      padding: EdgeInsets.only(top: 15, left: 25, right: 20),
-      margin: EdgeInsets.only(top: 5),
+      width: MediaQuery.of(context).size.width - 6,
+      height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.only(top: 20, left: 25, right: 20),
+      margin: EdgeInsets.only(top: 5, left: 3, right: 3),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 8,
-              offset: Offset(-1, -5),
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(1, 2),
             )
           ],
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(35),
+            bottom: Radius.circular(35),
           )),
-      child: ListView(
-        children: [ 
+      child: Column(
+        children: [
           FadeSideIn(
               2,
               ProfileItem(
@@ -51,14 +52,14 @@ class BodyProfile extends StatelessWidget {
               2,
               ProfileItem(
                 title: "Name",
-                infor: this.tmpUser.address,
+                infor: this.tmpUser.name,
                 color: Colors.black87,
               )),
           FadeSideIn(
             2,
             ProfileItem(
               title: "Address",
-              infor: this.tmpUser.name,
+              infor: this.tmpUser.address,
               color: Colors.black87,
             ),
           ),

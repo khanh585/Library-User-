@@ -41,15 +41,15 @@ class BookGridState extends State<BookGrid> {
               children: [
                 Container(
                   padding:
-                      EdgeInsets.only( left:15, right:15,bottom: 10, top: 6),
+                      EdgeInsets.only(left: 12, right: 12, bottom: 10, top: 6),
                   width: MediaQuery.of(context).size.width - 30,
-                  height: MediaQuery.of(context).size.height - 202,
+                  height: MediaQuery.of(context).size.height - 245,
                   child: GridView.count(
-                    crossAxisCount: 3,                   
+                    crossAxisCount: 3,
                     primary: false,
-                    crossAxisSpacing: 20,                
-                    mainAxisSpacing: 20,
-                    childAspectRatio: 0.45,                 
+                    crossAxisSpacing: 17,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.45,
                     children: renderBookItemm(),
                   ),
                 ),
@@ -70,6 +70,7 @@ class BookGridState extends State<BookGrid> {
         ),
       ));
     }
+    // tmp.add(Container());
     return tmp;
   }
 }

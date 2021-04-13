@@ -52,41 +52,48 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) return Text("Error");
                   if (snapshot.data.mainProfile != null) {
-                    return FadeSideUp(
-                        1,
-                        Wrap(children: [
-                          HeaderProfile(tmpUser: snapshot.data.mainProfile),
-                          BodyProfile(
-                            tmpUser: snapshot.data.mainProfile,
-                            logout: _logout,
-                          ),
-                        ]));
+                    return Stack(children: [
+                      HeaderProfile(tmpUser: snapshot.data.mainProfile),
+                      Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView(
+                          children: [
+                            SizedBox(height: 200),
+                            BodyProfile(
+                              tmpUser: snapshot.data.mainProfile,
+                              logout: _logout,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]);
                   } else
                     return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "images/drone2.gif",
-                            height: 250.0,
-                            width: 250.0,
+                      height: MediaQuery.of(context).size.height,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              "images/drone2.gif",
+                              height: 250.0,
+                              width: 250.0,
+                            ),
                           ),
-                        ),
-                        Positioned(
-                          child: Text(
-                            "Loading",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orangeAccent[400]),
-                          ),
-                          top: 510,
-                          left: 172,
-                        )
-                      ],
-                    ),
-                  );
+                          Positioned(
+                            child: Text(
+                              "Loading",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                  color: Colors.orangeAccent[400]),
+                            ),
+                            top: 510,
+                            left: 172,
+                          )
+                        ],
+                      ),
+                    );
                 }),
           ],
         ),

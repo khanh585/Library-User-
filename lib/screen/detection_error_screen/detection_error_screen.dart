@@ -39,16 +39,35 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
         drawerDetectionId: this.widget.drawerDetectionId, isRejected: "true"));
   }
 
+  void _rejectError({DetectionError decError, UndefinedError undError}) {
+    detection_error_bloc.eventController.sink
+        .add(RejectedError(decError: decError, undError: undError));
+  }
+
+  void _confirmError({DetectionError decError, UndefinedError undError}) {
+    detection_error_bloc.eventController.sink
+        .add(ConfirmError(decError: decError, undError: undError));
+  }
+
   Widget _ListError(List<DetectionError> listDetect,
       List<UndefinedError> listUndefine, Size size) {
     List<Widget> li = new List();
-
     listDetect.forEach((element) {
-      li.add(ErrorItem(item: element, size: size));
+      li.add(ErrorItem(
+        item: element,
+        size: size,
+        confirmError: _confirmError,
+        rejectedError: _rejectError,
+      ));
     });
 
     listUndefine.forEach((element) {
-      li.add(ErrorItem(und: element, size: size));
+      li.add(ErrorItem(
+        und: element,
+        size: size,
+        confirmError: _confirmError,
+        rejectedError: _rejectError,
+      ));
     });
 
     Widget rs = ListView(
@@ -61,10 +80,6 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Check list'),
-        centerTitle: true,
-      ),
       body: Container(
         child: Column(
           children: [
@@ -74,14 +89,15 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
             Container(
               color: Colors.white,
               width: size.width,
-              height: size.height - 165,
+              height: size.height - 140,
               child: TabBarView(
                 controller: _tabController,
                 children: [
+                  //Error
                   Container(
                     child: StreamBuilder<DetectionErrorState>(
-                      stream: detection_error_bloc.state.stream,
-                      initialData: detection_error_bloc.stateDetectionError,
+                      stream: detection_error_bloc.stateController.stream,
+                      initialData: detection_error_bloc.state,
                       builder: (context, snapshot) {
                         if (snapshot.hasError) return Text("Error");
                         if (snapshot.data.detectionErrors == null) {
@@ -92,34 +108,13 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
                               width: 250.0,
                             ),
                           );
-                        } else if (snapshot.data.detectionErrors.length == 0) {
-                          return Column(
-                            children: [
-                              Image.asset("images/nodata.png",
-                                  width: 100, height: 100),
-                              Text("No data",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Colors.orangeAccent[400]))
-                            ],
-                          );
-                        } else if (snapshot.data.detectionErrors.length != 0) {
+                        } else if (snapshot.data.detectionErrors.length != 0 ||
+                            snapshot.data.undefinedErrors.length != 0) {
                           return _ListError(snapshot.data.detectionErrors,
                               snapshot.data.undefinedErrors, size);
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    child: StreamBuilder<DetectionErrorState>(
-                      stream: detection_error_bloc.state.stream,
-                      initialData: detection_error_bloc.stateDetectionError,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError)
-                          return Text("Error");
-                        else if (snapshot.data.undefinedErrors.length == 0) {
+                        } else {
                           return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset("images/nodata.png",
                                   width: 100, height: 100),
@@ -130,30 +125,29 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
                                       color: Colors.orangeAccent[400]))
                             ],
                           );
-                        } else if (snapshot.data.undefinedErrors.length != 0) {
-                          return ListView.builder(
-                              controller: controller,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: snapshot.data.undefinedErrors.length,
-                              itemBuilder: (context, index) {
-                                return ErrorItem(
-                                    size: size,
-                                    und: snapshot.data.undefinedErrors[index]);
-                              });
                         }
                       },
                     ),
                   ),
+
+                  //Reject
                   Container(
                     child: StreamBuilder<DetectionErrorState>(
-                      stream: detection_error_bloc.state.stream,
-                      initialData: detection_error_bloc.stateDetectionError,
+                      stream: detection_error_bloc.stateController.stream,
+                      initialData: detection_error_bloc.state,
                       builder: (context, snapshot) {
                         if (snapshot.hasError)
-                          return Text("Error");
-                        else if (snapshot.data.detectionRejectedErrors.length ==
-                            0) {
+                          return Center(child: Text("Error"));
+                        else if (snapshot.data.undefinedRejectedErrors.length !=
+                                0 ||
+                            snapshot.data.detectionRejectedErrors.length != 0) {
+                          return _ListError(
+                              snapshot.data.detectionRejectedErrors,
+                              snapshot.data.undefinedRejectedErrors,
+                              size);
+                        } else {
                           return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset("images/nodata.png",
                                   width: 100, height: 100),
@@ -164,20 +158,39 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
                                       color: Colors.orangeAccent[400]))
                             ],
                           );
-                        } else if (snapshot
-                                .data.detectionRejectedErrors.length !=
-                            0) {
-                          return ListView.builder(
-                              controller: controller,
-                              physics: BouncingScrollPhysics(),
-                              itemCount:
-                                  snapshot.data.detectionRejectedErrors.length,
-                              itemBuilder: (context, index) {
-                                return ErrorItem(
-                                    size: size,
-                                    item: snapshot
-                                        .data.detectionRejectedErrors[index]);
-                              });
+                        }
+                      },
+                    ),
+                  ),
+
+                  //Confirm
+                  Container(
+                    child: StreamBuilder<DetectionErrorState>(
+                      stream: detection_error_bloc.stateController.stream,
+                      initialData: detection_error_bloc.state,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return Text("Error");
+                        else if (snapshot.data.detectionConfirmErrors.length !=
+                                0 ||
+                            snapshot.data.undefinedConfirmErrors.length != 0) {
+                          return _ListError(
+                              snapshot.data.detectionConfirmErrors,
+                              snapshot.data.undefinedConfirmErrors,
+                              size);
+                        } else {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("images/nodata.png",
+                                  width: 100, height: 100),
+                              Text("No data",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.orangeAccent[400]))
+                            ],
+                          );
                         }
                       },
                     ),
@@ -185,8 +198,6 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
                 ],
               ),
             ),
-            //pakage
-            Container(),
           ],
         ),
       ),

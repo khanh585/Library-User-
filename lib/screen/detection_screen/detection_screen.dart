@@ -28,7 +28,15 @@ class _DetectionScreenState extends State<DetectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Daily Transaction",
+          style: TextStyle(
+              fontSize: 28, fontWeight: FontWeight.bold, color: black),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: getBody(),
     );
   }
@@ -52,25 +60,9 @@ class _DetectionScreenState extends State<DetectionScreen> {
           ]),
           child: Padding(
             padding:
-                const EdgeInsets.only(top: 60, right: 20, left: 20, bottom: 25),
+                const EdgeInsets.only(top: 5, right: 12, left: 12, bottom: 5),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Daily Transaction",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: black),
-                    ),
-                    //Icon(AntDesign.search1)
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -91,37 +83,22 @@ class _DetectionScreenState extends State<DetectionScreen> {
             ),
           ),
         ),
+        Divider(
+          thickness: 1,
+        ),
         Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
             child: StreamBuilder<DetectionState>(
               stream: detection_bloc.stateController.stream,
               initialData: detection_bloc.state,
               builder: (context, snapshot) {
                 if (snapshot.hasError) return Text("Error");
                 if (snapshot.data.detections == null) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "images/drone2.gif",
-                            height: 250.0,
-                            width: 250.0,
-                          ),
-                        ),
-                        Positioned(
-                          child: Text(
-                            "Loading",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orangeAccent[400]),
-                          ),
-                          top: 510,
-                          left: 172,
-                        )
-                      ],
+                  return Center(
+                    child: Image.asset(
+                      "images/drone2.gif",
+                      height: 200.0,
+                      width: 200.0,
                     ),
                   );
                 }

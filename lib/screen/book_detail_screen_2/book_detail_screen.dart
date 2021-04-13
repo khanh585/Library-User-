@@ -33,7 +33,7 @@ class _BookDetailState extends State<BookDetailScreen>
   @override
   void initState() {
     _checkInWishList();
-    _tabController = new TabController(length: 2, vsync: this);    
+    _tabController = new TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -150,7 +150,7 @@ class _BookDetailState extends State<BookDetailScreen>
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.network(
                                 this.widget.book.image[0],
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                                 loadingBuilder: (BuildContext context,
                                     Widget child,
                                     ImageChunkEvent loadingProgress) {
@@ -158,8 +158,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                   return Center(
                                     child: Image.asset(
                                       "images/loading1.gif",
-                                      height: 550.0,
-                                      width: 750.0,
+                                      fit: BoxFit.contain,
                                     ),
                                   );
                                 },
@@ -263,21 +262,27 @@ class _BookDetailState extends State<BookDetailScreen>
                         Expanded(
                           child: TabBarView(
                             children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 28),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      this.widget.book.description,
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: kGreyColor,
-                                        letterSpacing: 1.5,
-                                        height: 2,
+                              this.widget.book.description != ''
+                                  ? Container(
+                                      margin: EdgeInsets.only(left: 28),
+                                      child: Padding(
+                                          padding: EdgeInsets.only(top: 15),
+                                          child: Text(
+                                            this.widget.book.description,
+                                            style: GoogleFonts.openSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: kGreyColor,
+                                              letterSpacing: 1.5,
+                                              height: 2,
+                                            ),
+                                          )))
+                                  : Center(
+                                      child: Image.asset(
+                                        "images/empty.png",
+                                        fit: BoxFit.fitHeight,
                                       ),
                                     ),
-                                  )),
                               SingleChildScrollView(
                                 child: Container(
                                     width: 600,

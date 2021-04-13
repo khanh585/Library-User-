@@ -10,15 +10,14 @@ class UndefinedErrorDAO {
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<List<UndefinedError>> fetchUndefinedError(int drawerDetectionId) async {
+  Future<List<UndefinedError>> fetchUndefinedError(
+      int drawerDetectionId) async {
     List<UndefinedError> list = new List<UndefinedError>();
-    String url =
-        prefixUrl + '?DrawerDetectionId=${drawerDetectionId}';
+    String url = prefixUrl + '?DrawerDetectionId=${drawerDetectionId}';
     var response = await http.get(url);
-
     if (response.statusCode == 200) {
       List undefinedErrors = jsonDecode(response.body);
-      undefinedErrors.forEach((undefinedErrors){
+      undefinedErrors.forEach((undefinedErrors) {
         if (undefinedErrors != null) {
           UndefinedError dto = UndefinedError.fromJson(undefinedErrors);
           list.add(dto);
@@ -30,15 +29,15 @@ class UndefinedErrorDAO {
     }
   }
 
-  Future<List<UndefinedError>> fetchUndefinedErrorRejected(String isRejected) async {
+  Future<List<UndefinedError>> fetchUndefinedErrorRejected(
+      String isRejected) async {
     List<UndefinedError> list = new List<UndefinedError>();
-    String url =
-        prefixUrl + '?IsRejected=${isRejected}';
+    String url = prefixUrl + '?IsRejected=${isRejected}';
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       List undefinedErrors = jsonDecode(response.body);
-      undefinedErrors.forEach((undefinedErrors){
+      undefinedErrors.forEach((undefinedErrors) {
         if (undefinedErrors != null) {
           UndefinedError dto = UndefinedError.fromJson(undefinedErrors);
           list.add(dto);
@@ -47,6 +46,24 @@ class UndefinedErrorDAO {
       return list;
     } else {
       print("Not 200");
+    }
+  }
+
+  Future<bool> updateUndefineError(UndefinedError undError) async {
+    String url = prefixUrl + "?id=${undError.id}";
+    Map<String, String> header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    var response =
+        await http.put(url, headers: header, body: jsonEncode(undError));
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("Not 200");
+      print(response.body.toString());
+      return false;
     }
   }
 }

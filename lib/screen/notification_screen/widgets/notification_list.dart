@@ -10,14 +10,13 @@ class NotificationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         for (UserNotification noti in this.data)
           NotificationItem(
-            time: noti.time,
+            time: noti.time.substring(0, 10),
             message: noti.message,
-            image:
-                noti.message,
+            image: noti.image,
           )
       ],
     );

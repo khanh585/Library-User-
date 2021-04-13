@@ -54,10 +54,10 @@ class BookItemGridState extends State<BookItemGrid> {
                         if (loadingProgress == null) return child;
                         return Center(
                           child: Image.asset(
-                    "images/loading1.gif",
-                    height: 550.0,
-                    width: 750.0,
-                  ),
+                            "images/loading1.gif",
+                            height: 550.0,
+                            width: 750.0,
+                          ),
                         );
                       },
                     )

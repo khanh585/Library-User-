@@ -9,15 +9,22 @@ class DetectionErrorDAO {
   int pageSize = 20;
   int pageNumber = 1;
 
-  Future<List<DetectionError>> fetchDetectionError(int drawerDetectionId) async {
+  Future<List<DetectionError>> fetchDetectionError(int drawerDetectionId,
+      {bool isRejected, bool isConfirm}) async {
     List<DetectionError> list = new List<DetectionError>();
-    String url =
-        prefixUrl + '?DrawerDetectionId=${drawerDetectionId}';
+    String url = prefixUrl + '?DrawerDetectionId=${drawerDetectionId}';
+
+    if (isRejected != null) {
+      url = url + '&IsRejected=${isRejected}';
+    }
+    if (isConfirm != null) {
+      url = url + '&IsConfirm=${isConfirm}';
+    }
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       List detectionErrors = jsonDecode(response.body);
-      detectionErrors.forEach((detectionError){
+      detectionErrors.forEach((detectionError) {
         if (detectionError != null) {
           DetectionError dto = DetectionError.fromJson(detectionError);
           list.add(dto);
@@ -29,23 +36,19 @@ class DetectionErrorDAO {
     }
   }
 
-  Future<List<DetectionError>> fetchDetectionErrorRejected(String isRejected) async {
-    List<DetectionError> list = new List<DetectionError>();
-    String url =
-        prefixUrl + '?IsRejected=${isRejected}';
-    var response = await http.get(url);
+  Future<bool> updateDetectionError(DetectionError decError) async {
+    String url = prefixUrl + "?id=${decError.id}";
+    Map<String, String> header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    var response =
+        await http.put(url, headers: header, body: jsonEncode(decError));
 
     if (response.statusCode == 200) {
-      List detectionErrors = jsonDecode(response.body);
-      detectionErrors.forEach((detectionError){
-        if (detectionError != null) {
-          DetectionError dto = DetectionError.fromJson(detectionError);
-          list.add(dto);
-        }
-      });
-      return list;
+      return true;
     } else {
-      print("Not 200");
+      return false;
     }
   }
 }

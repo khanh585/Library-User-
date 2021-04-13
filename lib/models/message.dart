@@ -1,17 +1,16 @@
 class Message {
   int staffId;
-  final int customerId;
+  final int patronId;
   final List wishlist;
-  Message({this.staffId, this.customerId, this.wishlist});
+  Message({this.staffId, this.patronId, this.wishlist});
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       staffId: json['StaffId'],
-      customerId: json['CustomerId'],
+      patronId: json['PatronId'],
       wishlist: json['WishList'],
     );
   }
 
-  toJson() =>
-      {"StaffId": staffId, "CustomerId": customerId, "WishList": wishlist};
+  toJson() => {"StaffId": staffId, "PatronId": patronId, "WishList": wishlist};
 }

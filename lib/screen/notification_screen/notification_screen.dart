@@ -27,6 +27,16 @@ class NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            "Notification",
+            style: TextStyle(
+                color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+        ),
         body: StreamBuilder<NotificationState>(
             stream: notification_bloc.stateController.stream,
             initialData: notification_bloc.state,
@@ -34,79 +44,25 @@ class NotificationScreenState extends State<NotificationScreen> {
               if (snapshot.hasError) return Text("Error");
               if (snapshot.data.notification != null) {
                 return Container(
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Container(
-                          alignment: Alignment.centerRight,
-                          margin: EdgeInsets.only(left: 25, right: 25, top: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: IconButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    icon: Icon(
-                                      Icons.arrow_back_ios_rounded,
-                                      size: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 9,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Notification",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.filter_alt_outlined,
-                                    size: 20,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
-                      Container(
-                          width: MediaQuery.of(context).size.width - 100,
-                          padding:
-                              EdgeInsets.only(top: 15, left: 20, right: 20),
-                          margin: EdgeInsets.only(top: 20, left: 15, right: 15),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 1,
-                                  blurRadius: 8,
-                                  offset: Offset(-1, -5),
-                                )
-                              ],
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(35),
-                              )),
-                          child: NotificationList(
-                            data: snapshot.data.notification,
-                          )),
-                    ],
-                  ),
-                );
+                    width: MediaQuery.of(context).size.width - 10,
+                    height: MediaQuery.of(context).size.height - 110,
+                    padding: EdgeInsets.only(top: 15, bottom: 15),
+                    margin: EdgeInsets.only(top: 10, left: 8, right: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.9),
+                            blurRadius: 5,
+                          )
+                        ],
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                          bottom: Radius.circular(20),
+                        )),
+                    child: NotificationList(
+                      data: snapshot.data.notification,
+                    ));
               }
             }));
   }

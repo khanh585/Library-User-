@@ -42,25 +42,13 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
     ]).createShader(Rect.fromLTWH(0, 0, 150, 300));
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: new AppBar(
         backgroundColor: Color(0xfffbfafd),
-        centerTitle: true,
-        title: Column(
-          children: <Widget>[
-            Text(
-              widget.customer.name,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              //style: Theme.of(context).appBarTheme.textTheme.title,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              widget.customer.email,
-              style: TextStyle(color: Colors.grey[500]),
-            )
-          ],
+        automaticallyImplyLeading: false,
+        title: Text(
+          "History",
+          style: TextStyle(
+              fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
       body: StreamBuilder<BorrowDetailState>(
