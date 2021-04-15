@@ -27,14 +27,16 @@ class FeedbackItem extends StatelessWidget {
                       margin: EdgeInsets.only(right: 10),
                       child: CircleAvatar(
                         radius: 20.0,
-                        backgroundImage: NetworkImage(this.feedback.customerImage),
+                        child: this.feedback.customerImage != ""
+                            ? Image.network(this.feedback.customerImage)
+                            : Image.asset('images/3.png'),
                         backgroundColor: Colors.transparent,
                       )),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        this.feedback.customerName,
+                        this.feedback.customerName.toString(),
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -42,7 +44,7 @@ class FeedbackItem extends StatelessWidget {
                             fontFamily: 'RobotoMono'),
                       ),
                       Text(
-                        this.feedback.createdDate.toString(),
+                        this.feedback.createdDate.toString().split(" ")[0],
                         style: TextStyle(
                             color: Colors.grey,
                             fontSize: 13,
@@ -77,7 +79,7 @@ class FeedbackItem extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.only(left: 50, bottom: 15),
             child: Text(
-              this.feedback.content,
+              this.feedback.content.toString(),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,

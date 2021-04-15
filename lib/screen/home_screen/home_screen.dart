@@ -10,7 +10,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:user_library/screen/home_screen/widgets/navigation_bar/navigation_bar.dart';
 import 'package:user_library/screen/home_screen/widgets/suggest_book_item/suggest_book_section.dart';
 import 'package:user_library/widgets/animation/fade_side_up.dart';
-import 'package:user_library/widgets/loading_circle.dart';
 import 'widgets/tab_view_books/tab_view_books.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,43 +25,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   final home_bloc = HomeBloc();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  String _message = '';
-
-  _registerOnFirebase() {
-    _firebaseMessaging.subscribeToTopic('all');
-    _firebaseMessaging.getToken().then((token) => print(token));
-  }
 
   @override
   void initState() {
-    _registerOnFirebase();
-    getMessage();
     super.initState();
     home_bloc.eventController.sink
         .add(FetchSuggestBook(int.parse(this.widget.user.id)));
 
     home_bloc.eventController.sink.add(FetchNewestBook());
-  }
-
-  void getMessage() {
-    _firebaseMessaging.configure(
-        onMessage: (Map<String, dynamic> message) async {
-      setState(() => _message = message["notification"]["body"]);
-    }, onResume: (Map<String, dynamic> message) async {
-      setState(() => _message = message["notification"]["body"]);
-    }, onLaunch: (Map<String, dynamic> message) async {
-      setState(() => _message = message["notification"]["body"]);
-    });
-  }
-
-  @override
-  Future<String> _updateToken(String id, TmpUser user) async {
-    String url = 'http://171.244.5.88:90/api/Customer?id=$id';
-    Map<String, String> headers = {"Content-type": "application/json"};
-    Response response = await put(url, headers: headers, body: user);
-    int statusCode = response.statusCode;
-    String body = response.body;
-    return "OK";
   }
 
   @override

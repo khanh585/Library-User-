@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+
 class UserFeedback {
   int id;
   String content;
@@ -25,10 +26,10 @@ class UserFeedback {
       id: json['id'],
       content: json['reviewContent'],
       rating: json['rate'] != null ? json['rate'] : 1,
-      customerId: json['customerId'],
+      customerId: json['patronId'],
       createdDate: DateFormat('yyyy-MM-dd').parse(json['createdDate']),
-      customerImage: json['image'],
-      customerName: json['customerName'],
+      customerImage: json['image'] != null ? json['image'] : "",
+      customerName: json['patronName'],
       bookGroupId: json['bookGroupId'],
     );
   }
@@ -37,9 +38,9 @@ class UserFeedback {
         'bookGroupId': bookGroupId,
         "reviewContent": content,
         "rate": rating,
-        "createdDate": createdDate,
-        "customerName" : customerName,
-        "customerId": customerId,
+        "createdDate": createdDate.toString(),
+        "patronName": customerName,
+        "patronId": customerId,
       };
 
   static UserFeedback feedbackID(

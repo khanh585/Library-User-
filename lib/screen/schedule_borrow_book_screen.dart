@@ -113,7 +113,7 @@ class CartItem extends StatelessWidget {
                         height: 30,
                       ),
                       Text(
-                        'Name of customer',
+                        'Name of patron',
                         style: TextStyle(
                             color: Color.fromRGBO(75, 81, 136, 1),
                             fontSize: 22,

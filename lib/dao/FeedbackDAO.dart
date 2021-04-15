@@ -25,6 +25,21 @@ class FeedbackDAO {
     return [feedbacks, total];
   }
 
+  Future<UserFeedback> getFeedbackById(int id) async {
+    String url = prefixUrl + '/${id}';
+
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+
+      UserFeedback feedback = UserFeedback.fromJson(json['data']);
+
+      return feedback;
+    } else {
+      return null;
+    }
+  }
+
   Future<List> fetchCountFeedback(int bookId) async {
     String url = API_CONFIGURE['apiPrefix'] + 'BookGroup/${bookId}';
     var response = await http.get(url);

@@ -25,6 +25,48 @@ class BodyState extends State<Body> {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool emailDup = false;
+  bool usernameDup = false;
+  DateTime _date = DateTime.now();
+
+  void _checkDuplicate() async {
+    String username = usernameController.text;
+    String email = emailController.text;
+    await CustomerDAO().fetchCustomerByName(username.trim()).then((value) {
+      setState(() {
+        usernameDup = value.isNotEmpty;
+      });
+    });
+    await CustomerDAO().fetchCustomerByEmail(email.trim()).then((value) {
+      setState(() {
+        emailDup = value.isNotEmpty;
+      });
+    });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+        context: context,
+        initialDate: _date,
+        firstDate: DateTime(2021 - 18),
+        lastDate: DateTime(2022),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+              child: child,
+              data: ThemeData(
+                primaryColor: Colors.orange,
+                primarySwatch: Colors.orange,
+                accentColor: Colors.orange,
+              ));
+        });
+
+    if (_datePicker != null && _datePicker != _date) {
+      setState(() {
+        dobController.text = _datePicker.toString().split(" ")[0];
+        _date = _datePicker;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +89,7 @@ class BodyState extends State<Body> {
                 errorRegex:
                     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
                 errorMes: "Invalid",
+                isDup: emailDup,
               ),
               RoundedInputField(
                 hintText: "Name",
@@ -91,15 +134,33 @@ class BodyState extends State<Body> {
                 icon: Icons.home,
                 controller: addressController,
               ),
-              RoundedInputField(
-                hintText: "DoB",
-                icon: Icons.date_range,
-                controller: dobController,
+              Container(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    RoundedInputField(
+                      hintText: "DoB: dd/mm/yyyy",
+                      icon: Icons.date_range,
+                      controller: dobController,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                      child: Container(
+                        color: Colors.white.withOpacity(0),
+                        height: 65,
+                        width: MediaQuery.of(context).size.width - 60,
+                      ),
+                    )
+                  ],
+                ),
               ),
               RoundedInputField(
                 hintText: "Username",
                 icon: Icons.date_range,
                 controller: usernameController,
+                isDup: usernameDup,
               ),
               RoundedPasswordField(
                 controller: passwordController,
@@ -107,10 +168,14 @@ class BodyState extends State<Body> {
               RoundedButton(
                 text: "SIGNUP",
                 press: () {
+                  _checkDuplicate();
+
                   if (!this._formKey.currentState.validate()) {
                     return;
                   }
-
+                  if (emailDup || usernameDup) {
+                    return;
+                  }
                   TmpUser user = new TmpUser(
                       address: addressController.text,
                       createdTime: DateTime.now().toString(),
@@ -124,6 +189,7 @@ class BodyState extends State<Body> {
                       phone: phoneController.text,
                       roleId: 2,
                       username: usernameController.text);
+
                   CustomerDAO dao = new CustomerDAO();
                   dao.addCustomer(user);
                 },

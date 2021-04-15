@@ -1,5 +1,3 @@
-
-
 class Schedule {
   int id;
   String customerName;
@@ -19,12 +17,18 @@ class Schedule {
       this.total});
 
   Schedule.feedbackID(
-      {this.id,this.customerName, this.startTime, this.endTime, this.quantity, this.image,this.total});
+      {this.id,
+      this.customerName,
+      this.startTime,
+      this.endTime,
+      this.quantity,
+      this.image,
+      this.total});
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
     return Schedule(
       id: json['id'],
-      customerName: json['customerName'],
+      customerName: json['patronName'],
       startTime: DateTime.parse(json['startTime']),
       endTime: DateTime.parse(json['endTime']),
       quantity: json['quantity'],
@@ -36,11 +40,11 @@ class Schedule {
   Map<String, dynamic> toJson() => {
         // 'id': feedbackID,
         'id': id,
-        'customerName': customerName,
+        'patronName': customerName,
         'startTime': startTime,
         'returnTime': endTime,
         'quantity': quantity,
         'image': image,
-        'total' : total
+        'total': total
       };
 }

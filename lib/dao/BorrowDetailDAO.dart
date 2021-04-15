@@ -13,8 +13,10 @@ class BorrowDetailDAO {
     if (list == null) {
       list = new List();
     }
-    String url =
-        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&BorrowId=${borrowId}';
+    String url = prefixUrl +
+        '?PageSize=${pageSize}' +
+        '&PageNumber=${pageNumber}' +
+        '&BorrowId=${borrowId}';
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -35,8 +37,10 @@ class BorrowDetailDAO {
     if (list == null) {
       list = new List();
     }
-    String url =
-        prefixUrl + '?PageSize=${pageSize}' + '&PageNumber=${pageNumber}' + '&CustomerId=$customerId';
+    String url = prefixUrl +
+        '?PageSize=${pageSize}' +
+        '&PageNumber=${pageNumber}' +
+        '&PatronId=$customerId';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);

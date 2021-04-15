@@ -1,10 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
+import 'package:user_library/screen/notification_screen/widgets/notify_popup.dart';
 import 'package:user_library/screen/profile_screen/main_profile_screen.dart';
 import 'package:user_library/screen/wishlist_screen_2/wishlist_screen_2.dart';
 import 'package:user_library/widgets/bottombar.dart';
-import 'package:user_library/context.dart';
 import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -15,10 +18,46 @@ class MainLayout extends StatefulWidget {
 }
 
 class MainLayoutState extends State<MainLayout> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  String _message = '';
   @override
   void initState() {
-    contextData['customerID'] = this.widget.user.id;
+    _registerOnFirebase();
+    getMessage();
     super.initState();
+  }
+
+  _registerOnFirebase() {
+    _firebaseMessaging.subscribeToTopic('all');
+    _firebaseMessaging.autoInitEnabled().then((bool enabled) => print(enabled));
+    _firebaseMessaging.setAutoInitEnabled(true).then((_) => _firebaseMessaging
+        .autoInitEnabled()
+        .then((bool enabled) => print(enabled)));
+    _firebaseMessaging.getToken().then((token) {
+      print(token);
+      this.widget.user.deviceToken = token;
+      CustomerDAO().updateToken(this.widget.user.id, this.widget.user);
+    });
+  }
+
+  void getMessage() {
+    _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+      print("onMessage: $message");
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => NotifyPopup(
+          context: context,
+          time: 'Thieu',
+          content: message["notification"]["body"],
+        ),
+      );
+    }, onResume: (Map<String, dynamic> message) async {
+      print("onLaunch: $message");
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print("onResume: $message");
+    });
   }
 
   final pageController = PageController(initialPage: 0, keepPage: false);
@@ -35,7 +74,9 @@ class MainLayoutState extends State<MainLayout> {
           HomeScreen(user: this.widget.user),
           WishListScreen(),
           SearchScreen(),
-          MainProfileScreen(customerId: int.parse(this.widget.user.id), roleId: this.widget.user.roleId),
+          MainProfileScreen(
+              customerId: int.parse(this.widget.user.id),
+              roleId: this.widget.user.roleId),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

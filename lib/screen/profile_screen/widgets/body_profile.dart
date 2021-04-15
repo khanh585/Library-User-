@@ -6,7 +6,7 @@ import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/borrow_detail_screen/borrow_detail_screen.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
-import 'package:user_library/widgets/animation/fade_side_in.dart';
+import 'package:user_library/widgets/animation/fade_side_up.dart';
 
 class BodyProfile extends StatelessWidget {
   final TmpUser tmpUser;
@@ -41,21 +41,21 @@ class BodyProfile extends StatelessWidget {
           )),
       child: Column(
         children: [
-          FadeSideIn(
+          FadeSideUp(
               2,
               ProfileItem(
                 title: "Email",
                 infor: this.tmpUser.email,
                 color: Colors.black87,
               )),
-          FadeSideIn(
+          FadeSideUp(
               2,
               ProfileItem(
                 title: "Name",
                 infor: this.tmpUser.name,
                 color: Colors.black87,
               )),
-          FadeSideIn(
+          FadeSideUp(
             2,
             ProfileItem(
               title: "Address",
@@ -63,7 +63,7 @@ class BodyProfile extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-          FadeSideIn(
+          FadeSideUp(
             2,
             ProfileItem(
               title: "Birthdate",
@@ -71,7 +71,7 @@ class BodyProfile extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-          FadeSideIn(
+          FadeSideUp(
             2,
             ProfileItem(
               title: "Created Time",
@@ -80,7 +80,7 @@ class BodyProfile extends StatelessWidget {
             ),
           ),
           this.tmpUser.roleId == 2
-              ? FadeSideIn(
+              ? FadeSideUp(
                   2,
                   GestureDetector(
                     onTap: () {
@@ -93,78 +93,84 @@ class BodyProfile extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Container(
-                      height: 40,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              flex: 8,
-                              child: Text(
-                                "History borrow",
-                                style: TextStyle(
-                                    color: Colors.teal[800],
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              )),
-                          Expanded(
-                            flex: 2,
-                            child: Icon(
-                              Icons.history_edu_outlined,
-                              color: Colors.teal[800],
-                              size: 22,
-                            ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 40,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 8,
+                                  child: Text(
+                                    "History borrow",
+                                    style: TextStyle(
+                                        color: Colors.teal[800],
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                              Expanded(
+                                flex: 2,
+                                child: Icon(
+                                  Icons.history_edu_outlined,
+                                  color: Colors.teal[800],
+                                  size: 22,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                          thickness: 0.2,
+                        )
+                      ],
                     ),
                   ),
                 )
               : Container(),
-          this.tmpUser.roleId == 2
-              ? Divider(
-                  color: Colors.black,
-                  thickness: 0.2,
-                )
-              : Container(),
-          FadeSideIn(
+          FadeSideUp(
             2,
             GestureDetector(
               onTap: () {
                 this.logout();
               },
-              child: Container(
-                height: 40,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                        flex: 8,
-                        child: Text(
-                          "Log out",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        )),
-                    Expanded(
-                      flex: 2,
-                      child: Icon(
-                        Icons.logout,
-                        color: Colors.red,
-                        size: 22,
-                      ),
+              child: Column(
+                children: [
+                  Container(
+                    height: 40,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 8,
+                            child: Text(
+                              "Log out",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            )),
+                        Expanded(
+                          flex: 2,
+                          child: Icon(
+                            Icons.logout,
+                            color: Colors.red,
+                            size: 22,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 0.2,
+                  ),
+                ],
               ),
             ),
-          ),
-          Divider(
-            color: Colors.black,
-            thickness: 0.2,
           ),
         ],
       ),

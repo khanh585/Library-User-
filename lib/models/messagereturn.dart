@@ -7,11 +7,11 @@ class MessageReturn {
   factory MessageReturn.fromJson(Map<String, dynamic> json) {
     return MessageReturn(
       staffId: json['StaffId'],
-      customerId: json['CustomerId'],
+      customerId: json['PatronId'],
       borrowId: json['BorrowId'],
     );
   }
 
   toJson() =>
-      {"StaffId": staffId, "CustomerId": customerId, "BorrowId": borrowId};
+      {"StaffId": staffId, "PatronId": customerId, "BorrowId": borrowId};
 }

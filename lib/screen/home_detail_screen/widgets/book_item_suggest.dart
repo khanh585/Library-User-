@@ -21,8 +21,29 @@ class BookItemSuggestState extends State<BookItemSuggest> {
 
   @override
   Widget build(BuildContext context) {
-    if (this.widget.book.image.length == 0 || this.widget.book.image == null) {
+    if (this.widget.book.image == null || this.widget.book.image.length == 0) {
       print("image ne ba:");
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    BookDetailLibrarianScreen(book: this.widget.book)),
+          );
+        },
+        child: Container(
+            margin: EdgeInsets.only(right: 19),
+            height: 210,
+            width: 153,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                "images/img_newbook1.png",
+                fit: BoxFit.fill,
+              ),
+            )),
+      );
     }
     return GestureDetector(
       onTap: () {

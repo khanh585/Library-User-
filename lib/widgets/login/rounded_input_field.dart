@@ -10,15 +10,15 @@ class RoundedInputField extends StatelessWidget {
   final TextEditingController controller;
   final String errorRegex;
   final String errorMes;
+  final bool isDup;
   const RoundedInputField(
-      {Key key,
-      this.hintText,
+      {this.hintText,
       this.icon = Icons.person,
       this.onChanged,
       this.controller,
       this.errorRegex,
-      this.errorMes})
-      : super(key: key);
+      this.errorMes,
+      this.isDup});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class RoundedInputField extends StatelessWidget {
         onChanged: onChanged,
         controller: controller,
         cursorColor: kPrimaryColor,
+        autofocus: true,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Required';
@@ -40,6 +41,9 @@ class RoundedInputField extends StatelessWidget {
               if (!regExp.hasMatch(value)) {
                 return errorMes;
               }
+            }
+            if (isDup != null && isDup) {
+              return 'Duplicate';
             }
           }
           return null;

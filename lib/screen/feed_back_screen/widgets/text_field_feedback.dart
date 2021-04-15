@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user_library/context.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/widgets/loading_circle.dart';
@@ -43,15 +44,6 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
     return true;
   }
 
-  UserFeedback createFeedback(int rate, String content) {
-    return UserFeedback.feedbackID(
-      bookGroupID: this.widget.bookGroupID,
-      content: content,
-      rating: rate,
-      customerID: int.parse(contextData['customerID']),
-    );
-  }
-
   Future<void> _onSendPressed() async {
     setState(() {
       isWait = true;
@@ -67,14 +59,24 @@ class _TextFieldFeedbackState extends State<TextFieldFeedback> {
             createdDate: DateTime.now(),
             rating: rate);
         FeedbackDAO().sentFeedback(dto).then((value) {
-          this.widget.afterSendFeedback(value);
-          txtSearch.text = '';
-          hasContent = false;
-        });
-        setState(() {
-          isWait = false;
+          CustomerDAO().getCustomerById(value.customerId).then((customer) {
+            value.customerName = customer.name;
+            value.customerImage = customer.image;
+            this.widget.afterSendFeedback(value);
+
+            setState(() {
+              txtSearch.text = '';
+              hasContent = false;
+              isWait = false;
+            });
+          });
         });
       }
+    } else {
+      setState(() {
+        hasContent = false;
+        isWait = false;
+      });
     }
   }
 

@@ -41,7 +41,7 @@ class BookDAO {
 
   Future<List<Book>> fetchSuggestBook(int customerId) async {
     List<Book> list = new List<Book>();
-    String url = prefixUrl + '?CustomerId=$customerId' + '&PageSize=10';
+    String url = prefixUrl + '?PatronId=$customerId' + '&PageSize=10';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);

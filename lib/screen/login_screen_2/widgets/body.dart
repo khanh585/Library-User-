@@ -33,10 +33,6 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
             SizedBox(height: size.height * 0.03),
             Image.asset(
               "images/login.png",
@@ -66,13 +62,16 @@ class _BodyState extends State<Body> {
                         if (value.roleId.toString() == "2") {
                           Navigator.pushReplacement(
                             context,
-                            PageTransition(type: PageTransitionType.fade, child: MainLayout(user: value)),
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: MainLayout(user: value)),
                           );
                         } else if (value.roleId.toString() == "3") {
                           Navigator.pushReplacement(
-                            context,
-                            PageTransition(type: PageTransitionType.fade, child: LibrarianHomeScreen(user: value))
-                          );
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: LibrarianHomeScreen(user: value)));
                         }
                       } else if (value == null) {
                         AwesomeDialog(

@@ -15,6 +15,7 @@ import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart'
 import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
 
 import '../../constants.dart';
+import 'widgets/rowlocation.dart';
 
 class BookDetailScreen extends StatefulWidget {
   final Book book;
@@ -33,7 +34,7 @@ class _BookDetailState extends State<BookDetailScreen>
   @override
   void initState() {
     _checkInWishList();
-    _tabController = new TabController(length: 2, vsync: this);
+    _tabController = new TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -143,7 +144,7 @@ class _BookDetailState extends State<BookDetailScreen>
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                            margin: EdgeInsets.only(bottom: 40),
+                            margin: EdgeInsets.only(bottom: 30, top: 10),
                             width: 180,
                             height: 250,
                             child: ClipRRect(
@@ -163,15 +164,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                   );
                                 },
                               ),
-                            )
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(10),
-                            //   color: kLightGreyColor,
-                            //   image: DecorationImage(
-                            //     image: NetworkImage(this.widget.book.image[0]),
-                            //   ),
-                            // ),
-                            ),
+                            )),
                       )
                     ],
                   ),
@@ -180,7 +173,7 @@ class _BookDetailState extends State<BookDetailScreen>
               SliverList(
                   delegate: SliverChildListDelegate([
                 Padding(
-                  padding: EdgeInsets.only(top: 24, left: 25),
+                  padding: EdgeInsets.only(top: 24, left: 25, right: 25),
                   child: Text(
                     this.widget.book.name,
                     style: GoogleFonts.openSans(
@@ -223,38 +216,32 @@ class _BookDetailState extends State<BookDetailScreen>
                 Container(
                   height: 258,
                   margin: EdgeInsets.only(top: 23, bottom: 36),
-                  //padding: EdgeInsets.only(right: 50),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                            margin: EdgeInsets.only(left: 10),
+                            margin: EdgeInsets.only(left: 10, right: 10),
                             child: TabBar(
-                              //labelPadding: EdgeInsets.all(0),
-                              //indicatorPadding: EdgeInsets.all(0),
-
-                              isScrollable: true,
+                              isScrollable: false,
                               labelColor: kBlackColor,
                               unselectedLabelColor: kGreyColor,
                               labelStyle: GoogleFonts.openSans(
                                   fontSize: 14, fontWeight: FontWeight.w700),
                               unselectedLabelStyle: GoogleFonts.openSans(
                                   fontSize: 14, fontWeight: FontWeight.w600),
-
                               indicator: UnderlineTabIndicator(
                                 borderSide: BorderSide(
-                                  //width: 100,
                                   color: kBlackColor,
                                 ),
                                 insets: EdgeInsets.only(
                                     left: 17, right: 8, bottom: 4),
                               ),
-
                               tabs: [
                                 Tab(
                                   text: 'Description',
                                 ),
+                                Tab(text: 'Location'),
                                 Tab(text: 'Feedbacks'),
                               ],
                               controller: _tabController,
@@ -283,6 +270,59 @@ class _BookDetailState extends State<BookDetailScreen>
                                         fit: BoxFit.fitHeight,
                                       ),
                                     ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    LocationHeader(),
+                                    Divider(
+                                      thickness: 2,
+                                    ),
+                                    Container(
+                                      height: 150,
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                            RowLocation(
+                                              location: 'vu tru',
+                                              drawer: 'A1',
+                                              shelf: 'KS000100',
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               SingleChildScrollView(
                                 child: Container(
                                     width: 600,
@@ -305,7 +345,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                         ),
                                       ],
                                     )),
-                              )
+                              ),
                             ],
                             controller: _tabController,
                           ),
@@ -317,6 +357,48 @@ class _BookDetailState extends State<BookDetailScreen>
           ),
         ),
       ),
+    );
+  }
+}
+
+class LocationHeader extends StatelessWidget {
+  const LocationHeader({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          child: Center(
+            child: Text(
+              'Location',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+        ),
+        SizedBox(
+          child: Center(
+            child: Text(
+              'Bookshelf',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+        ),
+        SizedBox(
+          child: Center(
+            child: Text(
+              'Drawer',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+        ),
+      ],
     );
   }
 }

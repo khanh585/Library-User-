@@ -70,6 +70,42 @@ class CustomerDAO {
     }
   }
 
+  Future<List<Customer>> fetchCustomerByEmail(String email) async {
+    List<Customer> list = new List<Customer>();
+    String url = prefixUrl +
+        '?Email=${email}' +
+        '&PageSize=${pageSize}' +
+        '&PageNumber=${pageNumber}';
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List customers = json['data'];
+      customers.forEach((customer) {
+        if (customer != null) {
+          Customer dto = Customer.fromJson(customer);
+          list.add(dto);
+        }
+      });
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
+  Future<Customer> getCustomerById(int id) async {
+    String url = prefixUrl + '/${id}';
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      Customer dto = Customer.fromJson(json['data']);
+
+      return dto;
+    } else {
+      return null;
+    }
+  }
+
   Future<TmpUser> addCustomer(TmpUser dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
     String body = json.encode(dto.toJson());
@@ -81,7 +117,21 @@ class CustomerDAO {
       TmpUser dto = TmpUser.fromJson(json['data']);
       return dto;
     } else {
-      throw Exception('Failed');
+      return null;
+    }
+  }
+
+  Future<String> updateToken(String id, TmpUser user) async {
+    String url = 'http://171.244.5.88:90/api/Customer?id=$id';
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String body = json.encode(user);
+    var response = await http.put(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      String body = response.body;
+      return body;
+    } else {
+      return 'not OK';
     }
   }
 }
