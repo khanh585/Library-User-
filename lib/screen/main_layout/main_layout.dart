@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -44,6 +45,7 @@ class MainLayoutState extends State<MainLayout> {
     _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
       print("onMessage: $message");
+      _firebaseMessagingBackgroundHandler(message);
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -58,6 +60,13 @@ class MainLayoutState extends State<MainLayout> {
     }, onLaunch: (Map<String, dynamic> message) async {
       print("onResume: $message");
     });
+  }
+
+  static Future<void> _firebaseMessagingBackgroundHandler(
+      Map<String, dynamic> message) async {
+    await Firebase.initializeApp();
+
+    print("Handling a background message: ${message}");
   }
 
   final pageController = PageController(initialPage: 0, keepPage: false);

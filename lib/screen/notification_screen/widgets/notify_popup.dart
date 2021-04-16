@@ -38,36 +38,42 @@ class NotifyPopup extends StatelessWidget {
           ),
         )
       ],
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: SizedBox(
-              child: Image.asset(
-                'images/img_newbook2.png',
-                fit: BoxFit.fitHeight,
+      content: SizedBox(
+        height: 260,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: SizedBox(
+                child: Image.asset(
+                  'images/img_newbook2.png',
+                  fit: BoxFit.fitHeight,
+                ),
+                height: 140,
               ),
-              height: 150,
             ),
-          ),
-          Divider(
-            height: 20,
-            thickness: 2,
-          ),
-          Text(
-            this.time,
-            style: TextStyle(color: Colors.black45, fontSize: 14),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: Text(
-              this.content,
-              style: TextStyle(color: Colors.black87, fontSize: 16),
+            Divider(
+              height: 20,
+              thickness: 2,
             ),
-          ),
-        ],
+            Text(
+              this.time,
+              style: TextStyle(color: Colors.black45, fontSize: 14),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 60,
+              child: SingleChildScrollView(
+                child: Text(
+                  this.content,
+                  style: TextStyle(color: Colors.black87, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

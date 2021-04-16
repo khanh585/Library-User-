@@ -52,10 +52,8 @@ class BookDAO {
           list.add(dto);
         }
       });
-      return list;
-    } else {
-      throw Exception('Failed');
     }
+    return list;
   }
 
   Future<List<Book>> fetchNewestBook() async {
