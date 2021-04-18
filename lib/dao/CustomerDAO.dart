@@ -108,16 +108,18 @@ class CustomerDAO {
 
   Future<TmpUser> addCustomer(TmpUser dto) async {
     Map<String, String> headers = {"Content-type": "application/json"};
-    String body = json.encode(dto.toJson());
-    String url = prefixUrl;
-    var response = await http.post(prefixUrl, headers: headers, body: body);
+    String body = json.encode(dto.toJsonForCreate());
 
-    if (response.statusCode == 200) {
-      Map json = jsonDecode(response.body);
-      TmpUser dto = TmpUser.fromJson(json['data']);
-      return dto;
-    } else {
-      return null;
+    TmpUser rs = null;
+    try {
+      var response = await http.post(prefixUrl, headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        Map json = jsonDecode(response.body);
+        rs = TmpUser.fromJson(json['data']);
+      }
+    } catch (e) {} finally {
+      return rs;
     }
   }
 

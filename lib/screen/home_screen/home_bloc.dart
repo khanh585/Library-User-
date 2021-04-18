@@ -6,10 +6,8 @@ import 'package:user_library/models/book.dart';
 import 'package:user_library/screen/home_screen/home_event.dart';
 import 'package:user_library/screen/home_screen/home_state.dart';
 
-
 class HomeBloc implements Bloc {
-  var state = HomeState(
-      listSuggestBook: new List<Book>(),listNewestBook: new List<Book>());
+  var state = HomeState(listSuggestBook: null, listNewestBook: null);
   final eventController = StreamController<HomeEvent>();
 
   // 1 cai quan ly state, dam nhan nhiem vu truyen state den UI
@@ -19,22 +17,18 @@ class HomeBloc implements Bloc {
     eventController.stream.listen((event) async {
       if (event is FetchSuggestBook) {
         int customerId = event.customerId;
-        List responseSuggest = await BookDAO()
-            .fetchSuggestBook(customerId);
-        List responseNewest = await BookDAO()
-            .fetchNewestBook();
+        List responseSuggest = await BookDAO().fetchSuggestBook(customerId);
+        List responseNewest = await BookDAO().fetchNewestBook();
         List<Book> listSuggestBook = responseSuggest;
         List<Book> listNewestBook = responseNewest;
         state = HomeState(
-          listSuggestBook: listSuggestBook,
-          listNewestBook: listNewestBook
-        );
+            listSuggestBook: listSuggestBook, listNewestBook: listNewestBook);
         stateController.sink.add(state);
       }
-      // else if () {       
+      // else if () {
       //   List response = await BookDAO()
       //       .fetchNewestBook();
-        
+
       //   state = HomeState(
       //     listNewestBook: listNewestBook,
       //   );

@@ -80,17 +80,6 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                               width: 250.0,
                             ),
                           ),
-                          Positioned(
-                            child: Text(
-                              "Loading",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                  color: Colors.orangeAccent[400]),
-                            ),
-                            top: 510,
-                            left: 172,
-                          )
                         ],
                       ),
                     );

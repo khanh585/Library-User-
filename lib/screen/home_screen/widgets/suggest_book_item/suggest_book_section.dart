@@ -19,6 +19,18 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.widget.listSuggestBook == null) {
+      return Container(
+        height: 280,
+        child: Center(
+          child: Image.asset(
+            "images/drone2.gif",
+            height: 120.0,
+            width: 120.0,
+          ),
+        ),
+      );
+    }
     if (this.widget.listSuggestBook.length == 0) {
       return SizedBox(
         height: 1,

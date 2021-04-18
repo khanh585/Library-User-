@@ -13,11 +13,20 @@ class LocationHeader extends StatelessWidget {
         SizedBox(
           child: Center(
             child: Text(
+              'No.',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          width: 40,
+        ),
+        SizedBox(
+          child: Center(
+            child: Text(
               'Location',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+          width: MediaQuery.of(context).size.width / 3 - 80 / 3,
         ),
         SizedBox(
           child: Center(
@@ -26,7 +35,7 @@ class LocationHeader extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+          width: MediaQuery.of(context).size.width / 3 - 80 / 3,
         ),
         SizedBox(
           child: Center(
@@ -35,7 +44,7 @@ class LocationHeader extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+          width: MediaQuery.of(context).size.width / 3 - 80 / 3,
         ),
       ],
     );

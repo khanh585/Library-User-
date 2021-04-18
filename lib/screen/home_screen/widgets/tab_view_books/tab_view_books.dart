@@ -20,6 +20,18 @@ class TabViewBooksState extends State<TabViewBooks> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.widget.listNewestBook == null) {
+      return Container(
+        height: 180,
+        child: Center(
+          child: Image.asset(
+            "images/drone2.gif",
+            height: 120.0,
+            width: 120.0,
+          ),
+        ),
+      );
+    }
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 145,

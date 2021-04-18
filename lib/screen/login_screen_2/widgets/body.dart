@@ -1,13 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:user_library/dao/TokenDAO.dart';
 import 'package:user_library/screen/librarian_home_screen/librarian_home_screen.dart';
 import 'package:user_library/screen/login_screen_2/widgets/background.dart';
 import 'package:user_library/screen/main_layout/main_layout.dart';
 import 'package:user_library/screen/signup_screen/signup_screen.dart';
-import 'package:user_library/widgets/loading_circle.dart';
 import 'package:user_library/widgets/login/already_have_an_account_acheck.dart';
 import 'package:user_library/widgets/login/rounded_button.dart';
 import 'package:user_library/widgets/login/rounded_input_field.dart';
@@ -33,7 +31,7 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.1),
             Image.asset(
               "images/login.png",
               height: size.height * 0.35,
@@ -88,7 +86,6 @@ class _BodyState extends State<Body> {
                             btnOkColor: Colors.red)
                           ..show();
                       }
-                      isLoading = false;
                     },
                   )
                 : Image.asset(
@@ -109,6 +106,7 @@ class _BodyState extends State<Body> {
                 );
               },
             ),
+            SizedBox(height: size.height * 0.4),
           ],
         ),
       ),

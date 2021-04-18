@@ -94,4 +94,17 @@ class TmpUser {
         'gender': gender,
         'roleId': roleId
       };
+
+  Map<String, dynamic> toJsonForCreate() => {
+        'username': username,
+        'name': name,
+        'image': image,
+        'address': address,
+        'doB': doB,
+        'email': email,
+        'password': password,
+        'phone': phone,
+        'gender': gender,
+        'roleId': roleId
+      };
 }

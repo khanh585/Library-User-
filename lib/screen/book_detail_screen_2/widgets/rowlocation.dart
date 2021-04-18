@@ -4,11 +4,13 @@ class RowLocation extends StatefulWidget {
   final String location;
   final String shelf;
   final String drawer;
+  final int no;
 
   const RowLocation({
     this.location,
     this.shelf,
     this.drawer,
+    this.no,
   });
 
   @override
@@ -27,8 +29,18 @@ class _RowLocationState extends State<RowLocation> {
         });
       },
       child: Container(
-        color: isPick ? Color(0xFF9966).withOpacity(0.95) : Colors.transparent,
-        height: 38,
+        decoration: BoxDecoration(
+          color:
+              isPick ? Color(0xFF9966).withOpacity(0.95) : Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              //                   <--- left side
+              color: Colors.black.withOpacity(0.4),
+              width: 0.6,
+            ),
+          ),
+        ),
+        height: 40,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -38,10 +50,18 @@ class _RowLocationState extends State<RowLocation> {
                 SizedBox(
                   child: Center(
                       child: Text(
+                    this.widget.no.toString(),
+                    style: TextStyle(fontSize: size),
+                  )),
+                  width: 40,
+                ),
+                SizedBox(
+                  child: Center(
+                      child: Text(
                     this.widget.location,
                     style: TextStyle(fontSize: size),
                   )),
-                  width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+                  width: MediaQuery.of(context).size.width / 3 - 80 / 3,
                 ),
                 SizedBox(
                   child: Center(
@@ -49,7 +69,7 @@ class _RowLocationState extends State<RowLocation> {
                     this.widget.shelf,
                     style: TextStyle(fontSize: size),
                   )),
-                  width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+                  width: MediaQuery.of(context).size.width / 3 - 80 / 3,
                 ),
                 SizedBox(
                   child: Center(
@@ -57,7 +77,7 @@ class _RowLocationState extends State<RowLocation> {
                     this.widget.drawer,
                     style: TextStyle(fontSize: size),
                   )),
-                  width: MediaQuery.of(context).size.width / 3 - 40 / 3,
+                  width: MediaQuery.of(context).size.width / 3 - 80 / 3,
                 ),
               ],
             ),

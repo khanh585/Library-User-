@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:user_library/dao/LocationDAO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
 import 'package:user_library/models/location.dart';
@@ -11,10 +12,9 @@ import 'package:user_library/models/book.dart';
 import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
-import 'package:user_library/screen/book_detail_screen_2/widgets/headerloaction.dart';
+import 'package:user_library/screen/book_detail_screen_2/widgets/location_item.dart';
 
 import '../../constants.dart';
-import 'widgets/rowlocation.dart';
 
 class BookDetailScreen extends StatefulWidget {
   final Book book;
@@ -34,11 +34,18 @@ class _BookDetailState extends State<BookDetailScreen>
   @override
   void initState() {
     _checkInWishList();
+    _fetchLocation();
     _tabController = new TabController(length: 3, vsync: this);
     super.initState();
   }
 
-  void _fetchLocation() {}
+  void _fetchLocation() {
+    LocationDAO().fetchLocationByBookGroupId(this.widget.book.id).then((value) {
+      setState(() {
+        _listLocation = value;
+      });
+    });
+  }
 
   Future<void> _checkInWishList() async {
     final database =
@@ -66,9 +73,7 @@ class _BookDetailState extends State<BookDetailScreen>
     final wish = WishList(id, name, author, fee, image, true);
 
     wishListDAO.insertWishList(wish);
-    wishListDAO
-        .findWishListById(id)
-        .then((value) => {print('====' + value.image.toString())});
+    wishListDAO.findWishListById(id);
 
     setState(() {
       _inWishList = true;
@@ -275,39 +280,15 @@ class _BookDetailState extends State<BookDetailScreen>
                               Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    LocationHeader(),
-                                    Divider(
-                                      thickness: 2,
-                                    ),
-                                    Container(
-                                      height: 150,
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
-                                          ],
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      for (Location item in _listLocation)
+                                        LocationItem(
+                                          location: item,
                                         ),
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               SingleChildScrollView(

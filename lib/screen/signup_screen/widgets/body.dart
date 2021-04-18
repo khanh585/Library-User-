@@ -9,6 +9,8 @@ import 'package:user_library/widgets/login/already_have_an_account_acheck.dart';
 import 'package:user_library/widgets/login/rounded_input_field.dart';
 import 'package:user_library/widgets/login/rounded_password_field.dart';
 import 'package:user_library/widgets/login/text_field_container.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'dart:convert';
 
 class Body extends StatefulWidget {
   @override
@@ -27,6 +29,7 @@ class BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   bool emailDup = false;
   bool usernameDup = false;
+  bool isWait = false;
   DateTime _date = DateTime.now();
 
   void _checkDuplicate() async {
@@ -68,6 +71,83 @@ class BodyState extends State<Body> {
     }
   }
 
+  void _creatPatron() {
+    setState(() {
+      isWait = true;
+    });
+    _checkDuplicate();
+
+    if (!this._formKey.currentState.validate()) {
+      return;
+    }
+    if (emailDup || usernameDup) {
+      return;
+    }
+    String avatar = "";
+    if (dropdownValue == "Male") {
+      avatar =
+          "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/images%2Favatar%2F3.png?alt=media&token=7b3441fb-61e0-47b3-8e11-884d1bc20844";
+    } else if (dropdownValue == "Female") {
+      avatar =
+          "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/images%2Favatar%2F4.png?alt=media&token=a6975bbc-10cc-4a8c-ad7f-27742070594e";
+    } else {
+      avatar =
+          "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/images%2Favatar%2F1.png?alt=media&token=4ff6c588-6a2d-44f0-8e54-35b213b67e64";
+    }
+    TmpUser user = new TmpUser(
+        address: addressController.text,
+        createdTime: DateTime.now().toString(),
+        deviceToken: "",
+        doB: dobController.text,
+        email: emailController.text,
+        gender: dropdownValue,
+        image: avatar,
+        name: nameController.text,
+        password: passwordController.text,
+        phone: phoneController.text,
+        roleId: 2,
+        username: usernameController.text);
+    String body = json.encode(user.toJsonForCreate());
+    print(body);
+
+    CustomerDAO dao = new CustomerDAO();
+    dao.addCustomer(user).then((value) {
+      if (value != null) {
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.SUCCES,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Success',
+            desc: 'Sign up success!\n Login now!',
+            btnOkOnPress: () {
+              setState(() {
+                isWait = false;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              });
+            },
+            btnOkColor: Colors.green)
+          ..show();
+      } else {
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Fail',
+            desc: 'Sign up Fail!',
+            btnOkOnPress: () {
+              setState(() {
+                isWait = false;
+              });
+            },
+            btnOkColor: Colors.red)
+          ..show();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -78,7 +158,7 @@ class BodyState extends State<Body> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: size.height * 0.03),
+              SizedBox(height: size.height * 0.05),
               SvgPicture.asset(
                 "images/signup.svg",
                 height: size.height * 0.15,
@@ -125,8 +205,7 @@ class BodyState extends State<Body> {
                 hintText: "Phone",
                 icon: Icons.phone,
                 controller: phoneController,
-                errorRegex:
-                    r"/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/",
+                errorRegex: r"(84|0[3|5|7|8|9])+([0-9]{8})\b",
                 errorMes: "Invalid",
               ),
               RoundedInputField(
@@ -165,35 +244,18 @@ class BodyState extends State<Body> {
               RoundedPasswordField(
                 controller: passwordController,
               ),
-              RoundedButton(
-                text: "SIGNUP",
-                press: () {
-                  _checkDuplicate();
-
-                  if (!this._formKey.currentState.validate()) {
-                    return;
-                  }
-                  if (emailDup || usernameDup) {
-                    return;
-                  }
-                  TmpUser user = new TmpUser(
-                      address: addressController.text,
-                      createdTime: DateTime.now().toString(),
-                      deviceToken: "",
-                      doB: dobController.text,
-                      email: emailController.text,
-                      gender: dropdownValue,
-                      image: "",
-                      name: nameController.text,
-                      password: passwordController.text,
-                      phone: phoneController.text,
-                      roleId: 2,
-                      username: usernameController.text);
-
-                  CustomerDAO dao = new CustomerDAO();
-                  dao.addCustomer(user);
-                },
-              ),
+              isWait
+                  ? Image.asset(
+                      "images/loading1.gif",
+                      height: 80.0,
+                      width: 250.0,
+                    )
+                  : RoundedButton(
+                      text: "SIGNUP",
+                      press: () {
+                        _creatPatron();
+                      },
+                    ),
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccountCheck(
                 login: false,
@@ -208,6 +270,7 @@ class BodyState extends State<Body> {
                   );
                 },
               ),
+              SizedBox(height: size.height * 0.4),
             ],
           ),
         ),

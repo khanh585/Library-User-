@@ -14,9 +14,9 @@ class Location {
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-      drawerName: json['drawerName'],
-      bookShelfName: json['bookShelfName'],
-      locationName: json['locationName'],
+      drawerName: json['drawerName'] != null ? json['drawerName'] : "",
+      bookShelfName: json['bookShelfName'] != null ? json['bookShelfName'] : "",
+      locationName: json['locationName'] != null ? json['locationName'] : "",
     );
   }
 
