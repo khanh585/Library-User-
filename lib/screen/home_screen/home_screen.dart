@@ -50,61 +50,38 @@ class HomeScreenState extends State<HomeScreen> {
             end: Alignment.bottomCenter,
             tileMode: TileMode.clamp),
       ),
-      child: SingleChildScrollView(
-        child: StreamBuilder<HomeState>(
-            stream: home_bloc.stateController.stream,
-            initialData: home_bloc.state,
-            builder: (context, snapshot) {
-              if (snapshot.hasError)
-                return Text("Error");
-              else {
-                if (snapshot.data.listSuggestBook.length != 0 &&
-                    snapshot.data.listNewestBook.length != 0) {
-                  return Column(
-                    children: [
-                      SizedBox(height: 20),
-                      FadeSideUp(1.0, NavigationBar(user: this.widget.user)),
-                      FadeSideUp(
-                          2.0,
-                          SuggestBookSection(
-                              listSuggestBook: snapshot.data.listSuggestBook)),
-                      FadeSideUp(
-                          3.0,
-                          TabViewBooks(
-                            listNewestBook: snapshot.data.listNewestBook,
-                          )),
-                    ],
-                  );
-                } else {
-                  return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
+      child: StreamBuilder<HomeState>(
+          stream: home_bloc.stateController.stream,
+          initialData: home_bloc.state,
+          builder: (context, snapshot) {
+            if (snapshot.hasError)
+              return Text("Error");
+            else {
+              return Column(
+                children: [
+                  NavigationBar(user: this.widget.user),
+                  Container(
+                    padding: EdgeInsets.only(top: 0),
+                    height: MediaQuery.of(context).size.height - 90,
+                    child: ListView(
                       children: [
-                        Center(
-                          child: Image.asset(
-                            "images/drone2.gif",
-                            height: 250.0,
-                            width: 250.0,
-                          ),
-                        ),
-                        Positioned(
-                          child: Text(
-                            "Loading",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orangeAccent[400]),
-                          ),
-                          top: 510,
-                          left: 172,
-                        )
+                        FadeSideUp(
+                            1.5,
+                            SuggestBookSection(
+                                listSuggestBook:
+                                    snapshot.data.listSuggestBook)),
+                        FadeSideUp(
+                            1.5,
+                            TabViewBooks(
+                              listNewestBook: snapshot.data.listNewestBook,
+                            )),
                       ],
                     ),
-                  );
-                }
-              }
-            }),
-      ),
+                  ),
+                ],
+              );
+            }
+          }),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:user_library/screen/search_screen/search_screen.dart';
 
 class BottomBar extends StatefulWidget {
   final Function(int) handelPageView;
@@ -53,15 +52,6 @@ class BottomBarState extends State<BottomBar> {
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30)),
           ),
-          // FloatingActionButton(
-          //   onPressed: () => Navigator.push(context,
-          //       MaterialPageRoute(builder: (context) => SearchScreen())),
-          //   backgroundColor: Colors.blueGrey,
-          //   child: Icon(
-          //     Icons.search,
-          //     size: 28,
-          //   ),
-          // ),
           FlatButton(
             onPressed: () {
               widget.handelPageView(3);

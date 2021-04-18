@@ -3,16 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
-import 'package:user_library/screen/book_detail_screen_2/widgets/custom_tab_indicator.dart';
-import 'package:user_library/screen/book_detail_screen_2/widgets/animatedButton.dart';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:user_library/database/database.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/wishlist.dart';
-import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
-import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
 
 import '../../constants.dart';
 
@@ -111,10 +107,10 @@ class _BookDetailLibrarianState extends State<BookDetailLibrarianScreen>
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 40),
-                          width: 180,
-                          height: 250,
-                          child: ClipRRect(
+                            margin: EdgeInsets.only(bottom: 40),
+                            width: 180,
+                            height: 250,
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(10.0),
                               child: Image.network(
                                 this.widget.book.image[0],
@@ -133,13 +129,13 @@ class _BookDetailLibrarianState extends State<BookDetailLibrarianScreen>
                                 },
                               ),
                             )
-                          // decoration: BoxDecoration(
-                          //   borderRadius: BorderRadius.circular(10),
-                          //   image: DecorationImage(
-                          //     image: NetworkImage(this.widget.book.image[0]),
-                          //   ),
-                          // ),
-                        ),
+                            // decoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   image: DecorationImage(
+                            //     image: NetworkImage(this.widget.book.image[0]),
+                            //   ),
+                            // ),
+                            ),
                       )
                     ],
                   ),

@@ -39,7 +39,7 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 15),
+        margin: EdgeInsets.only(bottom: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -101,25 +101,25 @@ class BookItemHorizontalState extends State<BookItemHorizontal> {
                   Container(
                       height: 45,
                       margin: EdgeInsets.only(bottom: 10),
-                      child: 
-                      this.widget.book.description!=null ? 
-                      Text(
-                        this.widget.book.description,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.2),
-                        maxLines: 3,
-                      ) : Text(
-                        "No description",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.2),
-                        maxLines: 3,
-                      )),
+                      child: this.widget.book.description != null
+                          ? Text(
+                              this.widget.book.description,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.2),
+                              maxLines: 3,
+                            )
+                          : Text(
+                              "No description",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.2),
+                              maxLines: 3,
+                            )),
                 ],
               ),
             ),

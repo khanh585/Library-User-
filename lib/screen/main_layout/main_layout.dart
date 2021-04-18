@@ -90,7 +90,6 @@ class MainLayoutState extends State<MainLayout> {
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        //notchMargin: 4,
         color: Color(0xFF9966).withOpacity(1),
         child: BottomBar(handelPageView: handelPageView),
       ),

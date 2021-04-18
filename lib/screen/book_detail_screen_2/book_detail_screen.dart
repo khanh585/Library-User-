@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:user_library/dao/FeedbackDAO.dart';
 import 'package:user_library/models/book.dart';
 import 'package:user_library/models/user_feedback.dart';
-import 'package:user_library/screen/book_detail_screen_2/widgets/custom_tab_indicator.dart';
-import 'package:user_library/screen/book_detail_screen_2/widgets/animatedButton.dart';
+import 'package:user_library/models/location.dart';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -13,6 +11,7 @@ import 'package:user_library/models/book.dart';
 import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
+import 'package:user_library/screen/book_detail_screen_2/widgets/headerloaction.dart';
 
 import '../../constants.dart';
 import 'widgets/rowlocation.dart';
@@ -30,6 +29,7 @@ class _BookDetailState extends State<BookDetailScreen>
     with SingleTickerProviderStateMixin {
   bool _inWishList = false;
   bool _needConfirm = false;
+  List<Location> _listLocation = new List();
   TabController _tabController;
   @override
   void initState() {
@@ -37,6 +37,8 @@ class _BookDetailState extends State<BookDetailScreen>
     _tabController = new TabController(length: 3, vsync: this);
     super.initState();
   }
+
+  void _fetchLocation() {}
 
   Future<void> _checkInWishList() async {
     final database =
@@ -235,7 +237,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                   color: kBlackColor,
                                 ),
                                 insets: EdgeInsets.only(
-                                    left: 17, right: 8, bottom: 4),
+                                    left: 12, right: 12, bottom: 4),
                               ),
                               tabs: [
                                 Tab(
@@ -301,21 +303,6 @@ class _BookDetailState extends State<BookDetailScreen>
                                               drawer: 'A1',
                                               shelf: 'KS000100',
                                             ),
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
-                                            RowLocation(
-                                              location: 'vu tru',
-                                              drawer: 'A1',
-                                              shelf: 'KS000100',
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -357,48 +344,6 @@ class _BookDetailState extends State<BookDetailScreen>
           ),
         ),
       ),
-    );
-  }
-}
-
-class LocationHeader extends StatelessWidget {
-  const LocationHeader({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          child: Center(
-            child: Text(
-              'Location',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
-        ),
-        SizedBox(
-          child: Center(
-            child: Text(
-              'Bookshelf',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
-        ),
-        SizedBox(
-          child: Center(
-            child: Text(
-              'Drawer',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-          width: MediaQuery.of(context).size.width / 3 - 40 / 3,
-        ),
-      ],
     );
   }
 }

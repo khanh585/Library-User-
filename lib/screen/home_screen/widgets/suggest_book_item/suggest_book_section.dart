@@ -19,13 +19,18 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.widget.listSuggestBook.length == 0) {
+      return SizedBox(
+        height: 1,
+      );
+    }
     return Container(
       child: Column(
         children: [
           Container(
               padding: EdgeInsets.only(left: 25, right: 0),
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(bottom: 20, top: 15),
+              margin: EdgeInsets.only(bottom: 20, top: 10),
               child: Row(
                 children: [
                   Expanded(
@@ -76,7 +81,7 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                   for (Book book in this.widget.listSuggestBook)
                     BookItemSuggestion(book: book)
                 ],
-              )),
+              ))
         ],
       ),
     );

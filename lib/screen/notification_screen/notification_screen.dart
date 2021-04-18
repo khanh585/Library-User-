@@ -32,7 +32,7 @@ class NotificationScreenState extends State<NotificationScreen> {
           title: Text(
             "Notification",
             style: TextStyle(
-                color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 28, fontWeight: FontWeight.w500),
           ),
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,

@@ -22,10 +22,9 @@ class TabViewBooksState extends State<TabViewBooks> {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 65),
-        margin: EdgeInsets.only(
-          top: 35,
-        ),
+        height: MediaQuery.of(context).size.height - 145,
+        padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 0),
+        margin: EdgeInsets.only(top: 5),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -37,13 +36,13 @@ class TabViewBooksState extends State<TabViewBooks> {
               )
             ],
             borderRadius: BorderRadius.vertical(
-              top: Radius.circular(35),
+              top: Radius.circular(30),
             )),
         child: Column(children: [
           Container(
             width: 40,
             height: 4,
-            margin: EdgeInsets.only(bottom: 15),
+            margin: EdgeInsets.only(bottom: 6),
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(5.0),
@@ -51,7 +50,7 @@ class TabViewBooksState extends State<TabViewBooks> {
             child: const Text('', textAlign: TextAlign.center),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.only(bottom: 5),
             child: Row(
               children: [
                 Expanded(
@@ -91,15 +90,23 @@ class TabViewBooksState extends State<TabViewBooks> {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: Column(            
-              children: [               
-                for(Book book in this.widget.listNewestBook)              
-                BookItemHorizontal(book: book)
-              ],
-            ),
-          )
+          this.widget.listNewestBook.length != 0
+              ? Container(
+                  height: MediaQuery.of(context).size.height - 210,
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: ListView(
+                    children: [
+                      for (Book book in this.widget.listNewestBook)
+                        BookItemHorizontal(book: book)
+                    ],
+                  ),
+                )
+              : Center(
+                  child: Image.asset(
+                    "images/empty.png",
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
         ]));
   }
 }

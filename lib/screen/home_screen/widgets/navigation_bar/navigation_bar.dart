@@ -15,7 +15,15 @@ class NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 15),
+        margin: EdgeInsets.only(top: 15, bottom: 0),
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 8),
+        decoration: BoxDecoration(
+            border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.withOpacity(0.5),
+            width: 0.7,
+          ),
+        )),
         child: Row(children: [
           Expanded(
             flex: 2,
@@ -23,12 +31,28 @@ class NavigationBarState extends State<NavigationBar> {
               fit: BoxFit.fill,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
-                child: Image.network(
-                  this.widget.user.image,
-                  fit: BoxFit.cover,
-                  width: 25,
-                  height: 25,
-                ),
+                child: this.widget.user.image != ""
+                    ? Image.network(
+                        this.widget.user.image,
+                        fit: BoxFit.cover,
+                        width: 25,
+                        height: 25,
+                        errorBuilder: (BuildContext context, Object object,
+                            StackTrace stackTrace) {
+                          return Image.asset(
+                            "images/2.png",
+                            fit: BoxFit.cover,
+                            width: 25,
+                            height: 25,
+                          );
+                        },
+                      )
+                    : Image.asset(
+                        "images/2.png",
+                        fit: BoxFit.cover,
+                        width: 25,
+                        height: 25,
+                      ),
               ),
             ),
           ),
@@ -50,20 +74,6 @@ class NavigationBarState extends State<NavigationBar> {
                 runSpacing: 0,
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  // Container(
-                  //   width: 35,
-                  //   height: 35,
-                  //   child: IconButton(
-                  //     icon: Icon(
-                  //       Icons.search,
-                  //       size: 20,
-                  //     ),
-                  //     onPressed: () => Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) => SearchScreen())),
-                  //   ),
-                  // ),
                   Container(
                     width: 35,
                     height: 35,
@@ -75,7 +85,8 @@ class NavigationBarState extends State<NavigationBar> {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NotificationScreen(userId: int.parse(this.widget.user.id))))),
+                                builder: (context) => NotificationScreen(
+                                    userId: int.parse(this.widget.user.id))))),
                   ),
                 ],
               ),
