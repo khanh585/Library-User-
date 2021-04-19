@@ -27,21 +27,30 @@ class _ManageBorrowState extends State<ManageBorrowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF9966).withOpacity(1),
-          centerTitle: true,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
+          automaticallyImplyLeading: false,
+          toolbarHeight: 50,
+          leadingWidth: 25,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              size: 20,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
           title: Column(
             children: <Widget>[
               Text(
-                'Newest borrow request',
-                //style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+                'List patrons borrow',
+                style: TextStyle(
+                    color: Colors.blueGrey[900],
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Swipe right to see details',
-                //style: Theme.of(context).appBarTheme.textTheme.subtitle1,
-              )
             ],
           ),
         ),
@@ -99,7 +108,7 @@ class _ManageBorrowState extends State<ManageBorrowScreen> {
                                   contentPadding: EdgeInsets.only(
                                       left: 19, right: 50, bottom: 8),
                                   border: InputBorder.none,
-                                  hintText: 'Search customer..',
+                                  hintText: 'Search patron..',
                                   hintStyle: GoogleFonts.openSans(
                                       fontSize: 16,
                                       color: kGreyColor,

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class ProgressCircleIndicator extends StatefulWidget {
   final int completedPercentage;
+  final double content;
   final double radius;
   final double fontSize;
 
   const ProgressCircleIndicator(
-      {Key key, this.completedPercentage, this.radius, this.fontSize})
-      : super(key: key);
+      {this.completedPercentage, this.radius, this.fontSize, this.content});
 
   @override
   _ProgressCircleIndicatorState createState() =>
@@ -33,9 +33,7 @@ class _ProgressCircleIndicatorState extends State<ProgressCircleIndicator>
         .chain(CurveTween(curve: Curves.decelerate))
         .animate(_animationController)
           ..addListener(() {
-            setState(() {
-
-            });
+            setState(() {});
           });
 
     _animationController.forward();
@@ -62,9 +60,11 @@ class _ProgressCircleIndicatorState extends State<ProgressCircleIndicator>
         height: widget.radius * 2,
         child: Center(
           child: Text(
-            '90' + '\$',
+            this.widget.content != null
+                ? this.widget.content.toString() + '\$'
+                : "0\$",
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: widget.fontSize),
+                fontWeight: FontWeight.w400, fontSize: widget.fontSize),
           ),
         ),
       ),

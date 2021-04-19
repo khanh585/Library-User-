@@ -7,8 +7,7 @@ import 'package:user_library/screen/home_detail_screen/home_detail_event.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_bloc.dart';
 import 'package:user_library/screen/home_detail_screen/home_detail_state.dart';
 import 'package:user_library/screen/home_detail_screen/widgets/new_book_section.dart';
-import 'package:user_library/screen/book_detail_screen/book_detail_librarian_screen.dart';
-import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
+import 'package:user_library/screen/book_detail_screen_2/book_detail_libarian_screen.dart';
 import 'package:user_library/screen/home_detail_screen/widgets/suggest_book_section.dart';
 
 import '../../constants.dart';

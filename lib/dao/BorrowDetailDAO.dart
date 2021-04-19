@@ -33,25 +33,26 @@ class BorrowDetailDAO {
   }
 
   Future<List<BorrowDetail>> fetchBorrowDetailOfCustomer(int customerId) async {
-    List<BorrowDetail> list;
-    if (list == null) {
-      list = new List();
-    }
+    List<BorrowDetail> list = new List();
+
     String url = prefixUrl +
         '?PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}' +
         '&PatronId=$customerId';
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      Map json = jsonDecode(response.body);
-      List cats = json['data'];
-      cats.forEach((element) {
-        BorrowDetail dto = BorrowDetail.fromJson(element);
-        list.add(dto);
-      });
+
+    try {
+      var response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        Map json = jsonDecode(response.body);
+        List cats = json['data'];
+        cats.forEach((element) {
+          BorrowDetail dto = BorrowDetail.fromJson(element);
+          list.add(dto);
+        });
+      }
+    } catch (e) {} finally {
       return list;
-    } else {
-      print("Not 200");
     }
   }
 

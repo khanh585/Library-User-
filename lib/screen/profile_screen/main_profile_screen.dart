@@ -41,6 +41,24 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        backgroundColor: Colors.white,
+        shadowColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
+        automaticallyImplyLeading: false,
+        toolbarHeight: 40,
+        leadingWidth: 25,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

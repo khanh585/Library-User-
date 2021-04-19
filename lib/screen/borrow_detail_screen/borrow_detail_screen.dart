@@ -4,11 +4,9 @@ import 'package:user_library/screen/borrow_detail_screen/borrow_detail_bloc.dart
 import 'package:user_library/screen/borrow_detail_screen/borrow_detail_event.dart';
 import 'package:user_library/screen/borrow_detail_screen/borrow_detail_state.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/borrow_detail_card.dart';
-import 'package:user_library/screen/borrow_detail_screen/widgets/circle_indicator.dart';
 import 'package:user_library/screen/manage_borrow_screen/widgets/circle_profile.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/progress_circle_indicator.dart';
-import 'package:user_library/screen/borrow_detail_screen/widgets/progress_line_indicator.dart';
-import 'package:user_library/widgets/loading_circle.dart';
+import 'package:user_library/models/borrow_detail.dart';
 
 class BorrowDetailScreen extends StatefulWidget {
   final int customerId;
@@ -40,15 +38,31 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
       Color(0xffff8a65),
       Color(0xffff5722),
     ]).createShader(Rect.fromLTWH(0, 0, 150, 300));
-
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color(0xfffbfafd),
+        shadowColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
         automaticallyImplyLeading: false,
+        toolbarHeight: 50,
+        leadingWidth: 25,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
         title: Text(
-          "History",
+          "Borrow history",
           style: TextStyle(
-              fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+              letterSpacing: 1),
         ),
       ),
       body: StreamBuilder<BorrowDetailState>(
@@ -56,102 +70,80 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
         initialData: borrow_detail_bloc.state,
         builder: (context, snapshot) {
           if (snapshot.hasError) return Text("Error");
-          if (snapshot.data.borrowDetails.length != 0) {
-            //return BorrowDetailCard(borrowDetail: snapshot.data.borrowDetails);
-            return Container(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    decoration: BoxDecoration(
-                        color: Color(0xfffbfafd),
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(80),
+
+          return Container(
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                      color: Color(0xfffbfafd),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(80),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[400],
+                          blurRadius: 5,
+                          offset: Offset(0, 5),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[400],
-                            blurRadius: 5,
-                            offset: Offset(0, 5),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          CircleProfile(
+                            image: this.widget.customer.image,
+                            width: 100,
+                            height: 100,
+                            acceptSize: 20,
+                            acceptTop: 10,
+                            acceptRight: 5,
+                            accepted: false,
                           ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Hero(
-                              tag: snapshot.data.borrowDetails[1].bookName,
-                              child: CircleProfile(
-                                image: this.widget.customer.image,
-                                width: 120,
-                                height: 120,
-                                acceptSize: 20,
-                                acceptTop: 10,
-                                acceptRight: 5,
-                                accepted: false,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            ProgressCircleIndicator(
-                              completedPercentage: 100,
-                              radius: 55,
-                              fontSize: 30,
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text(
-                              this.widget.customer.name,
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            this.widget.customer.name,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ProgressCircleIndicator(
+                            completedPercentage: 100,
+                            radius: 48,
+                            fontSize: 18,
+                            content: snapshot.data.sumReturn,
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Total fee return",
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      child: BorrowDetailCard(
-                          customer: this.widget.customer,
-                          borrowDetail: snapshot.data.borrowDetails,
-                          returnDetail: snapshot.data.returnDetails))
-                ],
-              ),
-            );
-          } else {
-            return Center(
-              child: Stack(
-                children: [
-                  Image.asset(
-                    "images/drone2.gif",
-                    height: 250.0,
-                    width: 250.0,
-                  ),
-                  Positioned(
-                    child: Text(
-                      "Loading",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.orangeAccent[400]),
-                    ),
-                    top: 200,
-                    left: 92,
-                  )
-                ],
-              ),
-            );
-          }
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    child: BorrowDetailCard(
+                        customer: this.widget.customer,
+                        borrowDetail: snapshot.data.borrowDetails,
+                        returnDetail: snapshot.data.returnDetails))
+              ],
+            ),
+          );
         },
       ),
     );

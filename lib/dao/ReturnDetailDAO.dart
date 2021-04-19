@@ -10,15 +10,11 @@ class ReturnDetailDAO {
   int pageNumber = 1;
 
   Future<List<ReturnDetail>> fetchReturnDetail(int borrowId) async {
-    print("Noasasst 200");
     List<ReturnDetail> list;
     if (list == null) {
       list = new List();
     }
-    String url = prefixUrl +
-        '?PageSize=${pageSize}' +
-        '&PageNumber=${pageNumber}' +
-        '&BorrowId=${borrowId}';
+    String url = prefixUrl + '?BorrowId=${borrowId}';
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

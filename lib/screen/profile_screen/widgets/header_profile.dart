@@ -1,9 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:user_library/models/borrow_detail.dart';
-import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/tmpUser.dart';
 
 class HeaderProfile extends StatelessWidget {
@@ -27,7 +23,9 @@ class HeaderProfile extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 15),
               child: CircleAvatar(
                 radius: 90.0,
-                backgroundImage: NetworkImage("${tmpUser.image}"),
+                backgroundImage: NetworkImage(
+                  "${tmpUser.image}",
+                ),
                 backgroundColor: Colors.transparent,
               ),
             ),

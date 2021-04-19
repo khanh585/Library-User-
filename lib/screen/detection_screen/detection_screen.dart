@@ -29,13 +29,28 @@ class _DetectionScreenState extends State<DetectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
+        toolbarHeight: 50,
+        leadingWidth: 25,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
         title: Text(
           "Daily Transaction",
           style: TextStyle(
-              fontSize: 28, fontWeight: FontWeight.bold, color: black),
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: Colors.blueGrey[900]),
         ),
-        automaticallyImplyLeading: false,
       ),
       body: getBody(),
     );

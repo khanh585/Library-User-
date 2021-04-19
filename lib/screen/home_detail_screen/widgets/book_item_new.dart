@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_library/constants.dart';
 import 'package:user_library/models/book.dart';
-import 'package:user_library/screen/book_detail_screen/book_detail_librarian_screen.dart';
-import 'package:user_library/screen/book_detail_screen_2/book_detail_screen.dart';
+import 'package:user_library/screen/book_detail_screen_2/book_detail_libarian_screen.dart';
 
 class BookItemNew extends StatefulWidget {
   final Book book;
@@ -42,37 +41,37 @@ class BookItemNewState extends State<BookItemNew> {
                   width: 60,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: 
-                    this.widget.book.image.length!=0?
-                    Image.network(
-                      this.widget.book.image[0],
-                      fit: BoxFit.fill,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: Image.asset(
-                            "images/loading1.gif",
-                            height: 550.0,
-                            width: 750.0,
+                    child: this.widget.book.image.length != 0
+                        ? Image.network(
+                            this.widget.book.image[0],
+                            fit: BoxFit.fill,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: Image.asset(
+                                  "images/loading1.gif",
+                                  height: 550.0,
+                                  width: 750.0,
+                                ),
+                              );
+                            },
+                          )
+                        : Image.network(
+                            "https://img.freepik.com/free-photo/open-book-with-white-background_23-2148882765.jpg?size=626&ext=jpg",
+                            fit: BoxFit.fill,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: Image.asset(
+                                  "images/loading1.gif",
+                                  height: 550.0,
+                                  width: 750.0,
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ) : Image.network(
-                      "https://img.freepik.com/free-photo/open-book-with-white-background_23-2148882765.jpg?size=626&ext=jpg",
-                      fit: BoxFit.fill,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: Image.asset(
-                            "images/loading1.gif",
-                            height: 550.0,
-                            width: 750.0,
-                          ),
-                        );
-                      },
-                    ),
                   )),
               SizedBox(
                 width: 21,

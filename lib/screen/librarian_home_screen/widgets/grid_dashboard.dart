@@ -12,19 +12,16 @@ class GridDashboard extends StatelessWidget {
   final TmpUser user;
   GridDashboard({this.user});
   Items item1 = new Items(
-      title: "Manage Book",
-      subtitle: "March, Wednesday",
-      event: "",
-      img: "images/book.png");
+      title: "Manage Book", subtitle: "", event: "", img: "images/book.png");
   Items item4 = new Items(
     title: "Return Book",
-    subtitle: "Rose favirited your Post",
+    subtitle: "",
     event: "",
     img: "images/return-book.png",
   );
   Items item5 = new Items(
     title: "Borrow Book",
-    subtitle: "Homework, Design",
+    subtitle: "",
     event: "",
     img: "images/borrow-book.png",
   );
@@ -125,28 +122,6 @@ class GridDashboard extends StatelessWidget {
                             textStyle: TextStyle(
                                 color: Colors.orange[900],
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500)),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        data.subtitle,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.orange[900],
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500)),
-                      ),
-                      SizedBox(
-                        height: 14,
-                      ),
-                      Text(
-                        data.event,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.orange[900],
-                                fontSize: 11,
                                 fontWeight: FontWeight.w500)),
                       ),
                     ],

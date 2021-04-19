@@ -14,13 +14,13 @@ class ReturnDetailItem extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         padding: const EdgeInsets.only(top: 15, bottom: 15),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[400],
-                blurRadius: 3,
-                offset: Offset(1, 4),
+                color: Colors.grey[600],
+                blurRadius: 5,
+                offset: Offset(1, 1),
               )
             ]),
         child: Row(
@@ -45,7 +45,7 @@ class ReturnDetailItem extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      Expanded(
                         child: Text(
                           item.returnTime.toString().substring(0, 10),
                           style: TextStyle(
@@ -74,7 +74,7 @@ class ReturnDetailItem extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      Expanded(
                         child: Text(
                           item.fee.toString() + '\$',
                           overflow: TextOverflow.ellipsis,
@@ -100,7 +100,7 @@ class ReturnDetailItem extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      Expanded(
                         child: Text(
                           item.bookName.trim(),
                           overflow: TextOverflow.ellipsis,
@@ -126,7 +126,7 @@ class ReturnDetailItem extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      Expanded(
                         child: Text(
                           item.author.trim(),
                           overflow: TextOverflow.ellipsis,

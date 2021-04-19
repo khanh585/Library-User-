@@ -18,20 +18,22 @@ class BorrowDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //tao bảo đảm m code gắn bloc sai vaf m load chổ này lâu vl :))))))
-
     return Container(
       child: Wrap(
         children: [
           Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Current borrow books',
+                      this.borrowDetail != null
+                          ? 'Current borrow books: ' +
+                              this.borrowDetail.length.toString()
+                          : 'Current borrow books: 0',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -45,22 +47,31 @@ class BorrowDetailCard extends StatelessWidget {
               ),
               Container(
                 height: 180,
-                child: PageView.builder(
-                  //controller: _goalPageController,
-                  itemBuilder: (_, index) {
-                    int endTime =
-                        borrowDetail[index].returnTime.millisecondsSinceEpoch +
-                            1000 * 30;
-
-                    return BorrowDetailItem(item: borrowDetail[index]);
-                  },
-                  itemCount: 5,
-                  // onPageChanged: (page) {
-                  //   setState(() {
-                  //     _goalPageCurrent = page;
-                  //   });
-                  // },
-                ),
+                child: borrowDetail != null
+                    ? borrowDetail.length > 0
+                        ? PageView.builder(
+                            itemBuilder: (_, index) {
+                              int endTime = borrowDetail[index]
+                                      .returnTime
+                                      .millisecondsSinceEpoch +
+                                  1000 * 30;
+                              return BorrowDetailItem(
+                                  item: borrowDetail[index]);
+                            },
+                            itemCount: borrowDetail.length,
+                          )
+                        : Center(
+                            child: SizedBox(
+                                child: Image.asset("images/empty.png",
+                                    fit: BoxFit.fitHeight)),
+                          )
+                    : Center(
+                        child: Image.asset(
+                          "images/drone2.gif",
+                          height: 100.0,
+                          width: 100.0,
+                        ),
+                      ),
               ),
               SizedBox(
                 height: 5,
@@ -99,28 +110,31 @@ class BorrowDetailCard extends StatelessWidget {
               ),
               Container(
                 height: 180,
-                child: PageView.builder(
-                  //controller: _goalPageController,
-                  itemBuilder: (_, index) {
-                    return ReturnDetailItem(item: this.returnDetail[index]);
-                  },
-                  itemCount: returnDetail.length,
-                  // onPageChanged: (page) {
-                  //   setState(() {
-                  //     _goalPageCurrent = page;
-                  //   });
-                  // },
-                ),
+                child: returnDetail != null
+                    ? returnDetail.length > 0
+                        ? PageView.builder(
+                            //controller: _goalPageController,
+                            itemBuilder: (_, index) {
+                              return ReturnDetailItem(
+                                  item: this.returnDetail[index]);
+                            },
+                            itemCount: returnDetail.length,
+                          )
+                        : Center(
+                            child: SizedBox(
+                                child: Image.asset("images/empty.png",
+                                    fit: BoxFit.fitHeight)),
+                          )
+                    : Center(
+                        child: Image.asset(
+                          "images/drone2.gif",
+                          height: 100.0,
+                          width: 100.0,
+                        ),
+                      ),
               ),
               SizedBox(
-                height: 5,
-              ),
-              // CircleIndicator(
-              //   count: borrowDetail.length,
-              //   //current: _goalPageCurrent,
-              // ),
-              SizedBox(
-                height: 25,
+                height: 30,
               ),
             ],
           )
