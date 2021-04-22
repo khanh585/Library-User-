@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:user_library/constants.dart';
-import 'package:user_library/models/detection.dart';
 import 'package:user_library/screen/detection_screen/detection_bloc.dart';
 import 'package:user_library/screen/detection_screen/detection_event.dart';
 import 'package:user_library/screen/detection_screen/detection_state.dart';
@@ -45,7 +44,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
         ),
         elevation: 0,
         title: Text(
-          "Daily Transaction",
+          "Daily Detection",
           style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w400,
@@ -138,6 +137,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                       child: ListView(
                           children: List.generate(
                               snapshot.data.detections.length, (index) {
+                                print(snapshot.data.detections[index].avatar + "Ádasdasdas");
                         return TransactionItem(
                           size: size,
                           item: snapshot.data.detections[index],

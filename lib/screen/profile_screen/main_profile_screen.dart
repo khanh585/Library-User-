@@ -46,18 +46,17 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
         shadowColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
         automaticallyImplyLeading: false,
-        toolbarHeight: 40,
+        toolbarHeight: 50,
         leadingWidth: 25,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            size: 20,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         elevation: 0,
+        title: Text(
+            "Profile",
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+                letterSpacing: 1),
+          ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

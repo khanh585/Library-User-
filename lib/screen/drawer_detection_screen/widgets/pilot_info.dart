@@ -27,7 +27,7 @@ class Pilot_info extends StatelessWidget {
                     width: 45,
                     margin: EdgeInsets.only(top: 4),
                     child: Text(
-                      'Pilot:  ',
+                      'Staff:  ',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: Colors.black54,
                             fontWeight: FontWeight.w400,

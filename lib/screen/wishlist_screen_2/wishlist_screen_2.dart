@@ -86,15 +86,6 @@ class _WishListScreenState extends State<WishListScreen> {
           automaticallyImplyLeading: false,
           toolbarHeight: 50,
           leadingWidth: 25,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           elevation: 0,
           title: Text(
             "Wishlist",

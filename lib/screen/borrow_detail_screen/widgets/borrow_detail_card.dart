@@ -95,13 +95,6 @@ class BorrowDetailCard extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'See all >',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    )
                   ],
                 ),
               ),

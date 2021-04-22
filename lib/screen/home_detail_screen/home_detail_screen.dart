@@ -59,13 +59,6 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                       fontWeight: FontWeight.w600,
                                       color: kGreyColor),
                                 ),
-                                Text(
-                                  'Discover Latest Book',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
-                                      color: kBlackColor),
-                                ),
                               ],
                             )),
                         Container(
