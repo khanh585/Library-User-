@@ -10,7 +10,6 @@ import 'package:user_library/widgets/login/rounded_input_field.dart';
 import 'package:user_library/widgets/login/rounded_password_field.dart';
 import 'package:user_library/widgets/login/text_field_container.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'dart:convert';
 
 class Body extends StatefulWidget {
   @override
@@ -107,8 +106,6 @@ class BodyState extends State<Body> {
         phone: phoneController.text,
         roleId: 2,
         username: usernameController.text);
-    String body = json.encode(user.toJsonForCreate());
-    print(body);
 
     CustomerDAO dao = new CustomerDAO();
     dao.addCustomer(user).then((value) {

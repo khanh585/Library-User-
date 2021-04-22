@@ -80,6 +80,34 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
+        automaticallyImplyLeading: false,
+        toolbarHeight: 50,
+        leadingWidth: 25,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+        title: Column(
+          children: <Widget>[
+            Text(
+              'Detection error message',
+              style: TextStyle(
+                  color: Colors.blueGrey[900],
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400),
+            ),
+          ],
+        ),
+      ),
       body: Container(
         child: Column(
           children: [
@@ -89,7 +117,7 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
             Container(
               color: Colors.white,
               width: size.width,
-              height: size.height - 140,
+              height: size.height - 160,
               child: TabBarView(
                 controller: _tabController,
                 children: [

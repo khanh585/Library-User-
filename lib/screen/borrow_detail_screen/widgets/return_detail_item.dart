@@ -18,9 +18,8 @@ class ReturnDetailItem extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[600],
-                blurRadius: 5,
-                offset: Offset(1, 1),
+                color: Colors.grey.withOpacity(0.8),
+                blurRadius: 6,
               )
             ]),
         child: Row(
@@ -144,10 +143,14 @@ class ReturnDetailItem extends StatelessWidget {
             ),
             // image
             Container(
+                width: 125,
                 padding: EdgeInsets.only(right: 15),
-                child: Image.network(
-                  item.image,
-                  fit: BoxFit.fitHeight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    item.image,
+                    fit: BoxFit.fill,
+                  ),
                 )),
           ],
         ));

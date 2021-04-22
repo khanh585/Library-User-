@@ -49,7 +49,7 @@ class BookGridState extends State<BookGrid> {
                     primary: false,
                     crossAxisSpacing: 17,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 0.45,
+                    childAspectRatio: 0.5,
                     children: renderBookItemm(),
                   ),
                 ),

@@ -112,11 +112,6 @@ class UserCard extends StatelessWidget {
                       Expanded(
                         child: Container(),
                       ),
-                      ProgressCircleIndicator(
-                        completedPercentage: 100,
-                        radius: 30,
-                        fontSize: 15,
-                      ),
                     ],
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_bloc.dart';
 import 'package:user_library/screen/home_screen/home_event.dart';
@@ -61,23 +60,24 @@ class HomeScreenState extends State<HomeScreen> {
                 children: [
                   NavigationBar(user: this.widget.user),
                   Container(
-                    padding: EdgeInsets.only(top: 0),
-                    height: MediaQuery.of(context).size.height - 90,
-                    child: ListView(
-                      children: [
-                        FadeSideUp(
-                            1.5,
-                            SuggestBookSection(
-                                listSuggestBook:
-                                    snapshot.data.listSuggestBook)),
-                        FadeSideUp(
-                            1.5,
-                            TabViewBooks(
-                              listNewestBook: snapshot.data.listNewestBook,
-                            )),
-                      ],
+                    height: MediaQuery.of(context).size.height - 110,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          FadeSideUp(
+                              1.5,
+                              SuggestBookSection(
+                                  listSuggestBook:
+                                      snapshot.data.listSuggestBook)),
+                          FadeSideUp(
+                              1.5,
+                              TabViewBooks(
+                                listNewestBook: snapshot.data.listNewestBook,
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
+                  )
                 ],
               );
             }

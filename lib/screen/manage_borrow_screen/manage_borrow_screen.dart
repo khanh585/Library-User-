@@ -6,6 +6,7 @@ import 'package:user_library/screen/manage_borrow_screen/manage_borrow_bloc.dart
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_event.dart';
 import 'package:user_library/screen/manage_borrow_screen/manage_borrow_state.dart';
 import 'package:user_library/screen/manage_borrow_screen/widgets/user_card.dart';
+import 'package:user_library/screen/borrow_detail_screen/borrow_detail_screen.dart';
 
 class ManageBorrowScreen extends StatefulWidget {
   const ManageBorrowScreen({Key key}) : super(key: key);
@@ -167,14 +168,22 @@ class _ManageBorrowState extends State<ManageBorrowScreen> {
                                                         Radius.circular(10)),
                                                 color: kLightGreyColor),
                                             child: GestureDetector(
-                                              // onTap: () => Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //       builder: (context) =>
-                                              //           BookDetailLibrarianScreen(
-                                              //               book: snapshot.data
-                                              //                   .listBooks[index])),
-                                              // ),
+                                              onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BorrowDetailScreen(
+                                                          customer: snapshot
+                                                                  .data
+                                                                  .listUserSearch[
+                                                              index],
+                                                          customerId: snapshot
+                                                              .data
+                                                              .listUserSearch[
+                                                                  index]
+                                                              .id,
+                                                        )),
+                                              ),
                                               child: ListTile(
                                                 title: Text(
                                                     '${snapshot.data.listUserSearch[index].name}'),

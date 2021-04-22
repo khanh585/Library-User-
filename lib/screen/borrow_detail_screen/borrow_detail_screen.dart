@@ -11,8 +11,7 @@ import 'package:user_library/models/borrow_detail.dart';
 class BorrowDetailScreen extends StatefulWidget {
   final int customerId;
   final Customer customer;
-  const BorrowDetailScreen({Key key, this.customerId, this.customer})
-      : super(key: key);
+  const BorrowDetailScreen({this.customerId, this.customer});
 
   @override
   _BorrowDetailState createState() => _BorrowDetailState(customer);
@@ -124,7 +123,7 @@ class _BorrowDetailState extends State<BorrowDetailScreen> {
                             height: 8,
                           ),
                           Text(
-                            "Total fee return",
+                            "Total fee",
                             overflow: TextOverflow.fade,
                             style: TextStyle(fontSize: 12),
                           )

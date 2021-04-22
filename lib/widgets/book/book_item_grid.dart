@@ -46,20 +46,23 @@ class BookItemGridState extends State<BookItemGrid> {
               height: 170,
               child: this.widget.book.image != null &&
                       this.widget.book.image.isNotEmpty
-                  ? Image.network(
-                      this.widget.book.image[0],
-                      fit: BoxFit.fill,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: Image.asset(
-                            "images/loading1.gif",
-                            height: 550.0,
-                            width: 750.0,
-                          ),
-                        );
-                      },
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        this.widget.book.image[0],
+                        fit: BoxFit.fill,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: Image.asset(
+                              "images/loading1.gif",
+                              height: 550.0,
+                              width: 750.0,
+                            ),
+                          );
+                        },
+                      ),
                     )
                   : Image.asset("images/notebook.png", fit: BoxFit.fill),
             ),

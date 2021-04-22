@@ -39,9 +39,11 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
 
   void _fetchLocation() {
     LocationDAO().fetchLocationByBookGroupId(this.widget.book.id).then((value) {
-      setState(() {
-        _listLocation = value;
-      });
+      if (value != null) {
+        setState(() {
+          _listLocation = value;
+        });
+      }
     });
   }
 
@@ -55,6 +57,7 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
 
   @override
   Widget build(BuildContext context) {
+    print(this.widget.book.id);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -76,21 +79,28 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
                             height: 250,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                this.widget.book.image[0],
-                                fit: BoxFit.contain,
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: Image.asset(
-                                      "images/loading1.gif",
+                              child: this.widget.book.image != null &&
+                                      this.widget.book.image.length > 0
+                                  ? Image.network(
+                                      this.widget.book.image[0],
+                                      fit: BoxFit.contain,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: Image.asset(
+                                            "images/loading1.gif",
+                                            fit: BoxFit.contain,
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : Image.asset(
+                                      "images/nodata.png",
                                       fit: BoxFit.contain,
                                     ),
-                                  );
-                                },
-                              ),
                             )),
                       )
                     ],
@@ -181,7 +191,11 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
                                       child: Padding(
                                           padding: EdgeInsets.only(top: 15),
                                           child: Text(
-                                            this.widget.book.description,
+                                            this
+                                                .widget
+                                                .book
+                                                .description
+                                                .toString(),
                                             style: GoogleFonts.openSans(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
@@ -199,16 +213,31 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
                               Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      for (Location item in _listLocation)
-                                        LocationItem(
-                                          location: item,
+                                child: this._listLocation.length != 0
+                                    ? SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            for (Location item in _listLocation)
+                                              LocationItem(
+                                                location: item,
+                                              ),
+                                          ],
                                         ),
-                                    ],
-                                  ),
-                                ),
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          children: [
+                                            Image.asset("images/nodata.png",
+                                                width: 180, height: 150),
+                                            Text("No data",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: Colors
+                                                        .orangeAccent[400]))
+                                          ],
+                                        ),
+                                      ),
                               ),
                             ],
                             controller: _tabController,

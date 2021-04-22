@@ -14,7 +14,6 @@ class Tabbar_Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 35),
       child: TabBar(
         //labelPadding: EdgeInsets.all(0),
         //indicatorPadding: EdgeInsets.all(0),
@@ -39,7 +38,7 @@ class Tabbar_Header extends StatelessWidget {
               text: 'Rejected'),
           Tab(
               icon: Icon(Icons.check_box, color: Colors.green),
-              text: 'Confirm'),
+              text: 'Confirmed'),
         ],
         controller: _tabController,
       ),

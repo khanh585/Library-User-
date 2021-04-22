@@ -15,12 +15,13 @@ class NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 15, bottom: 0),
+        height: 80,
+        margin: EdgeInsets.only(top: 30, bottom: 0),
         padding: EdgeInsets.fromLTRB(20, 20, 20, 8),
         decoration: BoxDecoration(
             border: Border(
           bottom: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.white.withOpacity(0.5),
             width: 0.7,
           ),
         )),

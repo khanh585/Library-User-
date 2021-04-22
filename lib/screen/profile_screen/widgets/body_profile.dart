@@ -67,7 +67,7 @@ class BodyProfile extends StatelessWidget {
             2,
             ProfileItem(
               title: "Birthdate",
-              infor: this.tmpUser.doB,
+              infor: this.tmpUser.doB.substring(0, 10),
               color: Colors.black87,
             ),
           ),
@@ -75,7 +75,7 @@ class BodyProfile extends StatelessWidget {
             2,
             ProfileItem(
               title: "Created Time",
-              infor: this.tmpUser.createdTime,
+              infor: this.tmpUser.createdTime.substring(0, 10),
               color: Colors.black87,
             ),
           ),

@@ -13,6 +13,7 @@ import 'package:user_library/models/wishlist.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/feedback_list.dart';
 import 'package:user_library/screen/feed_back_screen/widgets/text_field_feedback.dart';
 import 'package:user_library/screen/book_detail_screen_2/widgets/location_item.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 import '../../constants.dart';
 
@@ -75,6 +76,20 @@ class _BookDetailState extends State<BookDetailScreen>
     wishListDAO.insertWishList(wish);
     wishListDAO.findWishListById(id);
 
+    AwesomeDialog(
+        context: context,
+        dialogType: DialogType.SUCCES,
+        animType: AnimType.BOTTOMSLIDE,
+        title: 'Success',
+        desc: 'Added in wishlist',
+        btnOkOnPress: () {
+          setState(() {
+            _inWishList = true;
+          });
+        },
+        btnOkColor: Colors.green)
+      ..show();
+
     setState(() {
       _inWishList = true;
     });
@@ -87,6 +102,21 @@ class _BookDetailState extends State<BookDetailScreen>
 
     wishListDAO.findWishListById(bookID).then((value) {
       wishListDAO.deleteWishLists(value);
+
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.WARNING,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Deleted',
+          desc: 'Deleted from wishlist',
+          btnOkOnPress: () {
+            setState(() {
+              _inWishList = value == null;
+            });
+          },
+          btnOkColor: Colors.orange[400])
+        ..show();
+
       setState(() {
         _inWishList = value == null;
       });
@@ -248,7 +278,7 @@ class _BookDetailState extends State<BookDetailScreen>
                                 Tab(
                                   text: 'Description',
                                 ),
-                                Tab(text: 'Location'),
+                                Tab(text: 'Locations'),
                                 Tab(text: 'Feedbacks'),
                               ],
                               controller: _tabController,
@@ -280,16 +310,31 @@ class _BookDetailState extends State<BookDetailScreen>
                               Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      for (Location item in _listLocation)
-                                        LocationItem(
-                                          location: item,
+                                child: this._listLocation.length != 0
+                                    ? SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            for (Location item in _listLocation)
+                                              LocationItem(
+                                                location: item,
+                                              ),
+                                          ],
                                         ),
-                                    ],
-                                  ),
-                                ),
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          children: [
+                                            Image.asset("images/nodata.png",
+                                                width: 180, height: 150),
+                                            Text("No data",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: Colors
+                                                        .orangeAccent[400]))
+                                          ],
+                                        ),
+                                      ),
                               ),
                               SingleChildScrollView(
                                 child: Container(

@@ -33,6 +33,34 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black, opacity: 0.7),
+          automaticallyImplyLeading: false,
+          toolbarHeight: 50,
+          leadingWidth: 25,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              size: 20,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
+          title: Column(
+            children: <Widget>[
+              Text(
+                'Drawers in detection',
+                style: TextStyle(
+                    color: Colors.blueGrey[900],
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+        ),
         body: StreamBuilder<DrawerDetectionState>(
             stream: drawer_detection_bloc.stateController.stream,
             initialData: drawer_detection_bloc.state,
@@ -51,16 +79,20 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                 );
               }
               if (snapshot.data.drawerDetections.length == 0) {
-                return Center(
-                  child: Column(
-                    children: [
-                      Image.asset("images/nodata.png", width: 100, height: 100),
-                      Text("No data",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.orangeAccent[400]))
-                    ],
+                return Container(
+                  padding: EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Image.asset("images/nodata.png",
+                            width: 180, height: 180),
+                        Text("No data",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.orangeAccent[400]))
+                      ],
+                    ),
                   ),
                 );
               }
@@ -71,13 +103,13 @@ class _DrawerDetectionScreenState extends State<DrawerDetectionScreen> {
                     Pilot_info(
                       name: this.widget.pilot,
                       bookshelf: this.widget.bookshelf,
-                      avatar: '',
+                      avatar: this.widget.avatar,
                     ),
                     Divider(
                       thickness: 2,
                     ),
                     Container(
-                      height: size.height - 150,
+                      height: size.height - 170,
                       child: ListView(
                         physics: BouncingScrollPhysics(),
                         shrinkWrap: true,

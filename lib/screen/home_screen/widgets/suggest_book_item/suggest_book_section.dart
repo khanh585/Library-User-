@@ -21,19 +21,25 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
   Widget build(BuildContext context) {
     if (this.widget.listSuggestBook == null) {
       return Container(
-        height: 280,
+        padding: EdgeInsets.only(top: 140),
         child: Center(
-          child: Image.asset(
-            "images/drone2.gif",
-            height: 120.0,
-            width: 120.0,
+          child: Column(
+            children: [
+              Image.asset(
+                "images/drone2.gif",
+                height: 180.0,
+                width: 260.0,
+              ),
+              Text(
+                "Loading",
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
+                    color: Colors.orangeAccent[400]),
+              ),
+            ],
           ),
         ),
-      );
-    }
-    if (this.widget.listSuggestBook.length == 0) {
-      return SizedBox(
-        height: 1,
       );
     }
     return Container(
@@ -62,38 +68,29 @@ class SuggestBookSectionState extends State<SuggestBookSection> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchScreen()),
-                          );
-                        },
-                        child: Text(
-                          "See All",
-                          style: TextStyle(fontSize: 13, color: Colors.black45),
-                        ),
-                      ),
-                    ),
-                  )
                 ],
               )),
-          Container(
-              height: 240,
-              alignment: Alignment.center,
-              child: ListView(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  for (Book book in this.widget.listSuggestBook)
-                    BookItemSuggestion(book: book)
-                ],
-              ))
+          this.widget.listSuggestBook.length != 0
+              ? Container(
+                  height: 240,
+                  alignment: Alignment.center,
+                  child: ListView(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      for (Book book in this.widget.listSuggestBook)
+                        BookItemSuggestion(book: book)
+                    ],
+                  ))
+              : Container(
+                  height: 240,
+                  alignment: Alignment.center,
+                  child: Center(
+                    child: Text(
+                      'Borrow to get suggest',
+                      style: TextStyle(color: Colors.black54, fontSize: 20),
+                    ),
+                  ))
         ],
       ),
     );

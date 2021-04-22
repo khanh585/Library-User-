@@ -9,7 +9,7 @@ class Pilot_info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 40),
+      margin: EdgeInsets.only(top: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -17,7 +17,18 @@ class Pilot_info extends StatelessWidget {
               ? Image.asset(
                   "images/dp.png",
                 )
-              : Image.network(this.avatar),
+              : Container(
+                  width: 60,
+                  height: 60,
+                  margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: CircleAvatar(
+                    radius: 90.0,
+                    backgroundImage: NetworkImage(
+                      "${this.avatar}",
+                    ),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

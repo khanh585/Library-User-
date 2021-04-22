@@ -144,10 +144,14 @@ class BorrowDetailItem extends StatelessWidget {
             ),
             // image
             Container(
+                width: 125,
                 padding: EdgeInsets.only(right: 15),
-                child: Image.network(
-                  item.image,
-                  fit: BoxFit.fitHeight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    item.image,
+                    fit: BoxFit.fill,
+                  ),
                 )),
           ],
         ));

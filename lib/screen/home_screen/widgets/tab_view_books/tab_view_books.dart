@@ -22,20 +22,13 @@ class TabViewBooksState extends State<TabViewBooks> {
   Widget build(BuildContext context) {
     if (this.widget.listNewestBook == null) {
       return Container(
-        height: 180,
-        child: Center(
-          child: Image.asset(
-            "images/drone2.gif",
-            height: 120.0,
-            width: 120.0,
-          ),
-        ),
+        height: 100,
       );
     }
     return Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height - 145,
-        padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 0),
+        // height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.only(top: 15, left: 25, right: 20, bottom: 100),
         margin: EdgeInsets.only(top: 5),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -104,9 +97,8 @@ class TabViewBooksState extends State<TabViewBooks> {
           ),
           this.widget.listNewestBook.length != 0
               ? Container(
-                  height: MediaQuery.of(context).size.height - 210,
                   decoration: BoxDecoration(color: Colors.white),
-                  child: ListView(
+                  child: Column(
                     children: [
                       for (Book book in this.widget.listNewestBook)
                         BookItemHorizontal(book: book)
