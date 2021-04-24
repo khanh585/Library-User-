@@ -6,7 +6,6 @@ import 'package:user_library/screen/borrow_detail_screen/borrow_detail_state.dar
 import 'package:user_library/screen/borrow_detail_screen/widgets/borrow_detail_card.dart';
 import 'package:user_library/screen/manage_borrow_screen/widgets/circle_profile.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/progress_circle_indicator.dart';
-import 'package:user_library/models/borrow_detail.dart';
 
 class BorrowDetailScreen extends StatefulWidget {
   final int customerId;

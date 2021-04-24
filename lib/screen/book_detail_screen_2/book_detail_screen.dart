@@ -182,13 +182,13 @@ class _BookDetailState extends State<BookDetailScreen>
                         alignment: Alignment.bottomCenter,
                         child: Container(
                             margin: EdgeInsets.only(bottom: 30, top: 10),
-                            width: 180,
+                            width: 140,
                             height: 250,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.network(
                                 this.widget.book.image[0],
-                                fit: BoxFit.contain,
+                                fit: BoxFit.fitHeight,
                                 loadingBuilder: (BuildContext context,
                                     Widget child,
                                     ImageChunkEvent loadingProgress) {
