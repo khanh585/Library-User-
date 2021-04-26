@@ -123,17 +123,22 @@ class CustomerDAO {
     }
   }
 
-  Future<String> updateToken(String id, TmpUser user) async {
-    String url = 'http://171.244.5.88:90/api/Customer?id=$id';
+  Future<String> updateUser(String id, TmpUser user) async {
+    String url = prefixUrl + '?id=$id';
     Map<String, String> headers = {"Content-type": "application/json"};
-    String body = json.encode(user);
-    var response = await http.put(url, headers: headers, body: body);
+    String body = json.encode(user.toJsonForCreate());
+    print(id);
 
-    if (response.statusCode == 200) {
-      String body = response.body;
-      return body;
-    } else {
-      return 'not OK';
+    print(body);
+    String rs = null;
+    try {
+      var response = await http.put(url, headers: headers, body: body);
+      rs = response.body;
+      if (response.statusCode == 200) {
+        rs = 'success';
+      }
+    } catch (e) {} finally {
+      return rs;
     }
   }
 }

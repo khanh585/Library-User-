@@ -55,7 +55,7 @@ class _WishListScreenState extends State<WishListScreen> {
       context,
       MaterialPageRoute(
           builder: (context) => Container(
-                padding: EdgeInsets.all(40),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 120),
                 color: Colors.white,
                 child: QrImage(
                   data: json.encode(msg),

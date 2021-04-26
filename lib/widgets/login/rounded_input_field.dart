@@ -11,6 +11,8 @@ class RoundedInputField extends StatelessWidget {
   final String errorRegex;
   final String errorMes;
   final bool isDup;
+  final int maxLength;
+  final int minLength;
   const RoundedInputField(
       {this.hintText,
       this.icon = Icons.person,
@@ -18,7 +20,9 @@ class RoundedInputField extends StatelessWidget {
       this.controller,
       this.errorRegex,
       this.errorMes,
-      this.isDup});
+      this.isDup,
+      this.maxLength,
+      this.minLength});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,24 @@ class RoundedInputField extends StatelessWidget {
           if (value == null || value.isEmpty) {
             return 'Required';
           } else {
+            if (minLength == null) {
+              if (value.trim().length == 0) {
+                return 'Required';
+              }
+            } else {
+              if (value.trim().length < minLength) {
+                return 'Min charaters is ${minLength}';
+              }
+            }
+            if (maxLength == null) {
+              if (value.trim().length > 250) {
+                return 'Max charaters is 250';
+              }
+            } else {
+              if (value.trim().length > maxLength) {
+                return 'Max charaters is ${maxLength}';
+              }
+            }
             if (errorRegex != null) {
               RegExp regExp = new RegExp(
                 errorRegex,

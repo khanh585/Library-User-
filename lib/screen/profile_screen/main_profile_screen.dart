@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/models/tmpUser.dart';
+import 'package:user_library/screen/update_profile_screen/updateprofile_screen.dart';
 import 'package:user_library/screen/welcome_screen/welcome_screen.dart';
 
 import 'package:user_library/widgets/animation/fade_side_up.dart';
@@ -13,8 +15,7 @@ import 'widgets/header_profile.dart';
 class MainProfileScreen extends StatefulWidget {
   final int customerId;
   final int roleId;
-  const MainProfileScreen({Key key, this.customerId, this.roleId})
-      : super(key: key);
+  const MainProfileScreen({this.customerId, this.roleId});
 
   @override
   _MainProfileScreenState createState() => _MainProfileScreenState();
@@ -22,8 +23,8 @@ class MainProfileScreen extends StatefulWidget {
 
 class _MainProfileScreenState extends State<MainProfileScreen> {
   final txtSearch = TextEditingController();
-
   final main_profile_bloc = MainProfileBloc();
+  TmpUser user = new TmpUser();
   @override
   void initState() {
     super.initState();
@@ -50,13 +51,13 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
         leadingWidth: 25,
         elevation: 0,
         title: Text(
-            "Profile",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-                letterSpacing: 1),
-          ),
+          "Profile",
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+              letterSpacing: 1),
+        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -76,7 +77,9 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                         width: MediaQuery.of(context).size.width,
                         child: ListView(
                           children: [
-                            SizedBox(height: 200),
+                            SizedBox(
+                              height: 200,
+                            ),
                             BodyProfile(
                               tmpUser: snapshot.data.mainProfile,
                               logout: _logout,

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/home_screen/home_screen.dart';
@@ -35,9 +34,8 @@ class MainLayoutState extends State<MainLayout> {
         .autoInitEnabled()
         .then((bool enabled) => print(enabled)));
     _firebaseMessaging.getToken().then((token) {
-      print(token);
       this.widget.user.deviceToken = token;
-      CustomerDAO().updateToken(this.widget.user.id, this.widget.user);
+      CustomerDAO().updateUser(this.widget.user.id, this.widget.user);
     });
   }
 

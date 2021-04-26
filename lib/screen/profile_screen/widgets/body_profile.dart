@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/borrow_detail_screen/borrow_detail_screen.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
+import 'package:user_library/screen/update_profile_screen/updateprofile_screen.dart';
 import 'package:user_library/widgets/animation/fade_side_up.dart';
 
 class BodyProfile extends StatelessWidget {
@@ -79,6 +79,57 @@ class BodyProfile extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
+          this.tmpUser.roleId == 2
+              ? FadeSideUp(
+                  2,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UpdateProfileScreen(
+                            user: this.tmpUser,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 40,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 8,
+                                  child: Text(
+                                    "Update profile",
+                                    style: TextStyle(
+                                        color: Colors.blueGrey,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                              Expanded(
+                                flex: 2,
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.blueGrey,
+                                  size: 22,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                          thickness: 0.2,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
           this.tmpUser.roleId == 2
               ? FadeSideUp(
                   2,

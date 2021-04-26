@@ -2,11 +2,7 @@ import 'dart:async';
 
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_library/dao/CustomerDAO.dart';
-import 'package:user_library/dao/StaffDAO.dart';
 import 'package:user_library/database/database.dart';
-import 'package:user_library/models/customer.dart';
-import 'package:user_library/models/staff.dart';
 import 'package:user_library/models/tmpUser.dart';
 
 import 'main_profile_event.dart';
@@ -25,20 +21,6 @@ class MainProfileBloc {
   MainProfileBloc() {
     eventController.stream.listen((event) async {
       if (event is FetchMainProfileEvent) {
-        // TmpUser result;
-        // int customerId = event.customerId;
-        // int roleId = event.roleId;
-        // if (roleId == 2) {
-        //   result = await CustomerDAO().fetchCustomer(customerId);
-        //   state = MainProfileState(
-        //     mainProfile: result,
-        //   );
-        // } else if (roleId == 3) {
-        //   result = await StaffDAO().fetchStaff(customerId);
-        //   state = MainProfileState(
-        //     mainProfile: result,
-        //   );
-        // }
       } else if (event is GetProfileFromToken) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String token = (prefs.getString('PAPV_Token') ?? '');

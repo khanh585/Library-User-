@@ -1,10 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/login_screen/widgets/rounded_button.dart';
 import 'package:user_library/screen/login_screen_2/login_screen.dart';
-import 'package:user_library/screen/signup_screen/widgets/background.dart';
 import 'package:user_library/widgets/login/already_have_an_account_acheck.dart';
 import 'package:user_library/widgets/login/rounded_input_field.dart';
 import 'package:user_library/widgets/login/rounded_password_field.dart';
@@ -12,38 +12,32 @@ import 'package:user_library/widgets/login/text_field_container.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Body extends StatefulWidget {
+  final TmpUser user;
+
+  const Body({this.user});
   @override
   BodyState createState() => BodyState();
 }
 
 class BodyState extends State<Body> {
   String dropdownValue = 'Male';
-  final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final dobController = TextEditingController();
-  final usernameController = TextEditingController();
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool emailDup = false;
-  bool usernameDup = false;
   bool isWait = false;
   DateTime _date = DateTime.now();
 
-  void _checkDuplicate() async {
-    String username = usernameController.text;
-    String email = emailController.text;
-    await CustomerDAO().fetchCustomerByName(username.trim()).then((value) {
-      setState(() {
-        usernameDup = value.isNotEmpty;
-      });
-    });
-    await CustomerDAO().fetchCustomerByEmail(email.trim()).then((value) {
-      setState(() {
-        emailDup = value.isNotEmpty;
-      });
-    });
+  void initState() {
+    super.initState();
+    nameController.text = this.widget.user.name;
+    phoneController.text = this.widget.user.phone;
+    addressController.text = this.widget.user.address;
+    dobController.text = this.widget.user.doB.substring(0, 10);
+    passwordController.text = this.widget.user.password;
+    dropdownValue = this.widget.user.gender;
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -70,11 +64,10 @@ class BodyState extends State<Body> {
     }
   }
 
-  void _creatPatron() {
+  Future<void> _updatePatron() async {
     setState(() {
       isWait = true;
     });
-    _checkDuplicate();
 
     if (!this._formKey.currentState.validate()) {
       setState(() {
@@ -82,12 +75,7 @@ class BodyState extends State<Body> {
       });
       return;
     }
-    if (emailDup || usernameDup) {
-      setState(() {
-        isWait = false;
-      });
-      return;
-    }
+
     String avatar = "";
     if (dropdownValue == "Male") {
       avatar =
@@ -100,29 +88,30 @@ class BodyState extends State<Body> {
           "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/avatar%2F1.png?alt=media&token=a2d4166a-f7c4-4c61-88f7-7683f284e886";
     }
     TmpUser user = new TmpUser(
-        address: addressController.text,
-        createdTime: DateTime.now().toString(),
-        deviceToken: "",
-        doB: dobController.text,
-        email: emailController.text,
-        gender: dropdownValue,
-        image: avatar,
-        name: nameController.text,
-        password: passwordController.text,
-        phone: phoneController.text,
-        roleId: 2,
-        username: usernameController.text);
-    user.deviceToken = '';
+      username: this.widget.user.username,
+      email: this.widget.user.email,
+      address: addressController.text,
+      createdTime: DateTime.now().toString(),
+      deviceToken: "",
+      doB: dobController.text,
+      gender: dropdownValue,
+      image: avatar,
+      name: nameController.text,
+      password: passwordController.text,
+      phone: phoneController.text,
+      roleId: 2,
+    );
 
+    user.deviceToken = await FirebaseMessaging().getToken();
     CustomerDAO dao = new CustomerDAO();
-    dao.addCustomer(user).then((value) {
+    dao.updateUser(user.id, user).then((value) {
       if (value != null) {
         AwesomeDialog(
             context: context,
             dialogType: DialogType.SUCCES,
             animType: AnimType.BOTTOMSLIDE,
             title: 'Success',
-            desc: 'Sign up success!\n Login now!',
+            desc: 'Updated!',
             btnOkOnPress: () {
               setState(() {
                 isWait = false;
@@ -140,7 +129,7 @@ class BodyState extends State<Body> {
             dialogType: DialogType.ERROR,
             animType: AnimType.BOTTOMSLIDE,
             title: 'Fail',
-            desc: 'Sign up Fail!',
+            desc: 'Update fail!',
             btnOkOnPress: () {
               setState(() {
                 isWait = false;
@@ -155,25 +144,26 @@ class BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: SingleChildScrollView(
-        child: Form(
-          key: this._formKey,
+    return SingleChildScrollView(
+      child: Form(
+        key: this._formKey,
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: size.height * 0.05),
-              SvgPicture.asset(
-                "images/signup.svg",
-                height: size.height * 0.15,
-              ),
-              RoundedInputField(
-                hintText: "Email",
-                controller: emailController,
-                errorRegex:
-                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-                errorMes: "Invalid",
-                isDup: emailDup,
+              SizedBox(height: size.height * 0.03),
+              Container(
+                width: 90,
+                height: 90,
+                margin: EdgeInsets.only(bottom: 15),
+                child: CircleAvatar(
+                  radius: 90.0,
+                  backgroundImage: NetworkImage(
+                    "${this.widget.user.image}",
+                  ),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
               RoundedInputField(
                 hintText: "Name",
@@ -240,14 +230,6 @@ class BodyState extends State<Body> {
                   ],
                 ),
               ),
-              RoundedInputField(
-                hintText: "Username",
-                maxLength: 20,
-                minLength: 8,
-                icon: Icons.date_range,
-                controller: usernameController,
-                isDup: usernameDup,
-              ),
               RoundedPasswordField(
                 controller: passwordController,
               ),
@@ -258,26 +240,12 @@ class BodyState extends State<Body> {
                       width: 250.0,
                     )
                   : RoundedButton(
-                      text: "SIGNUP",
+                      text: "UPDATE",
                       press: () {
-                        _creatPatron();
+                        _updatePatron();
                       },
                     ),
-              SizedBox(height: size.height * 0.03),
-              AlreadyHaveAnAccountCheck(
-                login: false,
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LoginScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: size.height * 0.4),
+              SizedBox(height: size.height * 0.5),
             ],
           ),
         ),

@@ -114,27 +114,23 @@ class _SearchScreenState extends State<SearchScreen> {
               } else {
                 return Container(
                   height: MediaQuery.of(context).size.height,
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: Image.asset(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
                           "images/drone2.gif",
-                          height: 250.0,
+                          height: 210.0,
                           width: 250.0,
                         ),
-                      ),
-                      Positioned(
-                        child: Text(
+                        Text(
                           "Loading",
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 20,
+                              fontSize: 28,
                               color: Colors.orangeAccent[400]),
-                        ),
-                        top: 510,
-                        left: 172,
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               }

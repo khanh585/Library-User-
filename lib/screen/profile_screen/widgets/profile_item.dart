@@ -17,7 +17,11 @@ class ProfileItem extends StatelessWidget {
           Text(
             this.title,
             style: TextStyle(
-                color: this.color, fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.5,),
+              color: this.color,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.5,
+            ),
           ),
           SizedBox(
             height: 10,
@@ -25,15 +29,14 @@ class ProfileItem extends StatelessWidget {
           Text(
             this.infor,
             style: TextStyle(
-              color: this.color,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.5,
-              height: 1.2
-            ),
+                color: this.color,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.5,
+                height: 1.2),
           ),
           SizedBox(
-            height: 5,
+            height: 2,
           ),
           Divider(
             color: Colors.black,

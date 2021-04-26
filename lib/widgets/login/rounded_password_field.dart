@@ -33,6 +33,13 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
           if (value == null || value.isEmpty) {
             return 'Required';
           }
+          if (value.trim().length == 0) {
+            return 'Required';
+          }
+          if (value.trim().length < 6 || value.trim().length > 36) {
+            return 'Must have 6-36 characters';
+          }
+          return null;
         },
         decoration: InputDecoration(
           hintText: "Password",

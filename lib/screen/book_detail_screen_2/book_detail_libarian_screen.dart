@@ -75,7 +75,7 @@ class _BookDetailState extends State<BookDetailLibrarianScreen>
                         alignment: Alignment.bottomCenter,
                         child: Container(
                             margin: EdgeInsets.only(bottom: 30, top: 10),
-                            width: 140,
+                            width: 180,
                             height: 250,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),

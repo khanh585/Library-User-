@@ -33,7 +33,7 @@ class Book {
       pageNumber: json['pageNumber'],
       fee: json['fee'],
       image: Image().formatImage(json['image']),
-      rating: json['ratingAverage'],
+      rating: json['ratingAverage'] == 'NaN' ? 0 : json['ratingAverage'],
       categories: Category().fromListJson(json['category']),
     );
   }
