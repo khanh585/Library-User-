@@ -6,17 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:user_library/models/messagebarcode.dart';
-import 'package:user_library/models/messagereturn.dart';
 import 'package:vibration/vibration.dart';
 import 'package:soundpool/soundpool.dart';
-import 'dart:io';
 
 class Util {
   final connection =
       HubConnectionBuilder().withUrl('http://171.244.5.88:90/message').build();
   bool hasConnected = false;
   bool inStream = false;
-  Soundpool pool = Soundpool(streamType: StreamType.notification);
+
   var substream;
 
   // Future<String> scanQR() async {
@@ -182,6 +180,7 @@ class Util {
   // }
 
   Future<bool> sendRequest(String dispatch) async {
+    Soundpool pool = Soundpool(streamType: StreamType.notification);
     try {
       final scanner = FlutterBarcodeScanner.getBarcodeStreamReceiver(
           "#ff6666", "Cancel", false, ScanMode.DEFAULT);
@@ -203,6 +202,7 @@ class Util {
             } else {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               String userid = (prefs.getString('PAPV_UserID') ?? '');
+
               String str = code.toString();
               if (str.toLowerCase().contains('wishlist')) {
                 var msg = Message.fromJson(jsonDecode(code));
@@ -222,7 +222,11 @@ class Util {
                       staffId: int.parse(userid));
                   connection.invoke('SendMessageToBorrow',
                       args: <Object>[msg]).whenComplete(() async {
-                    await pool.play(soundId);
+                    if (await Vibration.hasVibrator()) {
+                      Vibration.vibrate(duration: 400);
+                    }
+                    pool.play(soundId);
+
                     await scanner.drain();
                   });
                 } else {
@@ -232,7 +236,10 @@ class Util {
                       staffId: int.parse(userid));
                   connection.invoke('SendMessageToReturnBook',
                       args: <Object>[msg]).whenComplete(() async {
-                    await pool.play(soundId);
+                    if (await Vibration.hasVibrator()) {
+                      Vibration.vibrate(duration: 400);
+                    }
+                    pool.play(soundId);
                     await scanner.drain();
                   });
                 }

@@ -1,4 +1,5 @@
 import 'package:user_library/models/schedule.dart';
+import 'package:user_library/models/tmpUser.dart';
 
 abstract class MainProfileEvent {}
 
@@ -13,5 +14,6 @@ class GetProfileFromToken extends MainProfileEvent {
 }
 
 class Logout extends MainProfileEvent {
-  Logout();
+  final TmpUser user;
+  Logout(this.user);
 }

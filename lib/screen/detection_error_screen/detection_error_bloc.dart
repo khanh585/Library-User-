@@ -2,15 +2,11 @@ import 'dart:async';
 
 import 'package:user_library/bloc/bloc.dart';
 import 'package:user_library/dao/DetectionErrorDAO.dart';
-import 'package:user_library/dao/DrawerDetectionDAO.dart';
 import 'package:user_library/dao/UndefinedErrorDAO.dart';
 import 'package:user_library/models/detection_error.dart';
 import 'package:user_library/models/undefined_error.dart';
 import 'package:user_library/screen/detection_error_screen/detection_error_event.dart';
 import 'package:user_library/screen/detection_error_screen/detection_error_state.dart';
-import 'package:user_library/screen/drawer_detection_screen/drawer_detection_event.dart';
-import 'package:user_library/screen/drawer_detection_screen/drawer_detection_state.dart';
-import 'package:user_library/models/drawer_detection.dart';
 
 class DetectionErrorBloc implements Bloc {
   var state = DetectionErrorState(

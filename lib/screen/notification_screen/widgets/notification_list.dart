@@ -14,9 +14,7 @@ class NotificationList extends StatelessWidget {
       children: [
         for (UserNotification noti in this.data)
           NotificationItem(
-            time: noti.time.substring(0, 10),
-            message: noti.message,
-            image: noti.image,
+            noti: noti,
           )
       ],
     );

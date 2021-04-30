@@ -21,7 +21,6 @@ class BookDAO {
         '&Author=${author}' +
         '&PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}';
-    print(url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
@@ -102,7 +101,6 @@ class BookDAO {
         '?Name=${name}' +
         '&PageSize=${pageSize}' +
         '&PageNumber=${pageNumber}';
-    print(url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);

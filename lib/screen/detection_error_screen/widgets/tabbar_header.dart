@@ -29,7 +29,7 @@ class Tabbar_Header extends StatelessWidget {
         tabs: [
           Tab(
               icon: Icon(Icons.error_sharp, color: Colors.red[400]),
-              text: 'Error'),
+              text: 'Issue'),
           Tab(
               icon: Icon(
                 Icons.cancel,

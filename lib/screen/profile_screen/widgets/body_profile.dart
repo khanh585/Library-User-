@@ -23,8 +23,12 @@ class BodyProfile extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width - 6,
       height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.only(top: 20, left: 25, right: 20),
-      margin: EdgeInsets.only(top: 5, left: 3, right: 3),
+      padding: EdgeInsets.only(
+        top: 20,
+        left: 25,
+        right: 20,
+      ),
+      margin: EdgeInsets.only(top: 5, left: 3, right: 3, bottom: 50),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -185,7 +189,7 @@ class BodyProfile extends StatelessWidget {
             2,
             GestureDetector(
               onTap: () {
-                this.logout();
+                this.logout(this.tmpUser);
               },
               child: Column(
                 children: [

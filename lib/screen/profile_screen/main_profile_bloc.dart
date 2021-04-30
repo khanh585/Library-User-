@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/database/database.dart';
 import 'package:user_library/models/tmpUser.dart';
 
@@ -31,14 +32,20 @@ class MainProfileBloc {
         }
       } else if (event is Logout) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        //xoa token
         prefs.setInt("PAPV_RoleID", -1);
         prefs.setString("PAPV_UserID", '');
         prefs.setString("PAPV_Token", '');
-
+        // xoa wishlist
         final database =
             await $FloorAppDatabase.databaseBuilder('app_database.db').build();
         final wishlistDao = database.wishListDao;
         wishlistDao.clearTable();
+        //xoa token tren DB
+        TmpUser user = event.user;
+        user.deviceToken = "";
+        print(user.name);
+        CustomerDAO().updateUser(user.id, user);
       }
       stateController.sink.add(state);
     });

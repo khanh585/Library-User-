@@ -10,14 +10,13 @@ class DetectionDAO {
 
   Future<List<Detection>> fetchDetection(String time) async {
     List<Detection> list = new List<Detection>();
-    String url =
-        prefixUrl + '?Time=${time}';
+    String url = prefixUrl + '?Time=${time}';
     var response = await http.get(url);
-
+    print(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       List detections = json['data'];
-      detections.forEach((detection){
+      detections.forEach((detection) {
         if (detection != null) {
           Detection dto = Detection.fromJson(detection);
           list.add(dto);

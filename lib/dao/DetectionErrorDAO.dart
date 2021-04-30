@@ -2,7 +2,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:user_library/config.dart';
 import 'package:user_library/models/detection_error.dart';
-import 'package:user_library/models/drawer_detection.dart';
 
 class DetectionErrorDAO {
   final String prefixUrl = API_CONFIGURE['apiPrefix'] + 'DetectionError';
@@ -20,6 +19,7 @@ class DetectionErrorDAO {
     if (isConfirm != null) {
       url = url + '&IsConfirm=${isConfirm}';
     }
+
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

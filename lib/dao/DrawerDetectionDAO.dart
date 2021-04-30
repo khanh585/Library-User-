@@ -10,13 +10,13 @@ class DrawerDetectionDAO {
 
   Future<List<DrawerDetection>> fetchDrawerDetection(int detectionId) async {
     List<DrawerDetection> list = new List<DrawerDetection>();
-    String url =
-        prefixUrl + '?DetectionId=${detectionId}';
+    String url = prefixUrl + '?DetectionId=${detectionId}';
     var response = await http.get(url);
+    print(url);
 
     if (response.statusCode == 200) {
       List drawerDetections = jsonDecode(response.body);
-      drawerDetections.forEach((drawerDetection){
+      drawerDetections.forEach((drawerDetection) {
         if (drawerDetection != null) {
           DrawerDetection dto = DrawerDetection.fromJson(drawerDetection);
           list.add(dto);

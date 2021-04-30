@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:user_library/models/notification.dart';
 
 class NotifyPopup extends StatelessWidget {
   const NotifyPopup({
     @required this.context,
-    this.time,
-    this.content,
+    this.noti,
   });
 
   final BuildContext context;
-  final String time;
-  final String content;
+  final UserNotification noti;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +44,13 @@ class NotifyPopup extends StatelessWidget {
           children: [
             Center(
               child: SizedBox(
-                child: Image.asset(
-                  'images/img_newbook2.png',
+                child: Image.network(
+                  this.noti.image,
                   fit: BoxFit.fitHeight,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace stackTrace) {
+                    return Image.asset('images/img_newbook2.png');
+                  },
                 ),
                 height: 140,
               ),
@@ -56,9 +59,20 @@ class NotifyPopup extends StatelessWidget {
               height: 20,
               thickness: 2,
             ),
-            Text(
-              this.time,
-              style: TextStyle(color: Colors.black45, fontSize: 14),
+            Row(
+              children: [
+                Text(
+                  "Return day: ",
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  this.noti.returnDate.substring(0, 10),
+                  style: TextStyle(color: Colors.black45, fontSize: 16),
+                ),
+              ],
             ),
             SizedBox(
               height: 10,
@@ -67,7 +81,7 @@ class NotifyPopup extends StatelessWidget {
               height: 60,
               child: SingleChildScrollView(
                 child: Text(
-                  this.content,
+                  "You have borrowed a book:\n\" ${this.noti.bookGroupName} \".\n\nPlease don't forget to return the book and share your feeling about the book in feedback! ",
                   style: TextStyle(color: Colors.black87, fontSize: 16),
                 ),
               ),

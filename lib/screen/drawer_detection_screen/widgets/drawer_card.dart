@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_library/models/borrow_detail.dart';
-import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/drawer_detection.dart';
-import 'package:user_library/models/return_detail.dart';
-import 'package:user_library/screen/borrow_detail_screen/widgets/progress_line_indicator.dart';
 import 'package:user_library/screen/detection_error_screen/detection_error_screen.dart';
 
 class DrawerCard extends StatelessWidget {
@@ -77,7 +73,7 @@ class DrawerCard extends StatelessWidget {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Column(
                                     children: [
@@ -106,33 +102,33 @@ class DrawerCard extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Books',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 18,
-                                                color: Colors.green),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        drawerDetection.bookCount.toString(),
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 25,
-                                            color: Colors.green),
-                                      ),
-                                    ],
-                                  ),
+                                  // Column(
+                                  //   children: [
+                                  //     Row(
+                                  //       children: [
+                                  //         Text(
+                                  //           'Books',
+                                  //           overflow: TextOverflow.ellipsis,
+                                  //           style: TextStyle(
+                                  //               fontWeight: FontWeight.w500,
+                                  //               fontSize: 18,
+                                  //               color: Colors.green),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //     SizedBox(
+                                  //       height: 5,
+                                  //     ),
+                                  //     Text(
+                                  //       drawerDetection.bookCount.toString(),
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.w500,
+                                  //           fontSize: 25,
+                                  //           color: Colors.green),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   Column(
                                     children: [
                                       Row(

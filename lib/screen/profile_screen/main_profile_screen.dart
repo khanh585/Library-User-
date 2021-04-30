@@ -24,15 +24,15 @@ class MainProfileScreen extends StatefulWidget {
 class _MainProfileScreenState extends State<MainProfileScreen> {
   final txtSearch = TextEditingController();
   final main_profile_bloc = MainProfileBloc();
-  TmpUser user = new TmpUser();
+  // TmpUser user = new TmpUser();
   @override
   void initState() {
     super.initState();
     main_profile_bloc.eventController.sink.add(GetProfileFromToken());
   }
 
-  Future<void> _logout() async {
-    await main_profile_bloc.eventController.sink.add(Logout());
+  Future<void> _logout(TmpUser user) async {
+    await main_profile_bloc.eventController.sink.add(Logout(user));
     Navigator.pushReplacement(
         context,
         new MaterialPageRoute(

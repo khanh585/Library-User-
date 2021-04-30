@@ -1,22 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:readmore/readmore.dart';
+import 'package:user_library/models/notification.dart';
 
 import 'notify_popup.dart';
 
 class NotificationItem extends StatefulWidget {
-  final message;
-  final image;
-  final time;
-  final createdDate;
-  final bookGroupName;
+  final UserNotification noti;
 
-  const NotificationItem(
-      {this.message,
-      this.image,
-      this.time,
-      this.createdDate,
-      this.bookGroupName});
+  const NotificationItem({this.noti});
 
   @override
   NotificationItemState createState() => NotificationItemState();
@@ -61,8 +52,7 @@ class NotificationItemState extends State<NotificationItem> {
           barrierDismissible: false,
           builder: (_) => NotifyPopup(
             context: context,
-            time: this.widget.time,
-            content: this.widget.message,
+            noti: this.widget.noti,
           ),
         );
       },
@@ -82,7 +72,7 @@ class NotificationItemState extends State<NotificationItem> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          this.widget.time,
+                          this.widget.noti.createdDate,
                           style: TextStyle(color: Colors.black45, fontSize: 16),
                         ),
                         SizedBox(
@@ -100,7 +90,7 @@ class NotificationItemState extends State<NotificationItem> {
                         Container(
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
-                            this.widget.message,
+                            "The book ${this.widget.noti.message} need to return!",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style:

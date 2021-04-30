@@ -137,7 +137,6 @@ class _DetectionScreenState extends State<DetectionScreen> {
                       child: ListView(
                           children: List.generate(
                               snapshot.data.detections.length, (index) {
-                                print(snapshot.data.detections[index].avatar + "Ádasdasdas");
                         return TransactionItem(
                           size: size,
                           item: snapshot.data.detections[index],

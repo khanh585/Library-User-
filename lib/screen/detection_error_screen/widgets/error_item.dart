@@ -21,6 +21,8 @@ class ErrorItem extends StatefulWidget {
 class _ErrorItemState extends State<ErrorItem> {
   bool _switch = true;
   bool _showButton = true;
+  String url = "";
+  int count = 0;
 
   bool _checkShowButton() {
     if (this.widget.item != null) {
@@ -30,11 +32,21 @@ class _ErrorItemState extends State<ErrorItem> {
     }
   }
 
+  Widget _refreshImage() {
+    if (count >= 0) {
+      this.url = this.widget.item.image[count];
+      this.count--;
+    }
+    return Image.network(this.url);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-
     _showButton = _checkShowButton();
+    setState(() {
+      count = this.widget.item.image.length - 1;
+    });
     super.initState();
   }
 
@@ -102,6 +114,7 @@ class _ErrorItemState extends State<ErrorItem> {
                               margin: EdgeInsets.symmetric(vertical: 3),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.menu_book_outlined,
@@ -111,14 +124,16 @@ class _ErrorItemState extends State<ErrorItem> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
-                                    this.widget.item.bookName,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
+                                  Expanded(
+                                    child: Text(
+                                      this.widget.item.bookName,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -168,7 +183,7 @@ class _ErrorItemState extends State<ErrorItem> {
                           ? this.widget.item.image != null
                               ? this.widget.item.image.length != 0
                                   ? Image.network(
-                                      this.widget.item.image[0],
+                                      this.widget.item.image[count],
                                       fit: BoxFit.fitHeight,
                                     )
                                   : Image.asset(

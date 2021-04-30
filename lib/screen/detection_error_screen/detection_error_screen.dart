@@ -5,7 +5,6 @@ import 'package:user_library/screen/detection_error_screen/detection_error_bloc.
 import 'package:user_library/screen/detection_error_screen/detection_error_event.dart';
 import 'package:user_library/screen/detection_error_screen/widgets/error_item.dart';
 import 'package:user_library/screen/detection_error_screen/widgets/tabbar_header.dart';
-import 'package:user_library/screen/detection_error_screen/widgets/undefine_item.dart';
 
 import 'detection_error_state.dart';
 
@@ -53,21 +52,25 @@ class _DetectionErrorScreenState extends State<DetectionErrorScreen>
       List<UndefinedError> listUndefine, Size size) {
     List<Widget> li = new List();
     listDetect.forEach((element) {
-      li.add(ErrorItem(
-        item: element,
-        size: size,
-        confirmError: _confirmError,
-        rejectedError: _rejectError,
-      ));
+      if (element.typeError != 6) {
+        li.add(ErrorItem(
+          item: element,
+          size: size,
+          confirmError: _confirmError,
+          rejectedError: _rejectError,
+        ));
+      }
     });
 
     listUndefine.forEach((element) {
-      li.add(ErrorItem(
-        und: element,
-        size: size,
-        confirmError: _confirmError,
-        rejectedError: _rejectError,
-      ));
+      if (element.typeError != 6) {
+        li.add(ErrorItem(
+          und: element,
+          size: size,
+          confirmError: _confirmError,
+          rejectedError: _rejectError,
+        ));
+      }
     });
 
     Widget rs = ListView(
