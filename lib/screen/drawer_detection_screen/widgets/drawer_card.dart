@@ -134,7 +134,7 @@ class DrawerCard extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            'Error',
+                                            'Issues',
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,

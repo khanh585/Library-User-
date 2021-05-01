@@ -30,10 +30,7 @@ class BorrowDetailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      this.borrowDetail != null
-                          ? 'Current borrow books: ' +
-                              this.borrowDetail.length.toString()
-                          : 'Current borrow books: 0',
+                      'Current borrow books: ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
