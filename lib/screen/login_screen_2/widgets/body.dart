@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:user_library/dao/TokenDAO.dart';
@@ -22,6 +25,49 @@ class _BodyState extends State<Body> {
   bool isLoading = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<void> _login() async {
+    setState(() {
+      isLoading = true;
+    });
+    username = usernameController.text;
+    password = passwordController.text;
+
+    TokenDAO dao = new TokenDAO();
+    var value = await dao.loginWithJWT(username, password);
+    if (value != null) {
+      if (value.roleId.toString() == "2") {
+        Navigator.pushReplacement(
+          context,
+          PageTransition(
+              type: PageTransitionType.fade, child: MainLayout(user: value)),
+        );
+      } else if (value.roleId.toString() == "3") {
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: LibrarianHomeScreen(user: value)));
+      }
+    } else if (value == null) {
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Error',
+          desc: 'Wrong username or password!!!',
+          btnOkOnPress: () {
+            setState(() {
+              isLoading = false;
+            });
+          },
+          btnOkColor: Colors.red)
+        ..show();
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,45 +93,8 @@ class _BodyState extends State<Body> {
             !isLoading
                 ? RoundedButton(
                     text: "LOGIN",
-                    press: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      username = usernameController.text;
-                      password = passwordController.text;
-                      TokenDAO dao = new TokenDAO();
-                      String role;
-                      var value = await dao.loginWithJWT(username, password);
-                      if (value != null) {
-                        if (value.roleId.toString() == "2") {
-                          Navigator.pushReplacement(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.fade,
-                                child: MainLayout(user: value)),
-                          );
-                        } else if (value.roleId.toString() == "3") {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.fade,
-                                  child: LibrarianHomeScreen(user: value)));
-                        }
-                      } else if (value == null) {
-                        AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.ERROR,
-                            animType: AnimType.BOTTOMSLIDE,
-                            title: 'Error',
-                            desc: 'Wrong username or password!!!',
-                            btnOkOnPress: () {
-                              setState(() {
-                                isLoading = false;
-                              });
-                            },
-                            btnOkColor: Colors.red)
-                          ..show();
-                      }
+                    press: () {
+                      _login();
                     },
                   )
                 : Image.asset(

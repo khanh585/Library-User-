@@ -4,8 +4,9 @@ import 'package:user_library/screen/update_profile_screen/widgets/body.dart';
 
 class UpdateProfileScreen extends StatelessWidget {
   final TmpUser user;
+  final Function refresh;
 
-  const UpdateProfileScreen({this.user});
+  const UpdateProfileScreen({this.user, this.refresh});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,10 @@ class UpdateProfileScreen extends StatelessWidget {
         ),
       ),
       resizeToAvoidBottomPadding: false,
-      body: Body(user: this.user),
+      body: Body(
+        user: this.user,
+        refresh: this.refresh,
+      ),
     );
   }
 }

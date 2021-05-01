@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
 import 'package:user_library/models/notification.dart';
 import 'package:user_library/models/tmpUser.dart';
@@ -28,8 +29,11 @@ class MainLayoutState extends State<MainLayout> {
   }
 
   void _firebaseTriger(BuildContext context) async {
-    _firebaseMessaging.getToken().then((token) {
+    _firebaseMessaging.getToken().then((token) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      this.widget.user.password = prefs.getString('PAPV_Password');
       this.widget.user.deviceToken = token;
+
       CustomerDAO().updateUser(this.widget.user.id, this.widget.user);
     });
     _firebaseMessaging.configure(

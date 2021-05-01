@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/borrow_detail_screen/borrow_detail_screen.dart';
 import 'package:user_library/screen/profile_screen/widgets/profile_item.dart';
@@ -11,15 +10,15 @@ import 'package:user_library/widgets/animation/fade_side_up.dart';
 class BodyProfile extends StatelessWidget {
   final TmpUser tmpUser;
   final Function logout;
+  final Function refresh;
   BodyProfile({
     Key key,
     this.tmpUser,
     this.logout,
+    this.refresh,
   });
   @override
   Widget build(BuildContext context) {
-    DateFormat formatter = DateFormat('yyyy-MM-dd');
-
     return Container(
       width: MediaQuery.of(context).size.width - 6,
       height: MediaQuery.of(context).size.height,
@@ -75,14 +74,6 @@ class BodyProfile extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-          FadeSideUp(
-            2,
-            ProfileItem(
-              title: "Created Time",
-              infor: this.tmpUser.createdTime.substring(0, 10),
-              color: Colors.black87,
-            ),
-          ),
           this.tmpUser.roleId == 2
               ? FadeSideUp(
                   2,
@@ -93,6 +84,7 @@ class BodyProfile extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => UpdateProfileScreen(
                             user: this.tmpUser,
+                            refresh: this.refresh,
                           ),
                         ),
                       );

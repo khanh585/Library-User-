@@ -31,21 +31,29 @@ class MainProfileBloc {
           state.mainProfile = tmpUser;
         }
       } else if (event is Logout) {
+        //xoa token tren DB
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        String token = (prefs.getString('PAPV_Token') ?? '');
+        String pass = prefs.getString('PAPV_Password');
+        if (token != '') {
+          Map<String, dynamic> payload = Jwt.parseJwt(token);
+          TmpUser user = TmpUser.fromJson(payload);
+          user.deviceToken = "";
+          user.password = pass;
+          print('bloc' + user.password);
+          await CustomerDAO().updateUser(user.id, user);
+        }
+
         //xoa token
         prefs.setInt("PAPV_RoleID", -1);
         prefs.setString("PAPV_UserID", '');
         prefs.setString("PAPV_Token", '');
+        prefs.setString("PAPV_Password", '');
         // xoa wishlist
         final database =
             await $FloorAppDatabase.databaseBuilder('app_database.db').build();
         final wishlistDao = database.wishListDao;
         wishlistDao.clearTable();
-        //xoa token tren DB
-        TmpUser user = event.user;
-        user.deviceToken = "";
-        print(user.name);
-        CustomerDAO().updateUser(user.id, user);
       }
       stateController.sink.add(state);
     });

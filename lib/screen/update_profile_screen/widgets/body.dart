@@ -1,11 +1,12 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
+import 'package:user_library/dao/TokenDAO.dart';
 import 'package:user_library/models/tmpUser.dart';
 import 'package:user_library/screen/login_screen/widgets/rounded_button.dart';
-import 'package:user_library/screen/login_screen_2/login_screen.dart';
-import 'package:user_library/widgets/login/already_have_an_account_acheck.dart';
 import 'package:user_library/widgets/login/rounded_input_field.dart';
 import 'package:user_library/widgets/login/rounded_password_field.dart';
 import 'package:user_library/widgets/login/text_field_container.dart';
@@ -13,8 +14,9 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Body extends StatefulWidget {
   final TmpUser user;
+  final Function refresh;
 
-  const Body({this.user});
+  const Body({this.user, this.refresh});
   @override
   BodyState createState() => BodyState();
 }
@@ -32,12 +34,20 @@ class BodyState extends State<Body> {
 
   void initState() {
     super.initState();
+
     nameController.text = this.widget.user.name;
     phoneController.text = this.widget.user.phone;
     addressController.text = this.widget.user.address;
     dobController.text = this.widget.user.doB.substring(0, 10);
-    passwordController.text = this.widget.user.password;
+
     dropdownValue = this.widget.user.gender;
+    _viewPass();
+  }
+
+  Future<void> _viewPass() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    passwordController.text = prefs.getString('PAPV_Password');
+    print(prefs.getString('PAPV_Password'));
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -64,6 +74,12 @@ class BodyState extends State<Body> {
     }
   }
 
+  Future<TmpUser> _getToken(username, password) async {
+    TokenDAO dao = new TokenDAO();
+    TmpUser user = await dao.loginWithJWT(username, password);
+    return user;
+  }
+
   Future<void> _updatePatron() async {
     setState(() {
       isWait = true;
@@ -87,7 +103,11 @@ class BodyState extends State<Body> {
       avatar =
           "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/avatar%2F1.png?alt=media&token=a2d4166a-f7c4-4c61-88f7-7683f284e886";
     }
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     TmpUser user = new TmpUser(
+      id: prefs.getString('PAPV_UserID'),
       username: this.widget.user.username,
       email: this.widget.user.email,
       address: addressController.text,
@@ -105,7 +125,9 @@ class BodyState extends State<Body> {
     user.deviceToken = await FirebaseMessaging().getToken();
     CustomerDAO dao = new CustomerDAO();
     dao.updateUser(user.id, user).then((value) {
-      if (value != null) {
+      _getToken(user.username, passwordController.text);
+
+      if (value == 'success') {
         AwesomeDialog(
             context: context,
             dialogType: DialogType.SUCCES,
@@ -115,11 +137,8 @@ class BodyState extends State<Body> {
             btnOkOnPress: () {
               setState(() {
                 isWait = false;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
               });
+              this.widget.refresh();
             },
             btnOkColor: Colors.green)
           ..show();

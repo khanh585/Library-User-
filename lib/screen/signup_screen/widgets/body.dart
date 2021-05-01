@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
@@ -99,6 +102,8 @@ class BodyState extends State<Body> {
       avatar =
           "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/avatar%2F1.png?alt=media&token=a2d4166a-f7c4-4c61-88f7-7683f284e886";
     }
+    var bytes = utf8.encode(passwordController.text); // data being hashed
+    var digest = sha1.convert(bytes);
     TmpUser user = new TmpUser(
         address: addressController.text,
         createdTime: DateTime.now().toString(),
@@ -108,7 +113,7 @@ class BodyState extends State<Body> {
         gender: dropdownValue,
         image: avatar,
         name: nameController.text,
-        password: passwordController.text,
+        password: digest.toString(),
         phone: phoneController.text,
         roleId: 2,
         username: usernameController.text);

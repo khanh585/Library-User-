@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_library/models/tmpUser.dart';
-import 'package:user_library/screen/update_profile_screen/updateprofile_screen.dart';
 import 'package:user_library/screen/welcome_screen/welcome_screen.dart';
-
-import 'package:user_library/widgets/animation/fade_side_up.dart';
-import 'package:user_library/widgets/loading_circle.dart';
 
 import 'main_profile_bloc.dart';
 import 'main_profile_event.dart';
@@ -28,6 +24,10 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
   @override
   void initState() {
     super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
     main_profile_bloc.eventController.sink.add(GetProfileFromToken());
   }
 
@@ -83,6 +83,7 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
                             BodyProfile(
                               tmpUser: snapshot.data.mainProfile,
                               logout: _logout,
+                              refresh: _refresh,
                             ),
                           ],
                         ),
