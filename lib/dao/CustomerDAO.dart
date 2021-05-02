@@ -1,6 +1,5 @@
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:convert';
 import 'package:user_library/config.dart';
@@ -126,11 +125,6 @@ class CustomerDAO {
   }
 
   Future<String> updateUser(String id, TmpUser user) async {
-    print('updateUser' + user.password);
-    var bytes = utf8.encode(user.password); // data being hashed
-    var digest = sha1.convert(bytes);
-
-    user.password = digest.toString();
     String url = prefixUrl + '?id=$id';
     Map<String, String> headers = {"Content-type": "application/json"};
     String body = json.encode(user.toJsonForCreate());

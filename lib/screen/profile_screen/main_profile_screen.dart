@@ -33,10 +33,11 @@ class _MainProfileScreenState extends State<MainProfileScreen> {
 
   Future<void> _logout(TmpUser user) async {
     await main_profile_bloc.eventController.sink.add(Logout(user));
-    Navigator.pushReplacement(
-        context,
+
+    Navigator.of(context).pushAndRemoveUntil(
         new MaterialPageRoute(
-            builder: (BuildContext context) => new WelcomeScreen()));
+            builder: (BuildContext context) => new WelcomeScreen()),
+        (Route<dynamic> route) => false);
   }
 
   @override
