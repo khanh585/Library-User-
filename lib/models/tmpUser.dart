@@ -105,6 +105,7 @@ class TmpUser {
         'password': password,
         'phone': phone,
         'gender': gender,
+        'createdTime': createdTime,
         'roleId': roleId,
         'deviceToken': deviceToken,
       };

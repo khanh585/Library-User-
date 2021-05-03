@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:user_library/models/tmpUser.dart';
@@ -31,6 +30,8 @@ class TokenDAO {
       var token = tmp['token'];
       Map<String, dynamic> payload = Jwt.parseJwt(token);
       TmpUser tmpUser = TmpUser.fromJson(payload);
+      print(payload);
+      print('----${tmpUser.createdTime}');
 
       prefs.setString('PAPV_UserID', tmpUser.id);
       prefs.setInt('PAPV_RoleID', tmpUser.roleId);

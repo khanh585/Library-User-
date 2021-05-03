@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:user_library/widgets/login/text_field_container.dart';
 
 import '../../constants.dart';
@@ -11,6 +12,7 @@ class RoundedInputField extends StatelessWidget {
   final String errorRegex;
   final String errorMes;
   final bool isDup;
+  final int ageAdult;
   final int maxLength;
   final int minLength;
   const RoundedInputField(
@@ -22,7 +24,8 @@ class RoundedInputField extends StatelessWidget {
       this.errorMes,
       this.isDup,
       this.maxLength,
-      this.minLength});
+      this.minLength,
+      this.ageAdult});
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +69,15 @@ class RoundedInputField extends StatelessWidget {
             }
             if (isDup != null && isDup) {
               return 'Duplicate';
+            }
+            if (ageAdult != null) {
+              var now = new DateTime.now();
+              var formatter = new DateFormat('y');
+              int curYear = int.parse(formatter.format(now));
+              int age = curYear - int.parse(value.split('-')[0]);
+              if (age < ageAdult) {
+                return 'Not enought ${ageAdult} age';
+              }
             }
           }
           return null;

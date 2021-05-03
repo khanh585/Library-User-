@@ -70,7 +70,15 @@ class BodyProfile extends StatelessWidget {
             2,
             ProfileItem(
               title: "Birthdate",
-              infor: this.tmpUser.doB.substring(0, 10),
+              infor: this.tmpUser.doB.split(" ")[0],
+              color: Colors.black87,
+            ),
+          ),
+          FadeSideUp(
+            2,
+            ProfileItem(
+              title: "Created Date",
+              infor: this.tmpUser.createdTime.split(" ")[0],
               color: Colors.black87,
             ),
           ),

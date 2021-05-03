@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_library/dao/CustomerDAO.dart';
@@ -37,7 +36,7 @@ class BodyState extends State<Body> {
   void _checkDuplicate() async {
     String username = usernameController.text;
     String email = emailController.text;
-    await CustomerDAO().fetchCustomerByName(username.trim()).then((value) {
+    await CustomerDAO().fetchCustomerByUsername(username.trim()).then((value) {
       setState(() {
         usernameDup = value.isNotEmpty;
       });
@@ -73,11 +72,11 @@ class BodyState extends State<Body> {
     }
   }
 
-  void _creatPatron() {
+  Future<void> _creatPatron() async {
     setState(() {
       isWait = true;
     });
-    _checkDuplicate();
+    await _checkDuplicate();
 
     if (!this._formKey.currentState.validate()) {
       setState(() {
@@ -102,8 +101,7 @@ class BodyState extends State<Body> {
       avatar =
           "https://firebasestorage.googleapis.com/v0/b/capstone-96378.appspot.com/o/avatar%2F1.png?alt=media&token=a2d4166a-f7c4-4c61-88f7-7683f284e886";
     }
-    var bytes = utf8.encode(passwordController.text); // data being hashed
-    var digest = sha1.convert(bytes);
+
     TmpUser user = new TmpUser(
         address: addressController.text,
         createdTime: DateTime.now().toString(),
@@ -113,7 +111,7 @@ class BodyState extends State<Body> {
         gender: dropdownValue,
         image: avatar,
         name: nameController.text,
-        password: digest.toString(),
+        password: passwordController.text,
         phone: phoneController.text,
         roleId: 2,
         username: usernameController.text);
@@ -228,9 +226,10 @@ class BodyState extends State<Body> {
                   alignment: Alignment.center,
                   children: [
                     RoundedInputField(
-                      hintText: "DoB: dd/mm/yyyy",
+                      hintText: "DoB: yyyy-mm-dd",
                       icon: Icons.date_range,
                       controller: dobController,
+                      ageAdult: 5,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -249,7 +248,7 @@ class BodyState extends State<Body> {
                 hintText: "Username",
                 maxLength: 20,
                 minLength: 8,
-                icon: Icons.date_range,
+                icon: Icons.person,
                 controller: usernameController,
                 isDup: usernameDup,
               ),

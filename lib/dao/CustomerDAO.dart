@@ -1,4 +1,3 @@
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
@@ -60,6 +59,7 @@ class CustomerDAO {
       Map json = jsonDecode(response.body);
       List customers = json['data'];
       customers.forEach((customer) {
+        print(customer);
         if (customer != null) {
           Customer dto = Customer.fromJson(customer);
           list.add(dto);
@@ -73,10 +73,30 @@ class CustomerDAO {
 
   Future<List<Customer>> fetchCustomerByEmail(String email) async {
     List<Customer> list = new List<Customer>();
+    String url =
+        prefixUrl + '?Email=${email}' + '&PageSize=${1}' + '&PageNumber=${1}';
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      List customers = json['data'];
+      customers.forEach((customer) {
+        if (customer != null) {
+          Customer dto = Customer.fromJson(customer);
+          list.add(dto);
+        }
+      });
+      return list;
+    } else {
+      throw Exception('Failed');
+    }
+  }
+
+  Future<List<Customer>> fetchCustomerByUsername(String username) async {
+    List<Customer> list = new List<Customer>();
     String url = prefixUrl +
-        '?Email=${email}' +
-        '&PageSize=${pageSize}' +
-        '&PageNumber=${pageNumber}';
+        '?Username=${username}' +
+        '&PageSize=${1}' +
+        '&PageNumber=${1}';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);

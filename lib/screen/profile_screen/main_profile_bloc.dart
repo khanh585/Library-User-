@@ -27,6 +27,7 @@ class MainProfileBloc {
         String token = (prefs.getString('PAPV_Token') ?? '');
         if (token != '') {
           Map<String, dynamic> payload = Jwt.parseJwt(token);
+          print(payload);
           TmpUser tmpUser = TmpUser.fromJson(payload);
           state.mainProfile = tmpUser;
         }
@@ -37,10 +38,10 @@ class MainProfileBloc {
         String pass = prefs.getString('PAPV_Password');
         if (token != '') {
           Map<String, dynamic> payload = Jwt.parseJwt(token);
+
           TmpUser user = TmpUser.fromJson(payload);
           user.deviceToken = "";
           user.password = pass;
-          print('bloc' + user.password);
           await CustomerDAO().updateUser(user.id, user);
         }
 
