@@ -30,8 +30,10 @@ class BorrowDetailBloc {
             await BorrowDetailDAO().fetchBorrowDetailOfCustomer(customerId);
         returnDetails =
             await ReturnDetailDAO().fetchReturnDetailOfCustomer(customerId);
+
         state = BorrowDetailState(
-          borrowDetails: list_borrows,
+          borrowDetails:
+              list_borrows.where((element) => !element.isReturn).toList(),
           returnDetails: returnDetails,
           sumBorrow: _sumFeeBorrow(list_borrows),
           sumReturn: _sumFeeReturn(returnDetails),

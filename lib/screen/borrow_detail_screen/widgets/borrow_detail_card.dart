@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:user_library/models/borrow_detail.dart';
 import 'package:user_library/models/customer.dart';
 import 'package:user_library/models/return_detail.dart';
-import 'package:user_library/screen/borrow_detail_screen/widgets/progress_line_indicator.dart';
 import 'package:user_library/screen/borrow_detail_screen/widgets/return_detail_item.dart';
 
 import 'borrow_detail_item.dart';
@@ -30,7 +29,7 @@ class BorrowDetailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Current borrow books: ',
+                      'Current borrow books: ${borrowDetail.length}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -52,6 +51,7 @@ class BorrowDetailCard extends StatelessWidget {
                                       .returnTime
                                       .millisecondsSinceEpoch +
                                   1000 * 30;
+
                               return BorrowDetailItem(
                                   item: borrowDetail[index]);
                             },
